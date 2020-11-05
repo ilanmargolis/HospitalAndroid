@@ -1,7 +1,14 @@
 package com.example.hospital.model;
 
-public class Terminologia {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+@Entity
+public class Terminologia implements Serializable {
+
+    @PrimaryKey
     private int id;
     private String termo;
     private String descricao;
@@ -9,8 +16,7 @@ public class Terminologia {
     public Terminologia() {
     }
 
-    public Terminologia(int id, String termo, String descricao) {
-        this.id = id;
+    public Terminologia(String termo, String descricao) {
         this.termo = termo;
         this.descricao = descricao;
     }

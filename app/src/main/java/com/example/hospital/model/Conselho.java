@@ -1,7 +1,13 @@
 package com.example.hospital.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Conselho {
 
+    @PrimaryKey
+    private Long id;
     private String sigla; // crm
     private String numero;
     private String uf;
@@ -16,9 +22,18 @@ public class Conselho {
     }
 
     public Conselho(Conselho c) {
+        this.id = c.id;
         this.sigla = c.sigla;
         this.numero = c.numero;
         this.uf = c.uf;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSigla() {

@@ -1,12 +1,18 @@
 package com.example.hospital.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.sql.Time;
 
+@Entity
 public class Prescreve {
 
-    private byte dosagem;
+    @PrimaryKey
+    private Long id;
+    private Byte dosagem;
     private Time horario;
-    private boolean suspender;
+    private Byte suspender;
     private Internado internado;
     private Medico medico;
     private Medicamento medicamento;
@@ -14,7 +20,7 @@ public class Prescreve {
     public Prescreve() {
     }
 
-    public Prescreve(byte dosagem, Time horario, boolean suspender, Internado internado, Medico medico, Medicamento medicamento) {
+    public Prescreve(byte dosagem, Time horario, Byte suspender, Internado internado, Medico medico, Medicamento medicamento) {
         this.dosagem = dosagem;
         this.horario = horario;
         this.suspender = suspender;
@@ -32,11 +38,19 @@ public class Prescreve {
         this.medicamento = p.medicamento;
     }
 
-    public byte getDosagem() {
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Byte getDosagem() {
         return dosagem;
     }
 
-    public void setDosagem(byte dosagem) {
+    public void setDosagem(Byte dosagem) {
         this.dosagem = dosagem;
     }
 
@@ -48,11 +62,11 @@ public class Prescreve {
         this.horario = horario;
     }
 
-    public boolean isSuspender() {
+    public Byte getSuspender() {
         return suspender;
     }
 
-    public void setSuspender(boolean suspender) {
+    public void setSuspender(Byte suspender) {
         this.suspender = suspender;
     }
 
@@ -83,6 +97,6 @@ public class Prescreve {
     @Override
     public String toString() {
         return medico.getNome().toString() + " (" + medicamento + ") -> " +
-               internado.getPaciente().getNome().toString();
+                internado.getPaciente().getNome().toString();
     }
 }

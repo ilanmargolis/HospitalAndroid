@@ -3,8 +3,10 @@ package com.example.hospital.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Unidade {
+public class Unidade implements Serializable {
 
     @PrimaryKey
     private long id;
@@ -15,8 +17,7 @@ public class Unidade {
     public Unidade() {
     }
 
-    public Unidade(long id, String nome, String logradouro, String inscricaoEstadual) {
-        this.id = id;
+    public Unidade(String nome, String logradouro, String inscricaoEstadual) {
         this.nome = nome;
         this.logradouro = logradouro;
         this.inscricaoEstadual = inscricaoEstadual;

@@ -1,48 +1,38 @@
 package com.example.hospital.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Paciente {
+@Entity
+public class Paciente extends Usuario implements Serializable {
 
-    private long id;
-    private String nome;
-    private String cpf;
-    private Date dataNascimento;
-    private Sexo sexo;
+    private String cpf = null;
+    private Date dataNascimento = null;
+    private Character sexo = null;
 
     public Paciente() {
+        super();
     }
 
-    public Paciente(long id, String nome, String cpf, Date dataNascimento, Sexo sexo) {
-        this.id = id;
-        this.nome = nome;
+    public Paciente(String nome, String email, String senha) {
+        super(nome, email, senha);
+    }
+
+    public Paciente(String nome, String email, String senha, String cpf, Date dataNascimento, Character sexo) {
+        this(nome, email, senha);
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.sexo = sexo;
     }
 
     public Paciente(Paciente p) {
-        this.id = p.id;
-        this.nome = p.nome;
+        this(p.getNome(), p.getEmail(), p.getSenha());
         this.cpf = p.cpf;
         this.dataNascimento = p.dataNascimento;
         this.sexo = p.sexo;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCpf() {
@@ -61,16 +51,16 @@ public class Paciente {
         this.dataNascimento = dataNascimento;
     }
 
-    public Sexo getSexo() {
+    public Character getSexo() {
         return sexo;
     }
 
-    public void setSexo(Sexo sexo) {
+    public void setSexo(Character sexo) {
         this.sexo = sexo;
     }
 
     @Override
     public String toString() {
-        return nome + " (" + cpf + ")";
+        return super.getNome() + " (" + cpf + ")";
     }
 }

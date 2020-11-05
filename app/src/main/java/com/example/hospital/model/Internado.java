@@ -1,9 +1,18 @@
 package com.example.hospital.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.hospital.config.Converters;
+
 import java.util.Date;
 
+@Entity
+@TypeConverters(Converters.class)
 public class Internado {
 
+    @PrimaryKey
     private long id;
     private Date dataInternacao;
     private Date dataPrecisaoAlta;
@@ -14,8 +23,7 @@ public class Internado {
     public Internado() {
     }
 
-    public Internado(long id, Date dataInternacao, Date dataPrecisaoAlta, Date dataAlta, Leito leito, Paciente paciente) {
-        this.id = id;
+    public Internado(Date dataInternacao, Date dataPrecisaoAlta, Date dataAlta, Leito leito, Paciente paciente) {
         this.dataInternacao = dataInternacao;
         this.dataPrecisaoAlta = dataPrecisaoAlta;
         this.dataAlta = dataAlta;

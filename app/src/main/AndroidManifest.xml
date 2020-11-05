@@ -9,17 +9,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hospital">
-        <activity android:name=".activities.RecuperarSenhaActivity"></activity>
         <activity
             android:name=".activities.LoginActivity"
             android:label="Tela de login" />
-        <activity android:name=".activities.SplashScreenActivity" android:noHistory="true">
+        <activity
+            android:name=".activities.SplashScreenActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.MenuAdministrativoActivity"
+            android:label="Menu administrativo" />
+        <activity
+            android:name=".activities.MenuMedicoActivity"
+            android:label="Menu do médico" />
+        <activity
+            android:name=".activities.MenuRecepcaoActivity"
+            android:label="Menu da recepção" />
+        <activity android:name=".activities.RecuperarSenhaActivity" />
+        <activity
+            android:name=".activities.MenuPacienteActivity"
+            android:label="Menu paciente" />
+        <activity
+            android:name=".activities.UnidadeActivity"
+            android:label="Lista de unidade" />
+        <activity
+            android:name=".activities.UnidadeDadosActivity"
+            android:label="Cadastro de unidade" />
+        <activity
+            android:name=".activities.LeitoActivity"
+            android:label="Lista de leito" />
+        <activity
+            android:name=".activities.LeitoDadosActivity"
+            android:label="Cadastro de leito" />
     </application>
 
 </manifest>

@@ -1,9 +1,14 @@
 package com.example.hospital.model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity
 public class Medicamento {
 
+    @PrimaryKey
     private int id;
     private String nome;
     private Date dataValidade;
@@ -12,8 +17,7 @@ public class Medicamento {
     public Medicamento() {
     }
 
-    public Medicamento(int id, String nome, Date dataValidade, Terminologia terminologia) {
-        this.id = id;
+    public Medicamento(String nome, Date dataValidade, Terminologia terminologia) {
         this.nome = nome;
         this.dataValidade = dataValidade;
         this.terminologia = terminologia;

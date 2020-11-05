@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hospital.R;
+import com.facebook.stetho.Stetho;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -23,6 +24,8 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         // remove a barra de título apenas desta janela
         getSupportActionBar().hide();
+
+        Stetho.initializeWithDefaults(this);
 
         tvLoading = (TextView) findViewById(R.id.tvLoading);
 

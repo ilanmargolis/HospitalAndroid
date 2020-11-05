@@ -1,43 +1,32 @@
 package com.example.hospital.model;
 
-public class Medico {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-    private long id;
-    private String nome;
-    private String cbos_codigo;
-    private Conselho conselho;
+@Entity
+public class Medico extends Usuario{
+
+    private String cbos_codigo = null;
+    private Conselho conselho = null;
 
     public Medico() {
+        super();
     }
 
-    public Medico(long id, String nome, String cbos_codigo, Conselho conselho) {
-        this.id = id;
-        this.nome = nome;
+    public Medico(String nome, String email, String senha) {
+        super(nome, email, senha);
+    }
+
+    public Medico(String nome, String email, String senha, String cbos_codigo, Conselho conselho) {
+        this(nome, email, senha);
         this.cbos_codigo = cbos_codigo;
         this.conselho = conselho;
     }
 
     public Medico(Medico m) {
-        this.id = m.id;
-        this.nome = m.nome;
+        this(m.getNome(), m.getEmail(), m.getSenha());
         this.cbos_codigo = m.cbos_codigo;
         this.conselho = m.conselho;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCbos_codigo() {
@@ -58,6 +47,6 @@ public class Medico {
 
     @Override
     public String toString() {
-        return nome;
+        return super.getNome();
     }
 }

@@ -1,7 +1,14 @@
 package com.example.hospital.model;
 
-public class Leito {
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
+@Entity
+public class Leito implements Serializable {
+
+    @PrimaryKey
     private long id;
     private String codigo;
     private Unidade unidade;
@@ -9,8 +16,7 @@ public class Leito {
     public Leito() {
     }
 
-    public Leito(long id, String codigo, Unidade unidade) {
-        this.id = id;
+    public Leito(String codigo, Unidade unidade) {
         this.codigo = codigo;
         this.unidade = unidade;
     }
