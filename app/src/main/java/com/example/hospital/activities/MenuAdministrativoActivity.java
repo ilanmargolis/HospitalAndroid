@@ -39,7 +39,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/*
+
         llAdminMedico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+/*
         llAdminMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

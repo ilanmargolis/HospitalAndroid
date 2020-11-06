@@ -6,11 +6,11 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/tvLeito"
+        android:id="@+id/tvMedico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        tools:text="Nome do leito" />
+        tools:text="Nome da unidade" />
 
     <View
         android:layout_width="match_parent"

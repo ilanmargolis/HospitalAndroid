@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/btLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="48dp"
@@ -47,7 +47,6 @@
         android:enabled="false"
         android:text="@string/login_button" />
 
-
     <TextView
         android:id="@+id/tvEsqueceuSenha"
         android:layout_width="match_parent"
@@ -55,4 +54,5 @@
         android:gravity="center"
         android:text="Esqueceu a senha?"
         android:textStyle="bold" />
+
 </LinearLayout>

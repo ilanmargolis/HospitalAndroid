@@ -15,6 +15,7 @@ import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
+import com.example.hospital.util.Mask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +23,7 @@ import retrofit2.Response;
 
 public class UnidadeDadosActivity extends AppCompatActivity {
 
-    private EditText etNomeUnidade;
+    private EditText etUnidadeNome, etUnidadeLogradouro, etUnidadeInscricao;
     private Button btUnidadeOk, btUnidadeCancelar;
     private Unidade unidade;
 
@@ -35,22 +36,26 @@ public class UnidadeDadosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_unidade_dados);
 
-        etNomeUnidade = (EditText) findViewById(R.id.etNomeUnidade);
+        etUnidadeNome = (EditText) findViewById(R.id.etUnidadeNome);
+        etUnidadeLogradouro = (EditText) findViewById(R.id.etUnidadeLogradouro);
+        etUnidadeInscricao = (EditText) findViewById(R.id.etUnidadeInscricao);
         btUnidadeOk = (Button) findViewById(R.id.btUnidadeOk);
         btUnidadeCancelar = (Button) findViewById(R.id.btUnidadeCancelar);
+
+        etUnidadeInscricao.addTextChangedListener(Mask.insert(Mask.IE_MASK, etUnidadeInscricao));
 
         unidade = (Unidade) getIntent().getSerializableExtra("unidade");
 
         if (unidade.getId() == 0) { // inclusão
 
         } else { // alteração e exclusão
-            etNomeUnidade.setText(unidade.getNome());
+            etUnidadeNome.setText(unidade.getNome());
         }
 
         btUnidadeOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nomeUnidade = etNomeUnidade.getText().toString().trim();
+                String nomeUnidade = etUnidadeNome.getText().toString().trim();
 
                 if (unidade.getId() == 0) { // inclusão
                     if (!nomeUnidade.equals("")) {
@@ -61,7 +66,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
                         Toast.makeText(UnidadeDadosActivity.this, "É necessário informar o nome da unidade!", Toast.LENGTH_SHORT).show();
                     }
                 } else { // alteração
-                    if (!unidade.getNome().equalsIgnoreCase(etNomeUnidade.getText().toString().trim())) {
+                    if (!unidade.getNome().equalsIgnoreCase(etUnidadeNome.getText().toString().trim())) {
                         unidade.setNome(nomeUnidade);
 
                         opcaoCrud(CRUD_UPD);

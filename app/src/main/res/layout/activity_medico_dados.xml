@@ -8,43 +8,55 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activities.UnidadeDadosActivity">
+    tools:context=".activities.MedicoDadosActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome da unidade" />
+        android:text="Nome do médico" />
 
     <EditText
-        android:id="@+id/etUnidadeNome"
+        android:id="@+id/etMedicoNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:hint="Insira o nome da unidade" />
+        android:hint="Insira o nome do médico" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Logradouro"/>
+        android:text="E-mail" />
 
     <EditText
-        android:id="@+id/etUnidadeLogradouro"
+        android:id="@+id/etMedicoEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:hint="Insira o endereço da unidade"/>
+        android:hint="Insira o e-mail do médico"
+        android:inputType="textEmailAddress" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inscrição estadual"/>
+        android:text="CBOS" />
 
     <EditText
-        android:id="@+id/etUnidadeInscricao"
+        android:id="@+id/etMedicoCbos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:hint="Insira a inscrição estadual da unidade"/>
+        android:hint="Insira o CBOS do médico" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conselho" />
+
+    <Spinner
+        android:id="@+id/spMedicoConselho"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/corner_round" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,7 +65,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btUnidadeOk"
+            android:id="@+id/btMedicoOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -62,7 +74,7 @@
             android:text="Alterar" />
 
         <Button
-            android:id="@+id/btUnidadeCancelar"
+            android:id="@+id/btMedicoCancelar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

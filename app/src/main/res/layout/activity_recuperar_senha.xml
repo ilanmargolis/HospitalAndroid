@@ -5,32 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradiente"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context=".activities.RecuperarSenhaActivity">
 
+    <EditText
+        android:id="@+id/etRecuperarEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/corner_round"
+        android:hint="Informe o e-mail cadastrado no sistema"
+        android:inputType="textEmailAddress" />
 
+    <Button
+        android:id="@+id/btRecuperarEnviar"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="64dp"
+        android:drawableLeft="@drawable/ic_baseline_send_24"
+        android:enabled="false"
+        android:text="Enviar" />
 
-        <EditText
-            android:id="@+id/etRecuperarEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/corner_round"
-            android:inputType="textEmailAddress"
-            tools:text="Informe seu e-mail" />
-
-        <Button
-            android:id="@+id/btRecuperarEnviar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="64dp"
-            android:enabled="false"
-            android:drawableLeft="@drawable/ic_baseline_send_24"
-            android:text="Enviar"/>
 </LinearLayout>

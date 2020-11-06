@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activities.UnidadeDadosActivity">
+    tools:context=".activities.LeitoDadosActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -16,41 +16,40 @@
         android:text="Código do leito" />
 
     <EditText
-        android:id="@+id/etCodigoLeito"
+        android:id="@+id/etLeitoCodigo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
         android:hint="Insira o código do leito" />
 
     <Spinner
-        android:id="@+id/spDepartament"
+        android:id="@+id/spLeitoUnidade"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
-        android:prompt="@string/prompt_undiade"
-        android:background="@drawable/corner_round" />
+        android:background="@drawable/corner_round"
+        android:prompt="@string/prompt_undiade" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btLeitoOk"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_baseline_check_24"
             android:backgroundTint="@color/azul_5"
+            android:drawableLeft="@drawable/ic_baseline_check_24"
             android:text="Alterar" />
 
         <Button
             android:id="@+id/btLeitoCancelar"
-            android:layout_width="0dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:layout_weight="1"
             android:backgroundTint="@color/cinza_2"
             android:drawableLeft="@drawable/ic_baseline_close_24"
             android:text="Cancelar" />

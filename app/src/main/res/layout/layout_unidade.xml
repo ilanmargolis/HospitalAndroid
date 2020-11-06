@@ -13,9 +13,8 @@
         tools:text="Nome da unidade" />
 
     <View
-        android:id="@+id/SplitLine_hor1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#959595" />
+        android:background="@color/cinza_3" />
 
 </LinearLayout>
