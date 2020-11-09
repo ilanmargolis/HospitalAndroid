@@ -21,10 +21,10 @@ public interface MedicoService {
     Call<Medico> update(@Path("id") long id, @Body Medico medico);
 
     @GET("medico")
-    Call<List<Medico>> getAllMedicos();
+    Call<List<Medico>> getAll();
 
     @GET("medico/{id}")
-    Call<Medico> getMedico(@Path("id") long id);
+    Call<Medico> get(@Path("id") long id);
 
     @DELETE("medico/{id}")
     Call<Medico> delete(@Path("id") long id);

@@ -1,5 +1,8 @@
 package com.example.hospital.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -27,12 +30,24 @@ public class Utils {
     }
 
     public static int posHora(ArrayList<String> horasDia, String hora) {
-        for (int i = 0; i < horasDia.size(); i++ ) {
+        for (int i = 0; i < horasDia.size(); i++) {
             if (horasDia.get(i).equals(hora)) {
                 return i;
             }
         }
 
         return -1;
+    }
+
+    public static boolean hasInternet(Context context) {
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        return isConnected;
     }
 }

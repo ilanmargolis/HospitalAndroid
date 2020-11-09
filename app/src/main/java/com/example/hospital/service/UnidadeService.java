@@ -22,10 +22,10 @@ public interface UnidadeService {
     Call<Unidade> update(@Path("id") long id, @Body Unidade unidade);
 
     @GET("unidade")
-    Call<List<Unidade>> getAllUnidade();
+    Call<List<Unidade>> getAll();
 
     @GET("unidade/{id}")
-    Call<Unidade> getUnidade(@Path("id") long id);
+    Call<Unidade> get(@Path("id") long id);
 
     @DELETE("unidade/{id}")
     Call<Unidade> delete(@Path("id") long id);

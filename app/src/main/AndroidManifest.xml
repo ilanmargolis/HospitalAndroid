@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.hospital">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -54,6 +55,18 @@
         <activity
             android:name=".activities.MedicoDadosActivity"
             android:label="Cadastro de médico" />
+        <activity
+            android:name=".activities.MedicamentoActivity"
+            android:label="Lista de medicamentos" />
+        <activity
+            android:name=".activities.MedicamentoDadosActivity"
+            android:label="Cadastro de medicamento" />
+        <activity
+            android:name=".activities.FuncionarioActivity"
+            android:label="Lista de funcionários" />
+        <activity
+            android:name=".activities.FuncionarioDadosActivity"
+            android:label="Cadastro de funcionário" />
     </application>
 
 </manifest>

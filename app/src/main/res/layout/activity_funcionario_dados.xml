@@ -8,27 +8,44 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activities.LeitoDadosActivity">
+    tools:context=".activities.FuncionarioDadosActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Código do leito" />
+        android:text="Nome do funcionário" />
 
     <EditText
-        android:id="@+id/etLeitoCodigo"
+        android:id="@+id/etFuncionarioNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:hint="Insira o código do leito" />
+        android:hint="Insira o nome do funcionario" />
 
-    <Spinner
-        android:id="@+id/spLeitoUnidade"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_marginTop="5dp"
+        android:layout_height="wrap_content"
+        android:text="E-mail" />
+
+    <EditText
+        android:id="@+id/etFuncionarioEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:prompt="@string/prompt_unidade" />
+        android:hint="Insira o e-mail do funcionário"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Setor" />
+
+    <EditText
+        android:id="@+id/etFuncionarioSetor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_round"
+        android:hint="Insira o setor do funcionário" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +54,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btLeitoOk"
+            android:id="@+id/btFuncionarioOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -46,7 +63,7 @@
             android:text="Alterar" />
 
         <Button
-            android:id="@+id/btLeitoCancelar"
+            android:id="@+id/btFuncionarioCancelar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

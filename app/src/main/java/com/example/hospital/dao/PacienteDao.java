@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
 
 import java.util.List;
@@ -14,8 +15,11 @@ import java.util.List;
 @Dao
 public interface PacienteDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Paciente> pacienteList);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public void insert(Paciente paciente);
 
     @Update
     public void update(Paciente paciente);

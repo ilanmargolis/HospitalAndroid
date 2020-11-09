@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_height="600dp"
         android:layout_margin="20dp"
         android:gravity="center">
 
@@ -71,7 +71,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_below="@+id/llAdminUnidade"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/corner_round"
             android:orientation="vertical"
             android:padding="10dp">
@@ -99,7 +99,7 @@
             android:layout_height="150dp"
             android:layout_below="@+id/llAdminLeito"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/corner_round"
             android:orientation="vertical"
             android:padding="10dp">
@@ -114,7 +114,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Medicamento"
+                android:text="Medicamentos"
+                android:textColor="@color/azul_5"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/llAdminFuncionario"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/llAdminMedico"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/corner_round"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_funcionario" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Funcionários"
                 android:textColor="@color/azul_5"
                 android:textSize="16dp"
                 android:textStyle="bold" />

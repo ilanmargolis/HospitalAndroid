@@ -3,13 +3,14 @@ package com.example.hospital.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class Medicamento {
+public class Medicamento implements Serializable {
 
     @PrimaryKey
-    private int id;
+    private long id;
     private String nome;
     private Date dataValidade;
     private Terminologia terminologia;
@@ -30,11 +31,11 @@ public class Medicamento {
         this.terminologia = m.terminologia;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

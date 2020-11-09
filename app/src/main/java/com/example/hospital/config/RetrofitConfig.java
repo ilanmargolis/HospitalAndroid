@@ -1,5 +1,6 @@
 package com.example.hospital.config;
 
+import com.example.hospital.service.FuncionarioService;
 import com.example.hospital.service.InternadoService;
 import com.example.hospital.service.LeitoService;
 import com.example.hospital.service.MedicamentoService;
@@ -40,6 +41,10 @@ public class RetrofitConfig {
 
     public MedicamentoService getMedicamentoService() {
         return retrofit.create(MedicamentoService.class);
+    }
+
+    public FuncionarioService getFuncionarioService() {
+        return retrofit.create(FuncionarioService.class);
     }
 
     public TerminologiaService getTerminologiaService() {

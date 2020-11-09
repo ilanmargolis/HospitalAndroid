@@ -13,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
+import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Mask;
+import com.example.hospital.util.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +29,8 @@ public class UnidadeDadosActivity extends AppCompatActivity {
     private Button btUnidadeOk, btUnidadeCancelar;
     private Unidade unidade;
 
+    private String msg = null;
+    private String tipoOpcao[][] = {{"incluída", "alterada", "excluída"}, {"incluir", "alterar", "excluir"}};
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
@@ -53,6 +57,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
         }
 
         btUnidadeOk.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String nomeUnidade = etUnidadeNome.getText().toString().trim();
@@ -106,6 +111,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             case R.id.action_del:
@@ -122,27 +128,34 @@ public class UnidadeDadosActivity extends AppCompatActivity {
     }
 
     private void opcaoCrud(byte tipoCrud) {
-        crudDados(tipoCrud, new ResultEvent() {
-            @Override
-            public <T> void onResult(T result) {
-                if (tipoCrud == CRUD_INC)
-                    //RoomConfig.getInstance(CourseDadosActivity.this).courseDao().insert(course);
-                    Toast.makeText(UnidadeDadosActivity.this, "Unidade incluída com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_UPD)
-                    Toast.makeText(UnidadeDadosActivity.this, "Unidade alterada com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_DEL)
-                    Toast.makeText(UnidadeDadosActivity.this, "Unidade excluída com sucesso", Toast.LENGTH_SHORT).show();
 
-            }
+        if (Utils.hasInternet(this)) {
+            crudDados(tipoCrud, new ResultEvent() {
+                @Override
+                public <T> void onResult(T result) {
+                    msg = "Unidade " + tipoOpcao[0][tipoCrud] + " com sucesso";
+                }
 
-            @Override
-            public void onFail(String message) {
-                Toast.makeText(UnidadeDadosActivity.this, message, Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFail(String message) {
+                    msg = message;
+                }
+            });
+        } else {
+            if (tipoCrud == CRUD_INC) {
+                msg = new UnidadeCtrl(UnidadeDadosActivity.this).insert(unidade);
+            } else if (tipoCrud == CRUD_UPD) {
+                msg = new UnidadeCtrl(UnidadeDadosActivity.this).update(unidade);
+            } else if (tipoCrud == CRUD_DEL) {
+                msg = new UnidadeCtrl(UnidadeDadosActivity.this).delete(unidade);
             }
-        });
+        }
+
+        Toast.makeText(UnidadeDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {
+
         Call<Unidade> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -162,13 +175,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Unidade> call, Throwable t) {
-                if (tipoCrud == CRUD_INC)
-                    resultEvent.onFail("Erro ao incluir unidade");
-                else if (tipoCrud == CRUD_UPD)
-                    resultEvent.onFail("Erro ao alterar unidade");
-                else if (tipoCrud == CRUD_DEL)
-                    resultEvent.onFail("Erro ao excluir unidade");
-
+                resultEvent.onFail("Erro ao " + tipoOpcao[1][tipoCrud] + " unidade");
             }
         });
     }

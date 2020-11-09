@@ -2,8 +2,10 @@ package com.example.hospital.model;
 
 import androidx.room.Entity;
 
+import java.io.Serializable;
+
 @Entity
-public class Funcionario extends Usuario{
+public class Funcionario extends Usuario implements Serializable {
 
     private String setor = null;
 

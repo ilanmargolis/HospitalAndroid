@@ -21,7 +21,7 @@ public interface LeitoDao {
     public void insert(Leito leito);
 
     @Update
-    public void updade(Leito leito);
+    public void update(Leito leito);
 
     @Query("SELECT * FROM Leito")
     public List<Leito> getAll();

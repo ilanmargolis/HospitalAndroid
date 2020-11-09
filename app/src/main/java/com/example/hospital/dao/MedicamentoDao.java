@@ -8,14 +8,18 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.hospital.model.Medicamento;
+import com.example.hospital.model.Medico;
 
 import java.util.List;
 
 @Dao
 public interface MedicamentoDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Medicamento> medicamentoList);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    public void insert(Medicamento medicamento);
 
     @Update
     public void update(Medicamento medicamento);

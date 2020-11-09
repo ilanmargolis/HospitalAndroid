@@ -3,5 +3,6 @@
     <string name="prompt_email">Digite seu e-mail</string>
     <string name="prompt_password">Digite sua senha</string>
     <string name="login_button">Entrar</string>
-    <string name="prompt_undiade">Selecione uma unidade</string>
+    <string name="prompt_unidade">Selecione uma unidade</string>
+    <string name="prompt_terminologia">Selecione uma terminologia</string>
 </resources>

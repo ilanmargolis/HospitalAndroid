@@ -12,7 +12,8 @@ import com.example.hospital.R;
 
 public class MenuAdministrativoActivity extends AppCompatActivity {
 
-    private LinearLayout llAdminUnidade, llAdminLeito, llAdminMedico, llAdminMedicamento;
+    private LinearLayout llAdminUnidade, llAdminLeito, llAdminMedico, llAdminMedicamento,
+            llAdminFuncionario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminLeito = (LinearLayout) findViewById(R.id.llAdminLeito);
         llAdminMedico = (LinearLayout) findViewById(R.id.llAdminMedico);
         llAdminMedicamento = (LinearLayout) findViewById(R.id.llAdminMedicamento);
+        llAdminFuncionario = (LinearLayout) findViewById(R.id.llAdminFuncionario);
 
         llAdminUnidade.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,15 +49,21 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-/*
+
         llAdminMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, InternacaoActivity.class);
+                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, MedicamentoActivity.class);
                 startActivity(intent);
             }
         });
 
- */
+        llAdminFuncionario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, FuncionarioActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

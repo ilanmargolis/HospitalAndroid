@@ -13,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
+import com.example.hospital.controller.MedicoCtrl;
+import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Mask;
+import com.example.hospital.util.Utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -28,6 +31,8 @@ public class MedicoDadosActivity extends AppCompatActivity {
     private Button btMedicoOk, btMedicoCancelar;
     private Medico medico;
 
+    private String msg = null;
+    private String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
@@ -54,8 +59,10 @@ public class MedicoDadosActivity extends AppCompatActivity {
         }
 
         btMedicoOk.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 String nomeMedico = etMedicoNome.getText().toString().trim();
 
                 if (medico.getId() == 0) { // inclusão
@@ -82,6 +89,7 @@ public class MedicoDadosActivity extends AppCompatActivity {
         });
 
         btMedicoCancelar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) { // exclusão
                 Toast.makeText(MedicoDadosActivity.this, "Operação cancelada pelo usuário", Toast.LENGTH_SHORT).show();
@@ -107,6 +115,7 @@ public class MedicoDadosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             case R.id.action_del:
@@ -123,27 +132,34 @@ public class MedicoDadosActivity extends AppCompatActivity {
     }
 
     private void opcaoCrud(byte tipoCrud) {
-        crudDados(tipoCrud, new ResultEvent() {
-            @Override
-            public <T> void onResult(T result) {
-                if (tipoCrud == CRUD_INC)
-                    //RoomConfig.getInstance(CourseDadosActivity.this).courseDao().insert(course);
-                    Toast.makeText(MedicoDadosActivity.this, "Médico incluído com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_UPD)
-                    Toast.makeText(MedicoDadosActivity.this, "Médico alterado com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_DEL)
-                    Toast.makeText(MedicoDadosActivity.this, "Médico excluído com sucesso", Toast.LENGTH_SHORT).show();
 
-            }
+        if (Utils.hasInternet(this)) {
+            crudDados(tipoCrud, new ResultEvent() {
+                @Override
+                public <T> void onResult(T result) {
+                    msg = "Médico " + tipoOpcao[0][tipoCrud] + " com sucesso";
+                }
 
-            @Override
-            public void onFail(String message) {
-                Toast.makeText(MedicoDadosActivity.this, message, Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFail(String message) {
+                    msg = message;
+                }
+            });
+        } else {
+            if (tipoCrud == CRUD_INC) {
+                msg = new MedicoCtrl(MedicoDadosActivity.this).insert(medico);
+            } else if (tipoCrud == CRUD_UPD) {
+                msg = new MedicoCtrl(MedicoDadosActivity.this).update(medico);
+            } else if (tipoCrud == CRUD_DEL) {
+                msg = new MedicoCtrl(MedicoDadosActivity.this).delete(medico);
             }
-        });
+        }
+
+        Toast.makeText(MedicoDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {
+
         Call<Medico> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -163,13 +179,7 @@ public class MedicoDadosActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Medico> call, Throwable t) {
-                if (tipoCrud == CRUD_INC)
-                    resultEvent.onFail("Erro ao incluir médico");
-                else if (tipoCrud == CRUD_UPD)
-                    resultEvent.onFail("Erro ao alterar médico");
-                else if (tipoCrud == CRUD_DEL)
-                    resultEvent.onFail("Erro ao excluir médico");
-
+                resultEvent.onFail("Erro ao " + tipoOpcao[1][tipoCrud] + " médico");
             }
         });
     }

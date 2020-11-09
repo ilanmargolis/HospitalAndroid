@@ -8,27 +8,26 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activities.LeitoDadosActivity">
+    tools:context=".activities.MedicamentoDadosActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Código do leito" />
+        android:text="Nome do medicamento" />
 
     <EditText
-        android:id="@+id/etLeitoCodigo"
+        android:id="@+id/etMedicamentoNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:hint="Insira o código do leito" />
+        android:hint="Insira o nome do medicamento" />
 
     <Spinner
-        android:id="@+id/spLeitoUnidade"
+        android:id="@+id/spMedicamentoTerminologia"
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/corner_round"
-        android:prompt="@string/prompt_unidade" />
+        android:background="@drawable/corner_round"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btLeitoOk"
+            android:id="@+id/btMedicamentoOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -46,7 +45,7 @@
             android:text="Alterar" />
 
         <Button
-            android:id="@+id/btLeitoCancelar"
+            android:id="@+id/btMedicamentoCancelar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

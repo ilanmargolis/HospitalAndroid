@@ -1,22 +1,23 @@
 package com.example.hospital.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
+import com.example.hospital.adapter.FuncionarioAdapter;
 import com.example.hospital.adapter.UnidadeAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
+import com.example.hospital.controller.FuncionarioCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
-import com.example.hospital.model.Unidade;
+import com.example.hospital.model.Funcionario;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
@@ -27,26 +28,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UnidadeActivity extends AppCompatActivity {
+public class FuncionarioActivity extends AppCompatActivity {
 
-    private RecyclerView rvUnidade;
-    private UnidadeAdapter unidadeAdapter;
+    private RecyclerView rv;
+    private FuncionarioAdapter funcionarioAdapter;
     private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_unidade);
+        setContentView(R.layout.activity_funcionario);
 
-        rvUnidade = (RecyclerView) findViewById(R.id.rvUnidade);
-        rvUnidade.setLayoutManager(new LinearLayoutManager(UnidadeActivity.this));
+        rv = (RecyclerView) findViewById(R.id.rvFuncionario);
+        rv.setLayoutManager(new LinearLayoutManager(FuncionarioActivity.this));
     }
 
     @Override
     public void onResume() {
 
-        List<Unidade> unidadeList = null;
+        List<Funcionario> funcionarioList = null;
 
         super.onResume();
 
@@ -55,10 +55,7 @@ public class UnidadeActivity extends AppCompatActivity {
 //            @Override
 //            public <T> void onResult(T result) {
 //                // Quando houver resultado mostre os valores na tela
-//                unidadeList = (List<Unidade>) result;
-//
-//                unidadeAdapter = new com.example.hospital.adapter.UnidadeAdapter(UnidadeActivity.this, unidadeList);
-//                rvUnidade.setAdapter(unidadeAdapter);
+//                funcionarioList = (List<Unidade>) result;
 //            }
 //
 //            @Override
@@ -68,11 +65,11 @@ public class UnidadeActivity extends AppCompatActivity {
 //            }
 //        });
         } else {
-            unidadeList = new UnidadeCtrl(UnidadeActivity.this).getAll();
+            funcionarioList = new FuncionarioCtrl(FuncionarioActivity.this).getAll();
         }
 
-        unidadeAdapter = new com.example.hospital.adapter.UnidadeAdapter(UnidadeActivity.this, unidadeList);
-        rvUnidade.setAdapter(unidadeAdapter);
+        funcionarioAdapter = new com.example.hospital.adapter.FuncionarioAdapter(FuncionarioActivity.this, funcionarioList);
+        rv.setAdapter(funcionarioAdapter);
     }
 
     @Override
@@ -89,8 +86,8 @@ public class UnidadeActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
-                intent = new Intent(UnidadeActivity.this, UnidadeDadosActivity.class);
-                intent.putExtra("unidade", (Serializable) new Unidade());
+                intent = new Intent(FuncionarioActivity.this, FuncionarioDadosActivity.class);
+                intent.putExtra("funcionario", (Serializable) new Funcionario());
                 startActivity(intent);
 
                 return true;
@@ -106,20 +103,20 @@ public class UnidadeActivity extends AppCompatActivity {
 
     private void getAllUnidades(ResultEvent resultEvent) {
 
-        Call<List<Unidade>> call = new RetrofitConfig().getUnidadeService().getAll();
+        Call<List<Funcionario>> call = new RetrofitConfig().getFuncionarioService().getAll();
 
-        call.enqueue(new Callback<List<Unidade>>() {
+        call.enqueue(new Callback<List<Funcionario>>() {
             @Override
-            public void onResponse(Call<List<Unidade>> call, Response<List<Unidade>> response) {
-                List<Unidade> unidadeList = response.body();
+            public void onResponse(Call<List<Funcionario>> call, Response<List<Funcionario>> response) {
+                List<Funcionario> funcionarioList = response.body();
 
-                RoomConfig.getInstance(UnidadeActivity.this).unidadeDao().insertAll(unidadeList);
+                RoomConfig.getInstance(FuncionarioActivity.this).funcionarioDao().insertAll(funcionarioList);
 
-                resultEvent.onResult(unidadeList);
+                resultEvent.onResult(funcionarioList);
             }
 
             @Override
-            public void onFailure(Call<List<Unidade>> call, Throwable t) {
+            public void onFailure(Call<List<Funcionario>> call, Throwable t) {
                 resultEvent.onFail("Falha na requisição!!!");
             }
         });

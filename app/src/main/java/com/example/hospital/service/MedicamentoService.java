@@ -10,22 +10,22 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface MedicamentoService {
 
     @POST("medicamento")
     Call<Medicamento> create(@Body Medicamento medicamento);
 
-    @PUT("medicamento")
-    Call<Medicamento> updateMedicamento(@Query("id") long id, @Body Medicamento medicamento);
+    @PUT("medicamento/{id}")
+    Call<Medicamento> update(@Path("id") long id, @Body Medicamento medicamento);
 
     @GET("medicamento")
-    Call<List<Medicamento>> getAllMedicamento();
+    Call<List<Medicamento>> getAll();
 
-    @GET("medicamento")
-    Call<Medicamento> getMedicamento(@Query("id") long id);
+    @GET("medicamento/{id}")
+    Call<Medicamento> get(@Path("id") long id);
 
-    @DELETE("medicamento")
-    Call<Medicamento> delete(@Query("id") long id);
+    @DELETE("medicamento/{id}")
+    Call<Medicamento> delete(@Path("id") long id);
 }

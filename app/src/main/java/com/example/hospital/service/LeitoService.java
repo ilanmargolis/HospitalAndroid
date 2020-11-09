@@ -21,10 +21,10 @@ public interface LeitoService {
     Call<Leito> update(@Path("id") long id, @Body Leito leito);
 
     @GET("leito")
-    Call<List<Leito>> getAllLeito();
+    Call<List<Leito>> getAll();
 
     @GET("leito/{id}")
-    Call<Leito> getLeito(@Path("id") long id);
+    Call<Leito> get(@Path("id") long id);
 
     @DELETE("leito/{id}")
     Call<Leito> delete(@Path("id") long id);

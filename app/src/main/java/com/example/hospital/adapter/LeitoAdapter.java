@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.activities.LeitoDadosActivity;
-import com.example.hospital.activities.UnidadeDadosActivity;
 import com.example.hospital.model.Leito;
 
 import java.io.Serializable;
@@ -33,7 +32,7 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
     @NonNull
     @Override
     public LeitoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.layout_unidade, parent, false);
+        View itemView = layoutInflater.inflate(R.layout.layout_leito, parent, false);
 
         return new LeitoHolder(itemView);
     }

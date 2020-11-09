@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
+import com.example.hospital.controller.LeitoCtrl;
+import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Leito;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
@@ -38,6 +40,8 @@ public class LeitoDadosActivity extends AppCompatActivity {
     private Leito leito;
     private Unidade unidade;
 
+    private String msg = null;
+    private String tipoOpcao[][] = {{"incluída", "alterada", "excluída"}, {"incluir", "alterar", "excluir"}};
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
@@ -56,8 +60,8 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
         preparaDados();
 
-
         btLeitoOk.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 String codigoLeito = etLeitoCodigo.getText().toString().trim();
@@ -96,6 +100,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
     }
 
     private void preparaDados() {
+
         leito = (Leito) getIntent().getSerializableExtra("leito");
 
         if (leito.getId() == 0) { // inclusão
@@ -113,8 +118,14 @@ public class LeitoDadosActivity extends AppCompatActivity {
     }
 
     private void carregaSpinner() {
+
         // Carrega todos os departamentos no spinner
-//        List<Unidade> unidadeList = RoomConfig.getInstance(LeitoDadosActivity.this).unidadeDao().getAll();
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            List<Unidade> unidadeList = new UnidadeCtrl(LeitoDadosActivity.this).getAll();
+        }
+
         ArrayList<Unidade> unidadeList = new ArrayList<>();
         unidadeList.add(new Unidade("Boa Vista", "Rua X", "343433434344"));
         unidadeList.add(new Unidade("Encruzilhada", "Rua Y", "72782366326"));
@@ -153,6 +164,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
 
             case R.id.action_del:
@@ -169,26 +181,34 @@ public class LeitoDadosActivity extends AppCompatActivity {
     }
 
     private void opcaoCrud(byte tipoCrud) {
-        crudDados(tipoCrud, new ResultEvent() {
-            @Override
-            public <T> void onResult(T result) {
-                if (tipoCrud == CRUD_INC)
-                    //RoomConfig.getInstance(CourseDadosActivity.this).courseDao().insert(course);
-                    Toast.makeText(LeitoDadosActivity.this, "Leito incluído com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_UPD)
-                    Toast.makeText(LeitoDadosActivity.this, "Leito alterado com sucesso", Toast.LENGTH_SHORT).show();
-                else if (tipoCrud == CRUD_DEL)
-                    Toast.makeText(LeitoDadosActivity.this, "Leito excluído com sucesso", Toast.LENGTH_SHORT).show();
-            }
 
-            @Override
-            public void onFail(String message) {
-                Toast.makeText(LeitoDadosActivity.this, message, Toast.LENGTH_SHORT).show();
+        if (Utils.hasInternet(this)) {
+            crudDados(tipoCrud, new ResultEvent() {
+                @Override
+                public <T> void onResult(T result) {
+                    msg = "Leito " + tipoOpcao[0][tipoCrud] + " com sucesso";
+                }
+
+                @Override
+                public void onFail(String message) {
+                    msg = message;
+                }
+            });
+        } else {
+            if (tipoCrud == CRUD_INC) {
+                msg = new LeitoCtrl(LeitoDadosActivity.this).insert(leito);
+            } else if (tipoCrud == CRUD_UPD) {
+                msg = new LeitoCtrl(LeitoDadosActivity.this).update(leito);
+            } else if (tipoCrud == CRUD_DEL) {
+                msg = new LeitoCtrl(LeitoDadosActivity.this).delete(leito);
             }
-        });
+        }
+
+        Toast.makeText(LeitoDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {
+
         Call<Leito> call = null;
 
         if (tipoCrud == CRUD_INC)
@@ -208,13 +228,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Leito> call, Throwable t) {
-                if (tipoCrud == CRUD_INC)
-                    resultEvent.onFail("Erro ao incluir leito");
-                else if (tipoCrud == CRUD_UPD)
-                    resultEvent.onFail("Erro ao alterar leito");
-                else if (tipoCrud == CRUD_DEL)
-                    resultEvent.onFail("Erro ao excluir leito");
-
+                resultEvent.onFail("Erro ao " + tipoOpcao[1][tipoCrud] + " leito");
             }
         });
     }

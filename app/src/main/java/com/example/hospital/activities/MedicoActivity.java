@@ -15,8 +15,11 @@ import com.example.hospital.R;
 import com.example.hospital.adapter.MedicoAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
+import com.example.hospital.controller.FuncionarioCtrl;
+import com.example.hospital.controller.MedicoCtrl;
 import com.example.hospital.model.Medico;
 import com.example.hospital.repository.ResultEvent;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -27,7 +30,7 @@ import retrofit2.Response;
 
 public class MedicoActivity extends AppCompatActivity {
 
-    private RecyclerView rvMedico;
+    private RecyclerView rv;
     private MedicoAdapter medicoAdapter;
     private Intent intent;
 
@@ -36,22 +39,23 @@ public class MedicoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medico);
 
-        rvMedico = (RecyclerView) findViewById(R.id.rvMedico);
-        rvMedico.setLayoutManager(new LinearLayoutManager(MedicoActivity.this));
+        rv = (RecyclerView) findViewById(R.id.rvMedico);
+        rv.setLayoutManager(new LinearLayoutManager(MedicoActivity.this));
     }
 
     @Override
     public void onResume() {
+
+        List<Medico> medicoList = null;
+
         super.onResume();
 
+        if (Utils.hasInternet(this)) {
 //        getAllMedicos(new ResultEvent() {
 //            @Override
 //            public <T> void onResult(T result) {
 //                // Quando houver resultado mostre os valores na tela
-//                List<Medico> medicoList = (List<Medico>) result;
-//
-//                medicoAdapter = new com.example.hospital.adapter.MedicoAdapter(MedicoActivity.this, medicoList);
-//                rvMedico.setAdapter(medicoAdapter);
+//                medicoList = (List<Medico>) result;
 //            }
 //
 //            @Override
@@ -60,6 +64,12 @@ public class MedicoActivity extends AppCompatActivity {
 //                Toast.makeText(MedicoActivity.this, message, Toast.LENGTH_LONG).show();
 //            }
 //        });
+        } else {
+            medicoList = new MedicoCtrl(MedicoActivity.this).getAll();
+        }
+
+        medicoAdapter = new com.example.hospital.adapter.MedicoAdapter(MedicoActivity.this, medicoList);
+        rv.setAdapter(medicoAdapter);
     }
 
     @Override
@@ -92,7 +102,7 @@ public class MedicoActivity extends AppCompatActivity {
 
     private void getAllMedicos(ResultEvent resultEvent) {
 
-        Call<List<Medico>> call = new RetrofitConfig().getMedicoService().getAllMedicos();
+        Call<List<Medico>> call = new RetrofitConfig().getMedicoService().getAll();
 
         call.enqueue(new Callback<List<Medico>>() {
             @Override

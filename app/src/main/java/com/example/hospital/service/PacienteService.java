@@ -1,5 +1,7 @@
 package com.example.hospital.service;
 
+import com.example.hospital.model.Paciente;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -13,17 +15,17 @@ import retrofit2.http.Query;
 public interface PacienteService {
 
     @POST("paciente")
-    Call<PacienteService> create(@Body PacienteService paciente);
+    Call<Paciente> create(@Body Paciente paciente);
 
     @PUT("paciente")
-    Call<PacienteService> updatePaciente(@Query("id") long id, @Body PacienteService paciente);
+    Call<Paciente> updatePaciente(@Query("id") long id, @Body Paciente paciente);
 
     @GET("paciente")
-    Call<List<PacienteService>> getAllPaciente();
+    Call<List<Paciente>> getAll();
 
     @GET("paciente")
-    Call<PacienteService> getPaciente(@Query("id") long id);
+    Call<Paciente> get(@Query("id") long id);
 
     @DELETE("paciente")
-    Call<PacienteService> delete(@Query("id") long id);
+    Call<Paciente> delete(@Query("id") long id);
 }

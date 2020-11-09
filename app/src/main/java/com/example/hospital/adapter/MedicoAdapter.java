@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.activities.MedicoDadosActivity;
-import com.example.hospital.activities.UnidadeDadosActivity;
 import com.example.hospital.model.Medico;
 
 import java.io.Serializable;
