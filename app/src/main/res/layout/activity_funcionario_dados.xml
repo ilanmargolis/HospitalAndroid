@@ -40,16 +40,86 @@
         android:layout_height="wrap_content"
         android:text="Setor" />
 
-    <EditText
-        android:id="@+id/etFuncionarioSetor"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/corner_round"
-        android:hint="Insira o setor do funcionário" />
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbFuncionarioAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:buttonTintMode="@color/azul_5"
+            android:onClick="onRadioButtonClickSetor"
+            android:text="@string/setor_administrativo" />
+
+        <RadioButton
+            android:id="@+id/rbFuncionarioRecep"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:buttonTintMode="@color/azul_5"
+            android:onClick="onRadioButtonClickSetor"
+            android:text="@string/setor_recepcao" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="fill_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFuncionarioSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Senha" />
+
+            <EditText
+                android:id="@+id/etFuncionarioSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Insira a senha"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvFuncionarioConfirmaSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmação" />
+
+            <EditText
+                android:id="@+id/etFuncionarioConfirmaSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Confirmar da senha"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -57,9 +127,9 @@
             android:id="@+id/btFuncionarioOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:backgroundTint="@color/azul_5"
             android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:enabled="false"
             android:text="Alterar" />
 
         <Button

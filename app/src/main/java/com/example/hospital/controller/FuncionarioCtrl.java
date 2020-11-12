@@ -64,4 +64,15 @@ public class FuncionarioCtrl {
             return null;
         }
     }
+
+    public Funcionario getByEmail(String email){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.funcionarioDao().getByEmail(email);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

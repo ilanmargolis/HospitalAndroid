@@ -2,6 +2,7 @@ package com.example.hospital.config;
 
 import androidx.room.TypeConverter;
 
+import com.example.hospital.model.Cbos;
 import com.example.hospital.model.Conselho;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
@@ -198,6 +199,29 @@ public class Converters {
         Medicamento arr = new Medicamento();
         try {
             arr = objectMapper.readValue(value, Medicamento.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
+
+    @TypeConverter // Converter um tipo em uma string
+    public static String listToJson(Cbos value) {
+        objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{'Error':'Convert error'}";
+        }
+    }
+
+    @TypeConverter //Converter uma string em um tipo
+    public static Cbos jsonToListCbos(String value) {
+        objectMapper = new ObjectMapper();
+        Cbos arr = new Cbos();
+        try {
+            arr = objectMapper.readValue(value, Cbos.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

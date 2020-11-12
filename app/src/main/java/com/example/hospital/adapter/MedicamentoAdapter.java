@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hospital.R;
 import com.example.hospital.activities.MedicamentoDadosActivity;
 import com.example.hospital.model.Medicamento;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -39,7 +41,9 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MedicamentoHolder holder, int i) {
-        holder.tvMedicamento.setText(medicamentoList.get(i).getNome());
+        holder.tvMedicamentoNome.setText(medicamentoList.get(i).getNome());
+        holder.tvMedicamentoTermo.setText(medicamentoList.get(i).getTerminologia().getSigla());
+        holder.getTvMedicamentoValidade.setText("val: " + Utils.dateToString(medicamentoList.get(i).getDataValidade(), "dd/MM/yyyy"));
     }
 
     @Override
@@ -48,14 +52,18 @@ public class MedicamentoAdapter extends RecyclerView.Adapter<MedicamentoAdapter.
     }
 
     public class MedicamentoHolder extends RecyclerView.ViewHolder {
-        TextView tvMedicamento;
+        TextView tvMedicamentoNome, tvMedicamentoTermo, getTvMedicamentoValidade;
+        LinearLayout llMedicamento;
 
         public MedicamentoHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvMedicamento = (TextView) itemView.findViewById(R.id.tvMedicamento);
+            tvMedicamentoNome = (TextView) itemView.findViewById(R.id.tvMedicamentoNome);
+            tvMedicamentoTermo = (TextView) itemView.findViewById(R.id.tvMedicamentoTermo);
+            getTvMedicamentoValidade = (TextView) itemView.findViewById(R.id.tvMedicamentoValidade);
+            llMedicamento = (LinearLayout) itemView.findViewById(R.id.llMedicamento);
 
-            tvMedicamento.setOnClickListener(new View.OnClickListener() {
+            llMedicamento.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MedicamentoDadosActivity.class);

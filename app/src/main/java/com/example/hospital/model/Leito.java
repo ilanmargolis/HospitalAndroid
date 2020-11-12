@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 public class Leito implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String codigo;
     private Unidade unidade;

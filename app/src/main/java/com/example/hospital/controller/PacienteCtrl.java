@@ -3,7 +3,10 @@ package com.example.hospital.controller;
 import android.content.Context;
 
 import com.example.hospital.config.RoomConfig;
+import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Paciente;
+
+import java.util.List;
 
 public class PacienteCtrl {
 
@@ -51,4 +54,27 @@ public class PacienteCtrl {
             return "Erro ao excluir paciente: " + e;
         }
     }
+
+    public List<Paciente> getAll(){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.pacienteDao().getAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Paciente getByEmail(String email){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.pacienteDao().getByEmail(email);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

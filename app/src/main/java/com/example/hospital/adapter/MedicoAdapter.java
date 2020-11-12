@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,8 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.MedicoHold
 
     @Override
     public void onBindViewHolder(@NonNull MedicoHolder holder, int i) {
-        holder.tvMedico.setText(medicoList.get(i).getNome());
+        holder.tvAdapterMedicoNome.setText(medicoList.get(i).getNome());
+        holder.tvAdapterMedicoCbos.setText(medicoList.get(i).getCbos().getDescricao());
     }
 
     @Override
@@ -48,14 +50,17 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.MedicoHold
     }
 
     public class MedicoHolder extends RecyclerView.ViewHolder {
-        TextView tvMedico;
+        TextView tvAdapterMedicoNome, tvAdapterMedicoCbos;
+        LinearLayout llMedico;
 
         public MedicoHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvMedico = (TextView) itemView.findViewById(R.id.tvMedico);
+            tvAdapterMedicoNome = (TextView) itemView.findViewById(R.id.tvAdapterMedicoNome);
+            tvAdapterMedicoCbos = (TextView) itemView.findViewById(R.id.tvAdapterMedicoCbos);
+            llMedico = (LinearLayout) itemView.findViewById(R.id.llMedico);
 
-            tvMedico.setOnClickListener(new View.OnClickListener() {
+            llMedico.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, MedicoDadosActivity.class);

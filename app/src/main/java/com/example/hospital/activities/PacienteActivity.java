@@ -1,22 +1,21 @@
 package com.example.hospital.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
-import com.example.hospital.adapter.UnidadeAdapter;
+import com.example.hospital.adapter.PacienteAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
-import com.example.hospital.controller.UnidadeCtrl;
-import com.example.hospital.model.Unidade;
+import com.example.hospital.controller.PacienteCtrl;
+import com.example.hospital.model.Paciente;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
@@ -27,49 +26,48 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UnidadeActivity extends AppCompatActivity {
+public class PacienteActivity extends AppCompatActivity {
 
     private RecyclerView rv;
-    private UnidadeAdapter unidadeAdapter;
+    private PacienteAdapter pacienteAdapter;
     private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_unidade);
+        setContentView(R.layout.activity_paciente);
 
-        rv = (RecyclerView) findViewById(R.id.rvUnidade);
-        rv.setLayoutManager(new LinearLayoutManager(UnidadeActivity.this));
+        rv = (RecyclerView) findViewById(R.id.rvPaciente);
+        rv.setLayoutManager(new LinearLayoutManager(PacienteActivity.this));
     }
 
     @Override
     public void onResume() {
 
-        List<Unidade> unidadeList = null;
+        List<Paciente> pacienteList = null;
 
         super.onResume();
 
         if (Utils.hasInternet(this)) {
-//        getAllUnidades(new ResultEvent() {
+//        getAllPacientes(new ResultEvent() {
 //            @Override
 //            public <T> void onResult(T result) {
 //                // Quando houver resultado mostre os valores na tela
-//                unidadeList = (List<Unidade>) result;
-////            }
+//                pacienteList = (List<Paciente>) result;
+//            }
 //
 //            @Override
 //            public void onFail(String message) {
 //                // Quando houver falha exiba uma mensagem de erro
-//                Toast.makeText(UnidadeActivity.this, message, Toast.LENGTH_LONG).show();
+//                Toast.makeText(PacienteActivity.this, message, Toast.LENGTH_LONG).show();
 //            }
 //        });
         } else {
-            unidadeList = new UnidadeCtrl(UnidadeActivity.this).getAll();
+            pacienteList = new PacienteCtrl(PacienteActivity.this).getAll();
         }
 
-        unidadeAdapter = new UnidadeAdapter(UnidadeActivity.this, unidadeList);
-        rv.setAdapter(unidadeAdapter);
+        pacienteAdapter = new PacienteAdapter(PacienteActivity.this, pacienteList);
+        rv.setAdapter(pacienteAdapter);
     }
 
     @Override
@@ -86,8 +84,8 @@ public class UnidadeActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
-                intent = new Intent(UnidadeActivity.this, UnidadeDadosActivity.class);
-                intent.putExtra("unidade", (Serializable) new Unidade());
+                intent = new Intent(PacienteActivity.this, PacienteDadosActivity.class);
+                intent.putExtra("funcionario", (Serializable) new Paciente());
                 startActivity(intent);
 
                 return true;
@@ -101,22 +99,22 @@ public class UnidadeActivity extends AppCompatActivity {
         }
     }
 
-    private void getAllUnidades(ResultEvent resultEvent) {
+    private void getAllPacientes(ResultEvent resultEvent) {
 
-        Call<List<Unidade>> call = new RetrofitConfig().getUnidadeService().getAll();
+        Call<List<Paciente>> call = new RetrofitConfig().getPacienteService().getAll();
 
-        call.enqueue(new Callback<List<Unidade>>() {
+        call.enqueue(new Callback<List<Paciente>>() {
             @Override
-            public void onResponse(Call<List<Unidade>> call, Response<List<Unidade>> response) {
-                List<Unidade> unidadeList = response.body();
+            public void onResponse(Call<List<Paciente>> call, Response<List<Paciente>> response) {
+                List<Paciente> pacienteList = response.body();
 
-                RoomConfig.getInstance(UnidadeActivity.this).unidadeDao().insertAll(unidadeList);
+                RoomConfig.getInstance(PacienteActivity.this).pacienteDao().insertAll(pacienteList);
 
-                resultEvent.onResult(unidadeList);
+                resultEvent.onResult(pacienteList);
             }
 
             @Override
-            public void onFailure(Call<List<Unidade>> call, Throwable t) {
+            public void onFailure(Call<List<Paciente>> call, Throwable t) {
                 resultEvent.onFail("Falha na requisição!!!");
             }
         });

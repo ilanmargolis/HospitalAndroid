@@ -36,12 +36,11 @@ public class LeitoDadosActivity extends AppCompatActivity {
     private EditText etLeitoCodigo;
     private Spinner spLeitoUnidade;
     private Button btLeitoOk, btLeitoCancelar;
-    private Spinner spUnidade;
     private Leito leito;
     private Unidade unidade;
 
     private String msg = null;
-    private String tipoOpcao[][] = {{"incluída", "alterada", "excluída"}, {"incluir", "alterar", "excluir"}};
+    private final String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
@@ -56,7 +55,12 @@ public class LeitoDadosActivity extends AppCompatActivity {
         btLeitoOk = (Button) findViewById(R.id.btLeitoOk);
         btLeitoCancelar = (Button) findViewById(R.id.btLeitoCancelar);
 
-        carregaSpinner();
+        if (!carregaSpinner()) {
+            Toast.makeText(this, "É necessário incluir unidades de atendimento!", Toast.LENGTH_LONG).show();
+
+            finish();
+        }
+        ;
 
         preparaDados();
 
@@ -75,12 +79,14 @@ public class LeitoDadosActivity extends AppCompatActivity {
                         Toast.makeText(LeitoDadosActivity.this, "É necessário informar o código do leito!", Toast.LENGTH_SHORT).show();
                     }
                 } else { // alteração
-                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim())) {
+                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
+                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())) {
+
                         leito.setCodigo(codigoLeito);
 
                         opcaoCrud(CRUD_UPD);
                     } else {
-                        Toast.makeText(LeitoDadosActivity.this, "O código do leito tem que ser diferente do atual!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LeitoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -108,36 +114,32 @@ public class LeitoDadosActivity extends AppCompatActivity {
         } else { // alteração e exclusão
             etLeitoCodigo.setText(leito.getCodigo());
 
-            unidade = RoomConfig.getInstance(LeitoDadosActivity.this).unidadeDao().getUnidade(leito.getUnidade().getId());
-
-            // posiciona spinner na unidade do leito
-            if (unidade != null) {
-                spUnidade.setSelection(Utils.getIndex(spUnidade, unidade.getNome().toString().trim()));
-            }
+            spLeitoUnidade.setSelection(Utils.getIndex(spLeitoUnidade, leito.getUnidade().toString()));
         }
     }
 
-    private void carregaSpinner() {
+    private boolean carregaSpinner() {
+
+        List<Unidade> unidadeList = null;
 
         // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
-            List<Unidade> unidadeList = new UnidadeCtrl(LeitoDadosActivity.this).getAll();
+            unidadeList = new UnidadeCtrl(this).getAll();
         }
 
-        ArrayList<Unidade> unidadeList = new ArrayList<>();
-        unidadeList.add(new Unidade("Boa Vista", "Rua X", "343433434344"));
-        unidadeList.add(new Unidade("Encruzilhada", "Rua Y", "72782366326"));
-
-        ArrayAdapter aa = new ArrayAdapter<>(LeitoDadosActivity.this, android.R.layout.simple_spinner_item, unidadeList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spLeitoUnidade.setAdapter(aa);
+        if (unidadeList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(LeitoDadosActivity.this, android.R.layout.simple_spinner_item, unidadeList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spLeitoUnidade.setAdapter(aa);
+        } else {
+            return false;
+        }
 
         spLeitoUnidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // pega o departamento selecionado no spinner e atribui ao professor
                 leito.setUnidade((Unidade) spLeitoUnidade.getItemAtPosition(position));
             }
 
@@ -146,6 +148,8 @@ public class LeitoDadosActivity extends AppCompatActivity {
                 leito.setUnidade(null);
             }
         });
+
+        return true;
     }
 
     @Override

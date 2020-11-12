@@ -23,7 +23,7 @@ public class MedicoCtrl {
         try {
             db.medicoDao().insert(medico);
 
-            return "Médico incluída com sucesso";
+            return "Médico incluído com sucesso";
         } catch (Exception e) {
             return "Erro ao inserir médico: " + e;
         }
@@ -36,7 +36,7 @@ public class MedicoCtrl {
         try {
             db.medicoDao().update(medico);
 
-            return "Médico alterada com sucesso";
+            return "Médico alterado com sucesso";
         } catch (Exception e) {
             return "Erro ao alterar médico: " + e;
         }
@@ -49,7 +49,7 @@ public class MedicoCtrl {
         try {
             db.medicoDao().delete(medico);
 
-            return "Médico excluída com sucesso";
+            return "Médico excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir médico: " + e;
         }
@@ -61,6 +61,17 @@ public class MedicoCtrl {
 
         try {
             return db.medicoDao().getAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Medico getByEmail(String email){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.medicoDao().getByEmail(email);
         } catch (Exception e) {
             return null;
         }

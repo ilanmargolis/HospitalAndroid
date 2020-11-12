@@ -10,7 +10,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hospital.R;
+import com.example.hospital.controller.CbosCtrl;
+import com.example.hospital.controller.ConselhoCtrl;
+import com.example.hospital.controller.FuncionarioCtrl;
+import com.example.hospital.controller.TerminologiaCtrl;
+import com.example.hospital.model.Cbos;
+import com.example.hospital.model.Conselho;
+import com.example.hospital.model.Terminologia;
+import com.example.hospital.util.Utils;
 import com.facebook.stetho.Stetho;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -27,12 +39,19 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Stetho.initializeWithDefaults(this);
 
+        File dbFile = this.getDatabasePath("hospital.db");
+
+        if (!dbFile.exists()) {
+            importarTabelas();
+        }
+
         tvLoading = (TextView) findViewById(R.id.tvLoading);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 tvLoading.setText("Abrindo banco de dados");
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -56,4 +75,54 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         }, 5000);
     }
+
+    private void importarTabelas() {
+        // Importar CBOS
+        ArrayList<String> cbosList = Utils.lerCSV(this, "cbos.csv");
+        Cbos cbos = new Cbos();
+
+        for (String c : cbosList) {
+            String[] item = c.split(";");
+
+            if (!item[0].equalsIgnoreCase("CODIGO")) {
+                cbos = new Cbos();
+                cbos.setCodigo(item[0]);
+                cbos.setDescricao(item[1]);
+                new CbosCtrl(this).insert(cbos);
+            }
+        }
+
+        // Importar conselho
+        ArrayList<String> conselhoStrings = Utils.lerCSV(this, "conselho.csv");
+        Conselho conselho = new Conselho();
+
+        for (String t : conselhoStrings) {
+            String[] item = t.split(";");
+
+            if (!item[0].equalsIgnoreCase("CODIGO")) {
+                conselho = new Conselho();
+                conselho.setCodigo(item[0]);
+                conselho.setSigla(item[1]);
+                conselho.setDescricao(item[2]);
+                new ConselhoCtrl(this).insert(conselho);
+            }
+        }
+
+        // Importar terminologia
+        ArrayList<String> termStrings = Utils.lerCSV(this, "terminologia.csv");
+        Terminologia terminologia = new Terminologia();
+
+        for (String t : termStrings) {
+            String[] item = t.split(";");
+
+            if (!item[0].equalsIgnoreCase("CODIGO")) {
+                terminologia = new Terminologia();
+                terminologia.setCodigo(item[0]);
+                terminologia.setSigla(item[1]);
+                terminologia.setDescricao(item[2]);
+                new TerminologiaCtrl(this).insert(terminologia);
+            }
+        }
+    }
+
 }

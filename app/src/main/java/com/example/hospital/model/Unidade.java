@@ -1,5 +1,6 @@
 package com.example.hospital.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -8,19 +9,21 @@ import java.io.Serializable;
 @Entity
 public class Unidade implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String nome;
     private String logradouro;
     private String inscricaoEstadual;
+    private String telefone;
 
     public Unidade() {
     }
 
-    public Unidade(String nome, String logradouro, String inscricaoEstadual) {
+    public Unidade(String nome, String logradouro, String inscricaoEstadual, String telefone) {
         this.nome = nome;
         this.logradouro = logradouro;
         this.inscricaoEstadual = inscricaoEstadual;
+        this.telefone = telefone;
     }
 
     public Unidade(Unidade u) {
@@ -28,6 +31,7 @@ public class Unidade implements Serializable {
         this.nome = u.nome;
         this.logradouro = u.logradouro;
         this.inscricaoEstadual = u.inscricaoEstadual;
+        this.telefone = u.telefone;
     }
 
     public long getId() {
@@ -60,6 +64,14 @@ public class Unidade implements Serializable {
 
     public void setInscricaoEstadual(String inscricaoEstadual) {
         this.inscricaoEstadual = inscricaoEstadual;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     @Override

@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
-import com.example.hospital.activities.UnidadeDadosActivity;
+import com.example.hospital.activities.FuncionarioDadosActivity;
 import com.example.hospital.model.Funcionario;
 
 import java.io.Serializable;
@@ -39,7 +40,17 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FuncionarioHolder holder, int i) {
-        holder.tvFuncionario.setText(funcionarioList.get(i).getNome());
+        int setor = funcionarioList.get(i).getSetor();
+
+        holder.tvAdapterFuncionarioNome.setText(funcionarioList.get(i).getNome());
+
+        if (setor >= 0) {
+            holder.tvAdapterFuncionarioSetor.setText(Funcionario.getSetorTipo(setor).substring(0, 5));
+
+            if (setor == 0) {
+                holder.tvAdapterFuncionarioSetor.setTextColor(context.getColor(R.color.vermelho));
+            }
+        }
     }
 
     @Override
@@ -48,17 +59,20 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     }
 
     public class FuncionarioHolder extends RecyclerView.ViewHolder {
-        TextView tvFuncionario;
+        TextView tvAdapterFuncionarioNome, tvAdapterFuncionarioSetor;
+        LinearLayout llFuncionario;
 
         public FuncionarioHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvFuncionario = (TextView) itemView.findViewById(R.id.tvFuncionario);
+            tvAdapterFuncionarioNome = (TextView) itemView.findViewById(R.id.tvAdapterFuncionarioNome);
+            tvAdapterFuncionarioSetor = (TextView) itemView.findViewById(R.id.tvAdapterFuncionarioSetor);
+            llFuncionario = (LinearLayout) itemView.findViewById(R.id.llFuncionario);
 
-            tvFuncionario.setOnClickListener(new View.OnClickListener() {
+            llFuncionario.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, UnidadeDadosActivity.class);
+                    Intent intent = new Intent(context, FuncionarioDadosActivity.class);
                     intent.putExtra("funcionario", (Serializable) funcionarioList.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }

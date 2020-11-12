@@ -11,6 +11,7 @@ public abstract class Mask {
     public static String CNPJ_MASK = "###.###.###/####-##";
     public static String IE_MASK = "###.###.###.###";
     public static String CBOS_MASK = "####-##";
+    public static String DATA_MASK = "##/##/####";
 
     public static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")

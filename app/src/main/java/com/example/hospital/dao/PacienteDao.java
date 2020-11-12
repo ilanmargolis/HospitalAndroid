@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
 
@@ -26,6 +27,9 @@ public interface PacienteDao {
 
     @Query("SELECT * FROM Paciente")
     public List<Paciente> getAll();
+
+    @Query("SELECT * FROM Paciente WHERE email = :email")
+    public Paciente getByEmail(String email);
 
     @Delete
     public void delete(Paciente paciente);

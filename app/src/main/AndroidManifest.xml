@@ -11,9 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hospital">
         <activity
-            android:name=".activities.LoginActivity"
-            android:label="Tela de login" />
-        <activity
             android:name=".activities.SplashScreenActivity"
             android:noHistory="true">
             <intent-filter>
@@ -22,6 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="Tela de login" />
         <activity
             android:name=".activities.MenuAdministrativoActivity"
             android:label="Menu administrativo" />
@@ -67,6 +67,12 @@
         <activity
             android:name=".activities.FuncionarioDadosActivity"
             android:label="Cadastro de funcionário" />
+        <activity
+            android:name=".activities.PacienteActivity"
+            android:label="Lista de pacientes" />
+        <activity
+            android:name=".activities.PacienteDadosActivity"
+            android:label="Cadastro de paciente" />
     </application>
 
 </manifest>

@@ -1,10 +1,8 @@
 package com.example.hospital.activities;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,14 +13,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospital.R;
-import com.example.hospital.config.RoomConfig;
+import com.example.hospital.controller.CbosCtrl;
+import com.example.hospital.controller.ConselhoCtrl;
+import com.example.hospital.controller.FuncionarioCtrl;
+import com.example.hospital.controller.MedicoCtrl;
+import com.example.hospital.controller.PacienteCtrl;
+import com.example.hospital.controller.TerminologiaCtrl;
+import com.example.hospital.model.Cbos;
+import com.example.hospital.model.Conselho;
 import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
+import com.example.hospital.model.Terminologia;
 import com.example.hospital.model.Usuario;
+import com.example.hospital.util.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -41,10 +47,8 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
 
-        etUsername.addTextChangedListener(new GeneticTextListener(btLogin));
-        etPassword.addTextChangedListener(new GeneticTextListener(btLogin));
-
-        carregaUsuarios();
+        etUsername.addTextChangedListener(new ValidarLogin(btLogin));
+        etPassword.addTextChangedListener(new ValidarLogin(btLogin));
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,13 +59,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 Usuario userDados = procuraUsuario(user);
 
-                if (userDados != null && userDados.getSenha().equals(pass)) {
+                if (userDados != null && userDados.getSenha() != null && userDados.getSenha().equals(pass)) {
                     if (userDados instanceof Paciente) {
                         intent = new Intent(LoginActivity.this, MenuPacienteActivity.class);
                     } else if (userDados instanceof Medico) {
                         intent = new Intent(LoginActivity.this, MenuMedicoActivity.class);
                     } else if (userDados instanceof Funcionario) {
-                        if (((Funcionario) userDados).getSetor().equals("admin")) {
+                        if (((Funcionario) userDados).getSetor() == 0) {
                             intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);
                         } else {
                             intent = new Intent(LoginActivity.this, MenuRecepcaoActivity.class);
@@ -69,8 +73,11 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     startActivity(intent);
+                } else if (user.equals("admin@admin.com") && pass.equals("admin")) {
+                    intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);
+                    startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Usuário ou login não encontrado!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Usuário e/ou senha não conferem!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -84,34 +91,30 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // provisório enquanto não tem o banco de dados
     private Usuario procuraUsuario(String user) {
-        for (int i = 0; i < usuarioList.size(); i++) {
-            if (usuarioList.get(i).getEmail().trim().equals(user)) {
-                return usuarioList.get(i);
+
+        Usuario usuario = null;
+
+        usuario = new FuncionarioCtrl(this).getByEmail(user);
+
+        if (usuario != null) {
+            return usuario;
+        } else {
+            usuario = new MedicoCtrl(this).getByEmail(user);
+
+            if (usuario != null) {
+                return usuario;
+            } else {
+                usuario = new PacienteCtrl(this).getByEmail(user);
+
+                if (usuario != null) {
+                    return usuario;
+                }
             }
+
         }
 
         return null;
-    }
-
-    // provisório enquanto não tem o banco de dados
-    private void carregaUsuarios() {
-        usuarioList = new ArrayList<>();
-
-        // carrega médicos
-        Usuario m1 = new Medico("Carlos", "carlos@gmail.com", "cacau");
-        usuarioList.add(m1);
-
-        // carrega pacientes
-        Usuario p1 = new Paciente("Maria", "maria@gmail.com", "maria");
-        usuarioList.add(p1);
-
-        // carrega funcionario
-        Usuario f1 = new Funcionario("Adriana", "adriana@gmail.com", "adriana", "recepção");
-        Usuario f2 = new Funcionario("Douglas", "douglas@gmail.com", "douglas", "admin");
-        usuarioList.add(f1);
-        usuarioList.add(f2);
     }
 
     @Override
@@ -122,17 +125,16 @@ public class LoginActivity extends AppCompatActivity {
         etPassword.setText(null);
     }
 
-    private class GeneticTextListener implements TextWatcher {
+    private class ValidarLogin implements TextWatcher {
 
         private View view;
 
-        public GeneticTextListener(View v) {
+        public ValidarLogin(View v) {
             this.view = v;
         }
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
         }
 
         @Override
@@ -145,7 +147,6 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void afterTextChanged(Editable s) {
-
         }
     }
 }

@@ -40,12 +40,11 @@
         android:layout_height="wrap_content"
         android:text="CBOS" />
 
-    <EditText
-        android:id="@+id/etMedicoCbos"
+    <Spinner
+        android:id="@+id/spMedicoCbos"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corner_round"
-        android:hint="Insira o CBOS do médico" />
+        android:layout_height="35dp"
+        android:background="@drawable/corner_round" />
 
     <TextView
         android:layout_width="match_parent"
@@ -61,6 +60,58 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="fill_horizontal"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMedicoSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Senha" />
+
+            <EditText
+                android:id="@+id/etMedicoSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Insira a senha"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMedicoConfirmaSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Confirmação" />
+
+            <EditText
+                android:id="@+id/etMedicoConfirmaSenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Confirmar da senha"
+                android:inputType="textPassword" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -68,9 +119,9 @@
             android:id="@+id/btMedicoOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:backgroundTint="@color/azul_5"
             android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:enabled="false"
             android:text="Alterar" />
 
         <Button

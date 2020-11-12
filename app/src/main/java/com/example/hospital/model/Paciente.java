@@ -9,6 +9,8 @@ import java.util.Date;
 @Entity
 public class Paciente extends Usuario implements Serializable {
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
     private String cpf = null;
     private Date dataNascimento = null;
     private Character sexo = null;
@@ -33,6 +35,14 @@ public class Paciente extends Usuario implements Serializable {
         this.cpf = p.cpf;
         this.dataNascimento = p.dataNascimento;
         this.sexo = p.sexo;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCpf() {

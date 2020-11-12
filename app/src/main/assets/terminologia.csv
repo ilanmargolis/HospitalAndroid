@@ -1,0 +1,53 @@
+CODIGO;SIGLA;DESCRICAO
+001;AMP;Ampola
+002;BUI;Bilhões de Unidades Internacionais
+003;BG;Bisnaga
+004;BOLS;Bolsa
+005;CX;Caixa
+006;CAP;Cápsula
+007;CARP;Carpule
+008;COM;Comprimido
+009;DOSE;Dose
+010;DRG;Drágea
+011;ENV;Envelope
+012;FLAC;Flaconete
+013;FR;Frasco
+014;FA;Frasco Ampola
+015;GAL;Galão
+016;GLOB;Glóbulo
+017;GTS;Gotas
+018;G;Grama
+019;L;Litro
+020;MCG;Microgramas
+021;MUI;Milhões de Unidades Internacionais
+022;MG;Miligrama
+023;ML;Milímetro
+024;OVL;Óvulo
+025;PAS;Pastilha
+026;LT;Lata
+027;PER;Pérola
+028;PIL;Pílula
+029;PT;Pote
+030;KG;Quilograma
+031;SER;Seringa
+032;SUP;Supositóio
+033;TABLE;Tablete
+034;TUB;Tubete
+035;TB;Tubo
+036;UN;Unidade
+037;UI;Unidade Internacional
+038;CM;Centímetro
+039;CONJ;Conjunto
+040;KIT;Kit
+041;MÇ;Maço
+042;M;Metro
+043;PC;Pacote
+044;PÇ;Peça
+045;RL;Rolo
+046;GY;Gray
+047;CGY;Centgray
+048;PAR;Par
+049;ADES;Adesivo Transdérmico
+050;COM EFEV;Comprimido Efervecente
+051;COM MST;Comprimido Mastigável
+052;SACHE;Sache

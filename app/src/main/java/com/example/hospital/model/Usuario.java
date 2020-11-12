@@ -1,13 +1,12 @@
 package com.example.hospital.model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 public class Usuario implements Serializable {
 
-    @PrimaryKey
-    private long id;
     private String nome;
     private String email;
     private String senha;
@@ -19,14 +18,6 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -51,5 +42,10 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

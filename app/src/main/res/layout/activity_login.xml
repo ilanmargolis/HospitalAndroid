@@ -11,6 +11,7 @@
 
     <EditText
         android:id="@+id/etUsername"
+        style="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -22,6 +23,7 @@
 
     <EditText
         android:id="@+id/etPassword"
+        style="@android:style/TextAppearance.Large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -35,7 +37,8 @@
 
     <Button
         android:id="@+id/btLogin"
-        android:layout_width="130dp"
+        style="@android:style/TextAppearance.Medium"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="48dp"
@@ -49,6 +52,7 @@
 
     <TextView
         android:id="@+id/tvEsqueceuSenha"
+        style="@android:style/TextAppearance.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

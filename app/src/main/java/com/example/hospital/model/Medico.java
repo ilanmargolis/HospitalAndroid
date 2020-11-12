@@ -3,11 +3,15 @@ package com.example.hospital.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
-public class Medico extends Usuario{
+import java.io.Serializable;
 
-    private String cbos_codigo = null;
-    private Conselho conselho = null;
+@Entity
+public class Medico extends Usuario implements Serializable {
+
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+    private Cbos cbos;
+    private Conselho conselho;
 
     public Medico() {
         super();
@@ -17,24 +21,32 @@ public class Medico extends Usuario{
         super(nome, email, senha);
     }
 
-    public Medico(String nome, String email, String senha, String cbos_codigo, Conselho conselho) {
+    public Medico(String nome, String email, String senha, Cbos cbos, Conselho conselho) {
         this(nome, email, senha);
-        this.cbos_codigo = cbos_codigo;
+        this.cbos = cbos;
         this.conselho = conselho;
     }
 
     public Medico(Medico m) {
         this(m.getNome(), m.getEmail(), m.getSenha());
-        this.cbos_codigo = m.cbos_codigo;
+        this.cbos = m.cbos;
         this.conselho = m.conselho;
     }
 
-    public String getCbos_codigo() {
-        return cbos_codigo;
+    public long getId() {
+        return id;
     }
 
-    public void setCbos_codigo(String cbos_codigo) {
-        this.cbos_codigo = cbos_codigo;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Cbos getCbos() {
+        return cbos;
+    }
+
+    public void setCbos(Cbos cbos) {
+        this.cbos = cbos;
     }
 
     public Conselho getConselho() {

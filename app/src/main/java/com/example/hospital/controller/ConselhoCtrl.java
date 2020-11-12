@@ -3,74 +3,74 @@ package com.example.hospital.controller;
 import android.content.Context;
 
 import com.example.hospital.config.RoomConfig;
-import com.example.hospital.model.Unidade;
+import com.example.hospital.model.Conselho;
 
 import java.util.List;
 
-public class UnidadeCtrl {
+public class ConselhoCtrl {
 
     private final Context context;
 
-    public UnidadeCtrl(Context context) {
+    public ConselhoCtrl(Context context) {
         this.context = context;
     }
 
-    public String insert(Unidade unidade){
+    public String insert(Conselho conselho){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().insert(unidade);
+            db.conselhoDao().insert(conselho);
 
-            return "Unidade incluída com sucesso";
+            return "Conselho incluída com sucesso";
         } catch (Exception e) {
-            return "Erro ao inserir unidade: " + e;
+            return "Erro ao inserir conselho: " + e;
         }
     }
 
-    public String update(Unidade unidade){
+    public String update(Conselho conselho){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().update(unidade);
+            db.conselhoDao().update(conselho);
 
-            return "Unidade alterada com sucesso";
+            return "Conselho alterada com sucesso";
         } catch (Exception e) {
-            return "Erro ao alterar unidade: " + e;
+            return "Erro ao alterar conselho: " + e;
         }
     }
 
-    public String delete(Unidade unidade){
+    public String delete(Conselho conselho){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().update(unidade);
+            db.conselhoDao().update(conselho);
 
-            return "Unidade excluída com sucesso";
+            return "Terminologia excluída com sucesso";
         } catch (Exception e) {
-            return "Erro ao excluir unidade: " + e;
+            return "Erro ao excluir conselho: " + e;
         }
     }
 
-    public List<Unidade> getAll(){
+    public List<Conselho> getAll(){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.unidadeDao().getAll();
+            return db.conselhoDao().getAll();
         } catch (Exception e) {
             return null;
         }
     }
 
-    public Unidade get(long id){
+    public Conselho get(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.unidadeDao().get(id);
+            return db.conselhoDao().get(id);
         } catch (Exception e) {
             return null;
         }

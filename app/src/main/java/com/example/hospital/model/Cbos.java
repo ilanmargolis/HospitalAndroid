@@ -6,20 +6,18 @@ import androidx.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Terminologia implements Serializable {
+public class Cbos implements Serializable{
 
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String codigo;
-    private String sigla;
     private String descricao;
 
-    public Terminologia() {
+    public Cbos() {
     }
 
-    public Terminologia(String codigo, String sigla, String descricao) {
+    public Cbos(String codigo, String descricao) {
         this.codigo = codigo;
-        this.sigla = sigla;
         this.descricao = descricao;
     }
 
@@ -37,14 +35,6 @@ public class Terminologia implements Serializable {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public String getSigla() {
-        return sigla;
-    }
-
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
     }
 
     public String getDescricao() {

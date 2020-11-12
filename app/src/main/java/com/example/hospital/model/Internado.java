@@ -15,7 +15,7 @@ public class Internado {
     @PrimaryKey
     private long id;
     private Date dataInternacao;
-    private Date dataPrecisaoAlta;
+    private Date dataPrevisaoAlta;
     private Date dataAlta;
     private Leito leito;
     private Paciente paciente;
@@ -23,9 +23,9 @@ public class Internado {
     public Internado() {
     }
 
-    public Internado(Date dataInternacao, Date dataPrecisaoAlta, Date dataAlta, Leito leito, Paciente paciente) {
+    public Internado(Date dataInternacao, Date dataPrevisaoAlta, Date dataAlta, Leito leito, Paciente paciente) {
         this.dataInternacao = dataInternacao;
-        this.dataPrecisaoAlta = dataPrecisaoAlta;
+        this.dataPrevisaoAlta = dataPrevisaoAlta;
         this.dataAlta = dataAlta;
         this.leito = leito;
         this.paciente = paciente;
@@ -34,7 +34,7 @@ public class Internado {
     public Internado(Internado i) {
         this.id = i.id;
         this.dataInternacao = i.dataInternacao;
-        this.dataPrecisaoAlta = i.dataPrecisaoAlta;
+        this.dataPrevisaoAlta = i.dataPrevisaoAlta;
         this.dataAlta = i.dataAlta;
         this.leito = i.leito;
         this.paciente = i.paciente;
@@ -56,12 +56,12 @@ public class Internado {
         this.dataInternacao = dataInternacao;
     }
 
-    public Date getDataPrecisaoAlta() {
-        return dataPrecisaoAlta;
+    public Date getDataPrevisaoAlta() {
+        return dataPrevisaoAlta;
     }
 
-    public void setDataPrecisaoAlta(Date dataPrecisaoAlta) {
-        this.dataPrecisaoAlta = dataPrecisaoAlta;
+    public void setDataPrevisaoAlta(Date dataPrevisaoAlta) {
+        this.dataPrevisaoAlta = dataPrevisaoAlta;
     }
 
     public Date getDataAlta() {

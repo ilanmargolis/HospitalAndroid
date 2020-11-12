@@ -3,74 +3,75 @@ package com.example.hospital.controller;
 import android.content.Context;
 
 import com.example.hospital.config.RoomConfig;
-import com.example.hospital.model.Unidade;
+import com.example.hospital.model.Cbos;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UnidadeCtrl {
+public class CbosCtrl implements Serializable {
 
     private final Context context;
 
-    public UnidadeCtrl(Context context) {
+    public CbosCtrl(Context context) {
         this.context = context;
     }
 
-    public String insert(Unidade unidade){
+    public String insert(Cbos cbos){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().insert(unidade);
+            db.cbosDao().insert(cbos);
 
-            return "Unidade incluída com sucesso";
+            return "Cbos incluído com sucesso";
         } catch (Exception e) {
-            return "Erro ao inserir unidade: " + e;
+            return "Erro ao inserir cbos: " + e;
         }
     }
 
-    public String update(Unidade unidade){
+    public String update(Cbos cbos){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().update(unidade);
+            db.cbosDao().update(cbos);
 
-            return "Unidade alterada com sucesso";
+            return "Cbos alterado com sucesso";
         } catch (Exception e) {
-            return "Erro ao alterar unidade: " + e;
+            return "Erro ao alterar cbos: " + e;
         }
     }
 
-    public String delete(Unidade unidade){
+    public String delete(Cbos cbos){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().update(unidade);
+            db.cbosDao().update(cbos);
 
-            return "Unidade excluída com sucesso";
+            return "Cbos excluído com sucesso";
         } catch (Exception e) {
-            return "Erro ao excluir unidade: " + e;
+            return "Erro ao excluir cbos: " + e;
         }
     }
 
-    public List<Unidade> getAll(){
+    public List<Cbos> getAll(){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.unidadeDao().getAll();
+            return db.cbosDao().getAll();
         } catch (Exception e) {
             return null;
         }
     }
 
-    public Unidade get(long id){
+    public Cbos get(String codigo){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.unidadeDao().get(id);
+            return db.cbosDao().get(codigo);
         } catch (Exception e) {
             return null;
         }

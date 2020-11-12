@@ -7,7 +7,7 @@
     android:background="@drawable/gradiente"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.MenuMedicoActivity">
+    tools:context=".activities.MenuRecepcaoActivity">
 
     <LinearLayout
         android:id="@+id/llRecepInternacao"

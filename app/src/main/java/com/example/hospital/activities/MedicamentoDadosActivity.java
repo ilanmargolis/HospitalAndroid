@@ -21,9 +21,10 @@ import com.example.hospital.controller.TerminologiaCtrl;
 import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.repository.ResultEvent;
+import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,11 +33,10 @@ import retrofit2.Response;
 
 public class MedicamentoDadosActivity extends AppCompatActivity {
 
-    private EditText etMedicamentoNome;
+    private EditText etMedicamentoNome, etMedicamentoValidade;
     private Button btMedicamentoOk, btMedicamentoCancelar;
     private Spinner spMedicamentoTerminologia;
     private Medicamento medicamento;
-    private Terminologia terminologia;
 
     private String msg = null;
     private String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
@@ -50,9 +50,12 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medicamento_dados);
 
         etMedicamentoNome = (EditText) findViewById(R.id.etMedicamentoNome);
+        etMedicamentoValidade = (EditText) findViewById(R.id.etMedicamentoValidade);
         spMedicamentoTerminologia = (Spinner) findViewById(R.id.spMedicamentoTerminologia);
         btMedicamentoOk = (Button) findViewById(R.id.btMedicamentoOk);
         btMedicamentoCancelar = (Button) findViewById(R.id.btMedicamentoCancelar);
+
+        etMedicamentoValidade.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etMedicamentoValidade));
 
         carregaSpinner();
 
@@ -63,22 +66,28 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nomeMedicamento = etMedicamentoNome.getText().toString().trim();
+                Date validade = Utils.stringToDate(etMedicamentoValidade.getText().toString(), "dd/MM/yyyy");
 
                 if (medicamento.getId() == 0) { // inclusão
                     if (!nomeMedicamento.equals("")) {
                         medicamento.setNome(nomeMedicamento);
+                        medicamento.setDataValidade(validade);
 
                         opcaoCrud(CRUD_INC);
                     } else {
                         Toast.makeText(MedicamentoDadosActivity.this, "É necessário informar o nome do medicamento!", Toast.LENGTH_SHORT).show();
                     }
                 } else { // alteração
-                    if (!medicamento.getNome().equalsIgnoreCase(etMedicamentoNome.getText().toString().trim())) {
+                    if (!medicamento.getNome().equalsIgnoreCase(etMedicamentoNome.getText().toString().trim()) ||
+                            !medicamento.getDataValidade().equals(validade) ||
+                            !medicamento.getTerminologia().toString().equals(spMedicamentoTerminologia.toString())) {
+
                         medicamento.setNome(nomeMedicamento);
+                        medicamento.setDataValidade(validade);
 
                         opcaoCrud(CRUD_UPD);
                     } else {
-                        Toast.makeText(MedicamentoDadosActivity.this, "O nome do medicamento tem que ser diferente do atual!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MedicamentoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -105,28 +114,22 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
 //            spMedicamentoTerminologia.setSelection(0);
         } else { // alteração e exclusão
             etMedicamentoNome.setText(medicamento.getNome());
+            etMedicamentoValidade.setText(Utils.dateToString(medicamento.getDataValidade(), "dd/MM/yyyy"));
 
-//            terminologia = RoomConfig.getInstance(MedicamentoDadosActivity.this).terminologiaDao().getTerminologia(medicamento.getTerminologia().getId());
-            terminologia = new TerminologiaCtrl(MedicamentoDadosActivity.this).get(medicamento.getTerminologia().getId());
-            // posiciona spinner na unidade do leito
-            if (terminologia != null) {
-                spMedicamentoTerminologia.setSelection(Utils.getIndex(spMedicamentoTerminologia, terminologia.getDescricao().toString().trim()));
-            }
+            spMedicamentoTerminologia.setSelection(Utils.getIndex(spMedicamentoTerminologia, medicamento.getTerminologia().toString()));
         }
     }
 
     private void carregaSpinner() {
 
+        List<Terminologia> terminologiaList = null;
+
         // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
-            List<Terminologia> terminologiaList = new TerminologiaCtrl(MedicamentoDadosActivity.this).getAll();
+            terminologiaList = new TerminologiaCtrl(MedicamentoDadosActivity.this).getAll();
         }
-
-        ArrayList<Terminologia> terminologiaList = new ArrayList<>();
-        terminologiaList.add(new Terminologia("ml", "mililitro"));
-        terminologiaList.add(new Terminologia("cx", "caixa"));
 
         ArrayAdapter aa = new ArrayAdapter<>(MedicamentoDadosActivity.this, android.R.layout.simple_spinner_item, terminologiaList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -135,7 +138,6 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
         spMedicamentoTerminologia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // pega o departamento selecionado no spinner e atribui ao professor
                 medicamento.setTerminologia((Terminologia) spMedicamentoTerminologia.getItemAtPosition(position));
             }
 

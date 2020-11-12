@@ -14,6 +14,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
 
     private LinearLayout llAdminUnidade, llAdminLeito, llAdminMedico, llAdminMedicamento,
             llAdminFuncionario;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminUnidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, UnidadeActivity.class);
+                intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, UnidadeActivity.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +38,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminLeito.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, LeitoActivity.class);
+                intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, LeitoActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +46,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminMedico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, MedicoActivity.class);
+                intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, MedicoActivity.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +54,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminMedicamento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, MedicamentoActivity.class);
+                intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, MedicamentoActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,7 +62,7 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
         llAdminFuncionario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, FuncionarioActivity.class);
+                intent = new Intent(com.example.hospital.activities.MenuAdministrativoActivity.this, FuncionarioActivity.class);
                 startActivity(intent);
             }
         });

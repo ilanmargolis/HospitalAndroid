@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class Medicamento implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String nome;
     private Date dataValidade;

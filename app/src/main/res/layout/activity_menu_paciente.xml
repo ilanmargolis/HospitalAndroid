@@ -7,7 +7,7 @@
     android:background="@drawable/gradiente"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activities.MenuMedicoActivity">
+    tools:context=".activities.MenuPacienteActivity">
 
     <LinearLayout
         android:id="@+id/llPacienteExame"

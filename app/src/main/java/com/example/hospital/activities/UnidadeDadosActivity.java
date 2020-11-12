@@ -25,7 +25,7 @@ import retrofit2.Response;
 
 public class UnidadeDadosActivity extends AppCompatActivity {
 
-    private EditText etUnidadeNome, etUnidadeLogradouro, etUnidadeInscricao;
+    private EditText etUnidadeNome, etUnidadeLogradouro, etUnidadeTelefone, etUnidadeInscricao;
     private Button btUnidadeOk, btUnidadeCancelar;
     private Unidade unidade;
 
@@ -42,10 +42,12 @@ public class UnidadeDadosActivity extends AppCompatActivity {
 
         etUnidadeNome = (EditText) findViewById(R.id.etUnidadeNome);
         etUnidadeLogradouro = (EditText) findViewById(R.id.etUnidadeLogradouro);
+        etUnidadeTelefone = (EditText) findViewById(R.id.etUnidadeTelefone);
         etUnidadeInscricao = (EditText) findViewById(R.id.etUnidadeInscricao);
         btUnidadeOk = (Button) findViewById(R.id.btUnidadeOk);
         btUnidadeCancelar = (Button) findViewById(R.id.btUnidadeCancelar);
 
+        etUnidadeTelefone.addTextChangedListener(Mask.insert(Mask.FONE_MASK, etUnidadeTelefone));
         etUnidadeInscricao.addTextChangedListener(Mask.insert(Mask.IE_MASK, etUnidadeInscricao));
 
         unidade = (Unidade) getIntent().getSerializableExtra("unidade");
@@ -53,7 +55,11 @@ public class UnidadeDadosActivity extends AppCompatActivity {
         if (unidade.getId() == 0) { // inclusão
 
         } else { // alteração e exclusão
+            unidade = new UnidadeCtrl(UnidadeDadosActivity.this).get(unidade.getId());
             etUnidadeNome.setText(unidade.getNome());
+            etUnidadeLogradouro.setText(unidade.getLogradouro());
+            etUnidadeTelefone.setText(unidade.getTelefone());
+            etUnidadeInscricao.setText(unidade.getInscricaoEstadual());
         }
 
         btUnidadeOk.setOnClickListener(new View.OnClickListener() {
@@ -64,19 +70,30 @@ public class UnidadeDadosActivity extends AppCompatActivity {
 
                 if (unidade.getId() == 0) { // inclusão
                     if (!nomeUnidade.equals("")) {
+
                         unidade.setNome(nomeUnidade);
+                        unidade.setLogradouro(etUnidadeLogradouro.getText().toString());
+                        unidade.setTelefone(etUnidadeTelefone.getText().toString());
+                        unidade.setInscricaoEstadual(etUnidadeInscricao.getText().toString());
 
                         opcaoCrud(CRUD_INC);
                     } else {
                         Toast.makeText(UnidadeDadosActivity.this, "É necessário informar o nome da unidade!", Toast.LENGTH_SHORT).show();
                     }
                 } else { // alteração
-                    if (!unidade.getNome().equalsIgnoreCase(etUnidadeNome.getText().toString().trim())) {
+                    if (!unidade.getNome().equalsIgnoreCase(etUnidadeNome.getText().toString().trim()) ||
+                            !unidade.getLogradouro().equalsIgnoreCase(etUnidadeLogradouro.getText().toString().trim()) ||
+                            !unidade.getTelefone().equalsIgnoreCase(etUnidadeTelefone.getText().toString().trim()) ||
+                            !unidade.getInscricaoEstadual().equals(etUnidadeInscricao.getText().toString().trim())) {
+
                         unidade.setNome(nomeUnidade);
+                        unidade.setLogradouro(etUnidadeLogradouro.getText().toString().trim());
+                        unidade.setTelefone(etUnidadeTelefone.getText().toString());
+                        unidade.setInscricaoEstadual(etUnidadeInscricao.getText().toString().trim());
 
                         opcaoCrud(CRUD_UPD);
                     } else {
-                        Toast.makeText(UnidadeDadosActivity.this, "O nome da unidade tem que ser diferente do atual!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UnidadeDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
                     }
 
                 }

@@ -5,12 +5,33 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvLeito"
+    <LinearLayout
+        android:id="@+id/llLeito"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
-        tools:text="Nome do leito" />
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAdapterLeitoNome"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="Nome do leito" />
+
+        <TextView
+            android:id="@+id/tvAdapterLeitoUnidade"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="end"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="Unidade" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"

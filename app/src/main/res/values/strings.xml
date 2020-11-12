@@ -5,4 +5,7 @@
     <string name="login_button">Entrar</string>
     <string name="prompt_unidade">Selecione uma unidade</string>
     <string name="prompt_terminologia">Selecione uma terminologia</string>
+    <string name="setor_administrativo">Administrativo</string>
+    <string name="setor_recepcao">Recepção</string>
+
 </resources>

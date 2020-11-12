@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Leito;
 import com.example.hospital.model.Medico;
 
@@ -27,8 +28,11 @@ public interface MedicoDao {
     @Query("SELECT * FROM Medico")
     public List<Medico> getAll();
 
+    @Query("SELECT * FROM Medico WHERE id = :id")
+    public Medico get(long id);
+
     @Query("SELECT * FROM Medico WHERE email = :email")
-    public Medico getMedico(String email);
+    public Medico getByEmail(String email);
 
     @Delete
     public void delete(Medico medico);

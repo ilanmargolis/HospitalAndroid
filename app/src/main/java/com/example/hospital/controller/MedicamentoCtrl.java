@@ -23,7 +23,7 @@ public class MedicamentoCtrl {
         try {
             db.medicamentoDao().insert(medicamento);
 
-            return "Medicamento incluída com sucesso";
+            return "Medicamento incluído com sucesso";
         } catch (Exception e) {
             return "Erro ao inserir medicamento: " + e;
         }
@@ -36,7 +36,7 @@ public class MedicamentoCtrl {
         try {
             db.medicamentoDao().update(medicamento);
 
-            return "Medicamento alterada com sucesso";
+            return "Medicamento alterado com sucesso";
         } catch (Exception e) {
             return "Erro ao alterar medicamento: " + e;
         }
@@ -49,7 +49,7 @@ public class MedicamentoCtrl {
         try {
             db.medicamentoDao().delete(medicamento);
 
-            return "Medicamento excluída com sucesso";
+            return "Medicamento excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir medicamento: " + e;
         }

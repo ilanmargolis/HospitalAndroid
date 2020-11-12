@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,8 @@ public class UnidadeAdapter extends RecyclerView.Adapter<com.example.hospital.ad
 
     @Override
     public void onBindViewHolder(@NonNull UnidadeHolder holder, int i) {
-        holder.tvUnidade.setText(unidadeList.get(i).getNome());
+        holder.tvAdapterUnidadeNome.setText(unidadeList.get(i).getNome());
+        holder.tvAdapterUnidadeTelefone.setText(unidadeList.get(i).getTelefone());
     }
 
     @Override
@@ -48,18 +50,23 @@ public class UnidadeAdapter extends RecyclerView.Adapter<com.example.hospital.ad
     }
 
     public class UnidadeHolder extends RecyclerView.ViewHolder {
-        TextView tvUnidade;
+        TextView tvAdapterUnidadeNome, tvAdapterUnidadeTelefone;
+        LinearLayout llUnidade;
 
         public UnidadeHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvUnidade = (TextView) itemView.findViewById(R.id.tvUnidade);
+            tvAdapterUnidadeNome = (TextView) itemView.findViewById(R.id.tvAdapterUnidadeNome);
+            tvAdapterUnidadeTelefone = (TextView) itemView.findViewById(R.id.tvAdapterUnidadeTelefone);
+            llUnidade = (LinearLayout) itemView.findViewById(R.id.llUnidade);
 
-            tvUnidade.setOnClickListener(new View.OnClickListener() {
+            llUnidade.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Unidade unidade = unidadeList.get(getAdapterPosition());
+
                     Intent intent = new Intent(context, UnidadeDadosActivity.class);
-                    intent.putExtra("unidade", (Serializable) unidadeList.get(getAdapterPosition()));
+                    intent.putExtra("unidade", (Serializable) unidade);
                     context.startActivity(intent);
                 }
             });

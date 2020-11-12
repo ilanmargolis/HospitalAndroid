@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,7 +40,8 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
 
     @Override
     public void onBindViewHolder(@NonNull LeitoHolder holder, int i) {
-        holder.tvLeito.setText(leitoList.get(i).getCodigo());
+        holder.tvAdapterLeitoNome.setText(leitoList.get(i).getCodigo());
+        holder.tvAdapterLeitoUnidade.setText(leitoList.get(i).getUnidade().getNome());
     }
 
     @Override
@@ -48,14 +50,17 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
     }
 
     public class LeitoHolder extends RecyclerView.ViewHolder {
-        TextView tvLeito;
+        TextView tvAdapterLeitoNome, tvAdapterLeitoUnidade;
+        LinearLayout llLeito;
 
         public LeitoHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvLeito = (TextView) itemView.findViewById(R.id.tvLeito);
+            tvAdapterLeitoNome = (TextView) itemView.findViewById(R.id.tvAdapterLeitoNome);
+            tvAdapterLeitoUnidade = (TextView) itemView.findViewById(R.id.tvAdapterLeitoUnidade);
+            llLeito = (LinearLayout) itemView.findViewById(R.id.llLeito);
 
-            tvLeito.setOnClickListener(new View.OnClickListener() {
+            llLeito.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, LeitoDadosActivity.class);

@@ -10,22 +10,22 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
-import retrofit2.http.Query;
+import retrofit2.http.Path;
 
 public interface PacienteService {
 
     @POST("paciente")
     Call<Paciente> create(@Body Paciente paciente);
 
-    @PUT("paciente")
-    Call<Paciente> updatePaciente(@Query("id") long id, @Body Paciente paciente);
+    @PUT("paciente/{id}")
+    Call<Paciente> update(@Path("id") long id, @Body Paciente paciente);
 
     @GET("paciente")
     Call<List<Paciente>> getAll();
 
-    @GET("paciente")
-    Call<Paciente> get(@Query("id") long id);
+    @GET("paciente/{id}")
+    Call<Paciente> get(@Path("id") long id);
 
-    @DELETE("paciente")
-    Call<Paciente> delete(@Query("id") long id);
+    @DELETE("paciente/{id}")
+    Call<Paciente> delete(@Path("id") long id);
 }

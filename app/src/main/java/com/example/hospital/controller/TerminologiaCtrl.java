@@ -70,7 +70,7 @@ public class TerminologiaCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.terminologiaDao().getTerminologia(id);
+            return db.terminologiaDao().get(id);
         } catch (Exception e) {
             return null;
         }
