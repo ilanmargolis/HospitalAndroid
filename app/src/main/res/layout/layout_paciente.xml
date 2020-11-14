@@ -9,7 +9,7 @@
         android:id="@+id/tvPaciente"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="25dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:text="Nome do paciente" />
 
     <View

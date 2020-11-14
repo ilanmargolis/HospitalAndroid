@@ -41,11 +41,37 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llAdminLeito"
+            android:id="@+id/llAdminSetor"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:background="@drawable/corner_round"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_setor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Setores"
+                android:textColor="@color/azul_5"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAdminLeito"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/llAdminUnidade"
+            android:layout_marginTop="50dp"
             android:background="@drawable/corner_round"
             android:orientation="vertical"
             android:padding="10dp">
@@ -64,32 +90,6 @@
                 android:textColor="@color/azul_5"
                 android:textSize="16dp"
                 android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llAdminMedico"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_below="@+id/llAdminUnidade"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/corner_round"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="110dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_medico" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="Médicos"
-                android:textColor="@color/azul_5"
-                android:textSize="16dp"
-                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -97,7 +97,7 @@
             android:id="@+id/llAdminMedicamento"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_below="@+id/llAdminLeito"
+            android:layout_below="@+id/llAdminSetor"
             android:layout_alignParentRight="true"
             android:layout_marginTop="50dp"
             android:background="@drawable/corner_round"
@@ -121,12 +121,11 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/llAdminFuncionario"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_below="@+id/llAdminMedico"
+            android:layout_below="@+id/llAdminLeito"
             android:layout_marginTop="50dp"
             android:background="@drawable/corner_round"
             android:orientation="vertical"
@@ -143,6 +142,34 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Funcionários"
+                android:textColor="@color/azul_5"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAdminMedico"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/llAdminMedicamento"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/corner_round"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_medico" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Medicos"
                 android:textColor="@color/azul_5"
                 android:textSize="16dp"
                 android:textStyle="bold" />

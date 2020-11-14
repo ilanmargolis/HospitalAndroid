@@ -1,23 +1,21 @@
 package com.example.hospital.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
-import com.example.hospital.adapter.UnidadeAdapter;
+import com.example.hospital.adapter.SetorAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
-import com.example.hospital.controller.UnidadeCtrl;
-import com.example.hospital.model.Unidade;
+import com.example.hospital.controller.SetorCtrl;
+import com.example.hospital.model.Setor;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
@@ -28,52 +26,52 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UnidadeActivity extends AppCompatActivity {
+public class SetorActivity extends AppCompatActivity {
 
     private RecyclerView rv;
-    private UnidadeAdapter unidadeAdapter;
+    private SetorAdapter setorAdapter;
     private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_unidade);
+        setContentView(R.layout.activity_setor);
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuAdministrativoActivity.TELA_MENU, getIntent());
 
-        rv = (RecyclerView) findViewById(R.id.rvUnidade);
-        rv.setLayoutManager(new LinearLayoutManager(UnidadeActivity.this));
+        rv = (RecyclerView) findViewById(R.id.rvSetor);
+        rv.setLayoutManager(new LinearLayoutManager(SetorActivity.this));
     }
 
     @Override
     public void onResume() {
 
-        List<Unidade> unidadeList = null;
+        List<Setor> setorList = null;
 
         super.onResume();
 
         if (Utils.hasInternet(this)) {
-//        getAllUnidades(new ResultEvent() {
+//        getAllSetores(new ResultEvent() {
 //            @Override
 //            public <T> void onResult(T result) {
 //                // Quando houver resultado mostre os valores na tela
-//                unidadeList = (List<Unidade>) result;
+//                setorList = (List<Setor>) result;
 ////            }
 //
 //            @Override
 //            public void onFail(String message) {
 //                // Quando houver falha exiba uma mensagem de erro
-//                Toast.makeText(UnidadeActivity.this, message, Toast.LENGTH_LONG).show();
+//                Toast.makeText(SetorActivity.this, message, Toast.LENGTH_LONG).show();
 //            }
 //        });
         } else {
-            unidadeList = new UnidadeCtrl(UnidadeActivity.this).getAll();
+            setorList = new SetorCtrl(SetorActivity.this).getAll();
         }
 
-        unidadeAdapter = new UnidadeAdapter(UnidadeActivity.this, unidadeList);
-        rv.setAdapter(unidadeAdapter);
+        setorAdapter = new SetorAdapter(SetorActivity.this, setorList);
+        rv.setAdapter(setorAdapter);
     }
 
     @Override
@@ -83,7 +81,7 @@ public class UnidadeActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_admin, menu);
 
         // Esconder do menu a atual tela
-        menu.findItem(R.id.action_unidade).setVisible(false);
+        menu.findItem(R.id.action_setor).setVisible(false);
 
         return true;
     }
@@ -93,8 +91,8 @@ public class UnidadeActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.action_add:
-                intent = new Intent(UnidadeActivity.this, UnidadeDadosActivity.class);
-                intent.putExtra("unidade", (Serializable) new Unidade());
+                intent = new Intent(SetorActivity.this, SetorDadosActivity.class);
+                intent.putExtra("setor", (Serializable) new Setor());
                 startActivity(intent);
 
                 return true;
@@ -102,8 +100,8 @@ public class UnidadeActivity extends AppCompatActivity {
             case R.id.action_refresh:
                 onResume();
 
-            case R.id.action_setor:
-                setResult(MenuAdministrativoActivity.TELA_SETOR, getIntent());
+            case R.id.action_unidade:
+                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
             case R.id.action_leito:
@@ -132,22 +130,22 @@ public class UnidadeActivity extends AppCompatActivity {
         }
     }
 
-    private void getAllUnidades(ResultEvent resultEvent) {
+    private void getAllSetores(ResultEvent resultEvent) {
 
-        Call<List<Unidade>> call = new RetrofitConfig().getUnidadeService().getAll();
+        Call<List<Setor>> call = new RetrofitConfig().getSetorService().getAll();
 
-        call.enqueue(new Callback<List<Unidade>>() {
+        call.enqueue(new Callback<List<Setor>>() {
             @Override
-            public void onResponse(Call<List<Unidade>> call, Response<List<Unidade>> response) {
-                List<Unidade> unidadeList = response.body();
+            public void onResponse(Call<List<Setor>> call, Response<List<Setor>> response) {
+                List<Setor> setorList = response.body();
 
-                RoomConfig.getInstance(UnidadeActivity.this).unidadeDao().insertAll(unidadeList);
+                RoomConfig.getInstance(SetorActivity.this).setorDao().insertAll(setorList);
 
-                resultEvent.onResult(unidadeList);
+                resultEvent.onResult(setorList);
             }
 
             @Override
-            public void onFailure(Call<List<Unidade>> call, Throwable t) {
+            public void onFailure(Call<List<Setor>> call, Throwable t) {
                 resultEvent.onFail("Falha na requisição!!!");
             }
         });

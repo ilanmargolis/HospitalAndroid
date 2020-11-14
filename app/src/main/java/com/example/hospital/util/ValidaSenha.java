@@ -1,5 +1,6 @@
 package com.example.hospital.util;
 
+import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -7,13 +8,17 @@ import android.widget.EditText;
 
 import com.example.hospital.R;
 
+import static com.google.android.material.color.MaterialColors.getColor;
+
 public class ValidaSenha implements TextWatcher {
 
+    private Context context;
     private View view;
     private EditText senha;
     private EditText confirma;
 
-    public ValidaSenha(View view, EditText senha, EditText confirma) {
+    public ValidaSenha(Context context, View view, EditText senha, EditText confirma) {
+        this.context = context;
         this.view = view;
         this.senha = senha;
         this.confirma = confirma;
@@ -28,8 +33,17 @@ public class ValidaSenha implements TextWatcher {
         String senhaAux = senha.getText().toString().trim();
         String confirmaAux = confirma.getText().toString().trim();
 
-        view.setEnabled(!senhaAux.equals("") && !confirmaAux.equals("") &&
-                senhaAux.equals(confirmaAux));
+        Boolean habilita = !senhaAux.equals("") &&
+                !confirmaAux.equals("") &&
+                senhaAux.equals(confirmaAux);
+
+        if (habilita) {
+            confirma.setTextColor(context.getColor(R.color.preto));
+        } else {
+            confirma.setTextColor(context.getColor(R.color.vermelho));
+        }
+
+        view.setEnabled(habilita);
     }
 
     @Override

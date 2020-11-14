@@ -4,59 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradiente"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".activities.LoginActivity">
 
-    <EditText
-        android:id="@+id/etUsername"
-        style="@android:style/TextAppearance.Large"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/corner_round"
-        android:hint="@string/prompt_email"
-        android:inputType="textEmailAddress"
-        android:selectAllOnFocus="true" />
 
-    <EditText
-        android:id="@+id/etPassword"
-        style="@android:style/TextAppearance.Large"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/corner_round"
-        android:hint="@string/prompt_password"
-        android:imeOptions="actionDone"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true" />
+        android:layout_height="250dp"
+        android:background="@color/azul_4"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
 
-    <Button
-        android:id="@+id/btLogin"
-        style="@android:style/TextAppearance.Medium"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="64dp"
-        android:background="@drawable/corner_round"
-        android:drawableLeft="@drawable/ic_baseline_login_24"
-        android:enabled="false"
-        android:text="@string/login_button" />
+        <ImageView
+            android:id="@+id/ivCadeado"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tvEsqueceuSenha"
-        style="@android:style/TextAppearance.Medium"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Esqueceu a senha?"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:background="@drawable/gradiente"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/corner_round"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/corner_round"
+            android:hint="@string/prompt_password"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:selectAllOnFocus="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <Button
+            android:id="@+id/btLogin"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="48dp"
+            android:layout_marginBottom="64dp"
+            android:background="@drawable/corner_round"
+            android:drawableLeft="@drawable/ic_baseline_login_24"
+            android:enabled="false"
+            android:text="@string/login_button"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/tvEsqueceuSenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Esqueceu a senha?"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

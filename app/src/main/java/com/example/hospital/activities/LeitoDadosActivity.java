@@ -18,8 +18,10 @@ import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.controller.LeitoCtrl;
+import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Leito;
+import com.example.hospital.model.Setor;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
@@ -34,10 +36,9 @@ import retrofit2.Response;
 public class LeitoDadosActivity extends AppCompatActivity {
 
     private EditText etLeitoCodigo;
-    private Spinner spLeitoUnidade;
+    private Spinner spLeitoUnidade, spLeitoSetor;
     private Button btLeitoOk, btLeitoCancelar;
     private Leito leito;
-    private Unidade unidade;
 
     private String msg = null;
     private final String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
@@ -47,20 +48,21 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leito_dados);
 
         etLeitoCodigo = (EditText) findViewById(R.id.etLeitoCodigo);
         spLeitoUnidade = (Spinner) findViewById(R.id.spLeitoUnidade);
+        spLeitoSetor = (Spinner) findViewById(R.id.spLeitoSetor);
         btLeitoOk = (Button) findViewById(R.id.btLeitoOk);
         btLeitoCancelar = (Button) findViewById(R.id.btLeitoCancelar);
 
         if (!carregaSpinner()) {
-            Toast.makeText(this, "É necessário incluir unidades de atendimento!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
 
             finish();
-        }
-        ;
+        };
 
         preparaDados();
 
@@ -80,7 +82,8 @@ public class LeitoDadosActivity extends AppCompatActivity {
                     }
                 } else { // alteração
                     if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
-                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())) {
+                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())||
+                            !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
 
                         leito.setCodigo(codigoLeito);
 
@@ -114,7 +117,8 @@ public class LeitoDadosActivity extends AppCompatActivity {
         } else { // alteração e exclusão
             etLeitoCodigo.setText(leito.getCodigo());
 
-            spLeitoUnidade.setSelection(Utils.getIndex(spLeitoUnidade, leito.getUnidade().toString()));
+            spLeitoUnidade.setSelection(Utils.getIndex(spLeitoUnidade, leito.getUnidade().getNome()));
+            spLeitoSetor.setSelection(Utils.getIndex(spLeitoSetor, leito.getSetor().getNome()));
         }
     }
 
@@ -146,6 +150,35 @@ public class LeitoDadosActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 leito.setUnidade(null);
+            }
+        });
+
+        List<Setor> setorList = null;
+
+        // Carrega todos os departamentos no spinner
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            setorList = new SetorCtrl(this).getAll();
+        }
+
+        if (setorList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(LeitoDadosActivity.this, android.R.layout.simple_spinner_item, setorList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spLeitoSetor.setAdapter(aa);
+        } else {
+            return false;
+        }
+
+        spLeitoSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                leito.setSetor((Setor) spLeitoSetor.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                leito.setSetor(null);
             }
         });
 

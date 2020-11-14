@@ -44,6 +44,12 @@
             android:name=".activities.UnidadeDadosActivity"
             android:label="Cadastro de unidade" />
         <activity
+            android:name=".activities.SetorActivity"
+            android:label="Lista de setores" />
+        <activity
+            android:name=".activities.SetorDadosActivity"
+            android:label="Cadastro de setor" />
+        <activity
             android:name=".activities.LeitoActivity"
             android:label="Lista de leitos" />
         <activity

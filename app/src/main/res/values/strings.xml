@@ -7,5 +7,6 @@
     <string name="prompt_terminologia">Selecione uma terminologia</string>
     <string name="setor_administrativo">Administrativo</string>
     <string name="setor_recepcao">Recepção</string>
+    <string name="prompt_setor">Slecione o setor</string>
 
 </resources>

@@ -42,6 +42,7 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
     public void onBindViewHolder(@NonNull LeitoHolder holder, int i) {
         holder.tvAdapterLeitoNome.setText(leitoList.get(i).getCodigo());
         holder.tvAdapterLeitoUnidade.setText(leitoList.get(i).getUnidade().getNome());
+        holder.tvAdapterLeitoSetor.setText(leitoList.get(i).getSetor().getNome());
     }
 
     @Override
@@ -50,7 +51,7 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
     }
 
     public class LeitoHolder extends RecyclerView.ViewHolder {
-        TextView tvAdapterLeitoNome, tvAdapterLeitoUnidade;
+        TextView tvAdapterLeitoNome, tvAdapterLeitoUnidade, tvAdapterLeitoSetor;
         LinearLayout llLeito;
 
         public LeitoHolder(@NonNull View itemView) {
@@ -58,6 +59,7 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
 
             tvAdapterLeitoNome = (TextView) itemView.findViewById(R.id.tvAdapterLeitoNome);
             tvAdapterLeitoUnidade = (TextView) itemView.findViewById(R.id.tvAdapterLeitoUnidade);
+            tvAdapterLeitoSetor = (TextView) itemView.findViewById(R.id.tvAdapterLeitoSetor);
             llLeito = (LinearLayout) itemView.findViewById(R.id.llLeito);
 
             llLeito.setOnClickListener(new View.OnClickListener() {

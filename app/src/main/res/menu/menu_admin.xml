@@ -13,12 +13,37 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_setor"
-        android:title="Setor"
+        android:id="@+id/action_unidade"
+        android:title="Cadastro de unidade"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_setor"
+        android:title="Cadastro de setor"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_leito"
+        android:title="Cadastro de leito"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_medicamento"
+        android:title="Cadastro de medicamento"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_funcionario"
+        android:title="Cadastro de funcionário"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_medico"
+        android:title="Cadastro de médico"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_logoff"
-        android:icon="@drawable/ic_baseline_login_24"
         android:title="Logoff"
         app:showAsAction="never" />
 

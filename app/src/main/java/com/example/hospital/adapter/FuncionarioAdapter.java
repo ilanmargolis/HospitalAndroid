@@ -40,17 +40,11 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull FuncionarioHolder holder, int i) {
-        int setor = funcionarioList.get(i).getSetor();
 
         holder.tvAdapterFuncionarioNome.setText(funcionarioList.get(i).getNome());
+        holder.tvAdapterFuncionarioSetor.setText(funcionarioList.get(i).getSetor().getNome().substring(0, 5));
 
-        if (setor >= 0) {
-            holder.tvAdapterFuncionarioSetor.setText(Funcionario.getSetorTipo(setor).substring(0, 5));
-
-            if (setor == 0) {
-                holder.tvAdapterFuncionarioSetor.setTextColor(context.getColor(R.color.vermelho));
-            }
-        }
+//                holder.tvAdapterFuncionarioSetor.setTextColor(context.getColor(R.color.vermelho));
     }
 
     @Override

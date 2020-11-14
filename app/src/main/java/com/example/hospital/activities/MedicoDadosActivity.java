@@ -59,8 +59,8 @@ public class MedicoDadosActivity extends AppCompatActivity {
         btMedicoOk = (Button) findViewById(R.id.btMedicoOk);
         btMedicoCancelar = (Button) findViewById(R.id.btMedicoCancelar);
 
-        etMedicoSenha.addTextChangedListener(new ValidaSenha(btMedicoOk, etMedicoSenha, etMedicoConfirmaSenha));
-        etMedicoConfirmaSenha.addTextChangedListener(new ValidaSenha(btMedicoOk, etMedicoSenha, etMedicoConfirmaSenha));
+        etMedicoSenha.addTextChangedListener(new ValidaSenha(this, btMedicoOk, etMedicoSenha, etMedicoConfirmaSenha));
+        etMedicoConfirmaSenha.addTextChangedListener(new ValidaSenha(this, btMedicoOk, etMedicoSenha, etMedicoConfirmaSenha));
 
         carregaSpinner();
 

@@ -39,6 +39,9 @@ public class FuncionarioActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_funcionario);
 
+        // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
+        setResult(MenuAdministrativoActivity.TELA_MENU, getIntent());
+
         rv = (RecyclerView) findViewById(R.id.rvFuncionario);
         rv.setLayoutManager(new LinearLayoutManager(FuncionarioActivity.this));
     }
@@ -76,7 +79,10 @@ public class FuncionarioActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_generic, menu);
+        menuInflater.inflate(R.menu.menu_admin, menu);
+
+        // Esconder do menu a atual tela
+        menu.findItem(R.id.action_funcionario).setVisible(false);
 
         return true;
     }
@@ -94,6 +100,30 @@ public class FuncionarioActivity extends AppCompatActivity {
 
             case R.id.action_refresh:
                 onResume();
+
+            case R.id.action_unidade:
+                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
+                finish();
+
+            case R.id.action_setor:
+                setResult(MenuAdministrativoActivity.TELA_SETOR, getIntent());
+                finish();
+
+            case R.id.action_leito:
+                setResult(MenuAdministrativoActivity.TELA_LEITO, getIntent());
+                finish();
+
+            case R.id.action_medicamento:
+                setResult(MenuAdministrativoActivity.TELA_MEDICAMENTO, getIntent());
+                finish();
+
+            case R.id.action_medico:
+                setResult(MenuAdministrativoActivity.TELA_MEDICO, getIntent());
+                finish();
+
+            case R.id.action_logoff:
+                setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
+                finish();
 
             default:
                 return super.onOptionsItemSelected(item);

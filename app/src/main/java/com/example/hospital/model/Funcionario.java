@@ -1,7 +1,6 @@
 package com.example.hospital.model;
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ public class Funcionario extends Usuario implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
-    private int setor;
+    private Setor setor;
 
     public Funcionario() {
         super();
@@ -21,7 +20,7 @@ public class Funcionario extends Usuario implements Serializable {
         super(nome, email, senha);
     }
 
-    public Funcionario(String nome, String email, String senha, int setor) {
+    public Funcionario(String nome, String email, String senha, Setor setor) {
         super(nome, email, senha);
         this.setor = setor;
     }
@@ -39,19 +38,12 @@ public class Funcionario extends Usuario implements Serializable {
         this.id = id;
     }
 
-    public int getSetor() {
+    public Setor getSetor() {
         return setor;
     }
 
-    public void setSetor(int setor) {
+    public void setSetor(Setor setor) {
         this.setor = setor;
-    }
-
-    @Ignore
-    public static String getSetorTipo(int setor) {
-        String setorTipo[] = {"Administrativo", "Recepção"};
-
-        return setorTipo[setor];
     }
 
     @Override

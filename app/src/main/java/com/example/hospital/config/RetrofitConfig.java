@@ -6,6 +6,7 @@ import com.example.hospital.service.LeitoService;
 import com.example.hospital.service.MedicamentoService;
 import com.example.hospital.service.MedicoService;
 import com.example.hospital.service.PacienteService;
+import com.example.hospital.service.SetorService;
 import com.example.hospital.service.TerminologiaService;
 import com.example.hospital.service.UnidadeService;
 
@@ -29,6 +30,10 @@ public class RetrofitConfig {
 
     public LeitoService getLeitoService() {
         return retrofit.create(LeitoService.class);
+    }
+
+    public SetorService getSetorService() {
+        return retrofit.create(SetorService.class);
     }
 
     public PacienteService getPacienteService() {

@@ -39,6 +39,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 boolean bAtivar = email.length() > 7 &&
                                   email.indexOf('@') > -1 && email.indexOf('.') > -1;
                 btRecuperarEnviar.setEnabled(bAtivar);
+
                 if (bAtivar) {
                     etRecuperarEmail.setTextColor(getResources().getColor(R.color.preto));
                 } else {
@@ -58,6 +59,8 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 Toast.makeText(RecuperarSenhaActivity.this,
                         "Enviamos um e-mail com as instruções para recuperar o seu acesso ao sistema!",
                         Toast.LENGTH_LONG).show();
+
+                finish();
             }
         });
     }

@@ -9,6 +9,7 @@ import com.example.hospital.model.Leito;
 import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
+import com.example.hospital.model.Setor;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.model.Unidade;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -38,6 +39,29 @@ public class Converters {
         Unidade arr = new Unidade();
         try {
             arr = objectMapper.readValue(value, Unidade.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return arr;
+    }
+
+    @TypeConverter // Converter um tipo em uma string
+    public static String listToJson(Setor value) {
+        objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{'Error':'Convert error'}";
+        }
+    }
+
+    @TypeConverter //Converter uma string em um tipo
+    public static Setor jsonToListSetor(String value) {
+        objectMapper = new ObjectMapper();
+        Setor arr = new Setor();
+        try {
+            arr = objectMapper.readValue(value, Setor.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

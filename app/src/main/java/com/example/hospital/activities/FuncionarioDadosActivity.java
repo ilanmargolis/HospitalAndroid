@@ -7,10 +7,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,11 +21,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.controller.FuncionarioCtrl;
+import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Funcionario;
+import com.example.hospital.model.Setor;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 import com.example.hospital.util.ValidaSenha;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +40,7 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
     private EditText etFuncionarioNome, etFuncionarioEmail, etFuncionarioSenha, etFuncionarioConfirmaSenha;
     private RadioButton rbFuncionarioAdmin, rbFuncionarioRecep;
     private Button btFuncionarioOk, btFuncionarioCancelar;
+    private Spinner spFuncionarioSetor;
     private Funcionario funcionario;
     private byte setor = -1;
 
@@ -51,31 +59,21 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
         etFuncionarioEmail = (EditText) findViewById(R.id.etFuncionarioEmail);
         etFuncionarioSenha = (EditText) findViewById(R.id.etFuncionarioSenha);
         etFuncionarioConfirmaSenha = (EditText) findViewById(R.id.etFuncionarioConfirmaSenha);
-        rbFuncionarioAdmin = (RadioButton) findViewById(R.id.rbFuncionarioAdmin);
-        rbFuncionarioRecep = (RadioButton) findViewById(R.id.rbFuncionarioRecep);
+        spFuncionarioSetor = (Spinner) findViewById(R.id.spFuncionarioSetor);
         btFuncionarioOk = (Button) findViewById(R.id.btFuncionarioOk);
         btFuncionarioCancelar = (Button) findViewById(R.id.btFuncionarioCancelar);
 
         // Habilia o btFuncionarioOk caso a senha seja digitada corretamente
-        etFuncionarioSenha.addTextChangedListener(new ValidaSenha(btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
-        etFuncionarioConfirmaSenha.addTextChangedListener(new ValidaSenha(btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
+        etFuncionarioSenha.addTextChangedListener(new ValidaSenha(this, btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
+        etFuncionarioConfirmaSenha.addTextChangedListener(new ValidaSenha(this, btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
 
-        funcionario = (Funcionario) getIntent().getSerializableExtra("funcionario");
+        if (!carregaSpinner()) {
+            Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
 
-        if (funcionario.getId() == 0) { // inclusão
+            finish();
+        };
 
-        } else { // alteração e exclusão
-            etFuncionarioNome.setText(funcionario.getNome());
-            etFuncionarioEmail.setText(funcionario.getEmail());
-            etFuncionarioSenha.setText(funcionario.getSenha());
-            etFuncionarioConfirmaSenha.setText(funcionario.getSenha());
-
-            if (funcionario.getSetor() == 0) {
-                rbFuncionarioAdmin.setChecked(true);
-            } else {
-                rbFuncionarioRecep.setChecked(true);
-            }
-        }
+        preparaDados();
 
         btFuncionarioOk.setOnClickListener(new View.OnClickListener() {
 
@@ -89,7 +87,6 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
                         funcionario.setNome(nomeFuncionario);
                         funcionario.setEmail(etFuncionarioEmail.getText().toString().trim());
                         funcionario.setSenha(etFuncionarioSenha.getText().toString().trim());
-                        funcionario.setSetor(setor);
 
                         opcaoCrud(CRUD_INC);
                     } else {
@@ -99,12 +96,11 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
                     if (!funcionario.getNome().equals(etFuncionarioNome.getText().toString().trim()) ||
                             !funcionario.getEmail().equals(etFuncionarioEmail.getText().toString().trim()) ||
                             (funcionario.getSenha() != null && !funcionario.getSenha().equals(etFuncionarioSenha.getText().toString().trim())) ||
-                            funcionario.getSetor() != setor) {
+                            !funcionario.getSetor().toString().equals(spFuncionarioSetor.toString())) {
 
                         funcionario.setNome(nomeFuncionario);
                         funcionario.setEmail(etFuncionarioEmail.getText().toString().trim());
                         funcionario.setSenha(etFuncionarioSenha.getText().toString().trim());
-                        funcionario.setSetor(setor);
 
                         opcaoCrud(CRUD_UPD);
                     } else {
@@ -125,6 +121,54 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private boolean carregaSpinner() {
+        List<Setor> setorList = null;
+
+        // Carrega todos os departamentos no spinner
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            setorList = new SetorCtrl(this).getAll();
+        }
+
+        if (setorList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(FuncionarioDadosActivity.this, android.R.layout.simple_spinner_item, setorList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spFuncionarioSetor.setAdapter(aa);
+        } else {
+            return false;
+        }
+
+        spFuncionarioSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                funcionario.setSetor((Setor) spFuncionarioSetor.getItemAtPosition(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                funcionario.setSetor(null);
+            }
+        });
+
+        return true;
+    }
+
+    private void preparaDados() {
+        funcionario = (Funcionario) getIntent().getSerializableExtra("funcionario");
+
+        if (funcionario.getId() == 0) { // inclusão
+
+        } else { // alteração e exclusão
+            etFuncionarioNome.setText(funcionario.getNome());
+            etFuncionarioEmail.setText(funcionario.getEmail());
+            etFuncionarioSenha.setText(funcionario.getSenha());
+            etFuncionarioConfirmaSenha.setText(funcionario.getSenha());
+
+            spFuncionarioSetor.setSelection(Utils.getIndex(spFuncionarioSetor, funcionario.getSetor().getNome()));
+        }
     }
 
     @Override
@@ -211,25 +255,4 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
             }
         });
     }
-
-    public void onRadioButtonClickSetor(View view) {
-
-        boolean checked = ((RadioButton) view).isChecked();
-
-        switch (view.getId()) {
-            case R.id.rbFuncionarioAdmin:
-                if (checked) {
-                    setor = 0;
-                }
-
-                break;
-            case R.id.rbFuncionarioRecep:
-                if (checked) {
-                    setor = 1;
-                }
-
-                break;
-        }
-    }
-
 }

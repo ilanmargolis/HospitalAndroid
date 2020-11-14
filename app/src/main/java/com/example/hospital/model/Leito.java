@@ -12,19 +12,22 @@ public class Leito implements Serializable {
     private long id;
     private String codigo;
     private Unidade unidade;
+    private Setor setor;
 
     public Leito() {
     }
 
-    public Leito(String codigo, Unidade unidade) {
+    public Leito(String codigo, Unidade unidade, Setor setor) {
         this.codigo = codigo;
         this.unidade = unidade;
+        this.setor = setor;
     }
 
     public Leito(Leito l) {
         this.id = l.id;
         this.codigo = l.codigo;
         this.unidade = l.unidade;
+        this.setor = l.setor;
     }
 
     public long getId() {
@@ -49,6 +52,14 @@ public class Leito implements Serializable {
 
     public void setUnidade(Unidade unidade) {
         this.unidade = unidade;
+    }
+
+    public Setor getSetor() {
+        return setor;
+    }
+
+    public void setSetor(Setor setor) {
+        this.setor = setor;
     }
 
     @Override

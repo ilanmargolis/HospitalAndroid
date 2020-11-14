@@ -8,92 +8,51 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".activities.FuncionarioDadosActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nome do funcionário" />
-
-    <EditText
-        android:id="@+id/etFuncionarioNome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corner_round"
-        android:hint="Insira o nome do funcionario" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="E-mail" />
-
-    <EditText
-        android:id="@+id/etFuncionarioEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corner_round"
-        android:hint="Insira o e-mail do funcionário"
-        android:inputType="textEmailAddress" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Setor"/>
-
-    <Spinner
-        android:id="@+id/spFuncionarioSetor"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="@drawable/corner_round"
-        android:prompt="@string/prompt_setor" />
+    tools:context=".activities.SetorDadosActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="fill_horizontal"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_weight="2"
+            android:layout_marginRight="10dp"
+            android:layout_weight="4"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvFuncionarioSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Senha" />
+                android:text="Nome do setor" />
 
             <EditText
-                android:id="@+id/etFuncionarioSenha"
+                android:id="@+id/etSetorNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_round"
-                android:hint="Insira a senha"
-                android:inputType="textPassword" />
+                android:hint="Insira o nome do setor" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvFuncionarioConfirmaSenha"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirmação" />
+                android:text="Ramal" />
 
             <EditText
-                android:id="@+id/etFuncionarioConfirmaSenha"
+                android:id="@+id/etSetorRamal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_round"
-                android:hint="Confirmar da senha"
-                android:inputType="textPassword" />
+                android:hint="Insira o ramal" />
         </LinearLayout>
 
     </LinearLayout>
@@ -106,16 +65,16 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btFuncionarioOk"
+            android:id="@+id/btSetorOk"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:backgroundTint="@color/azul_5"
             android:drawableLeft="@drawable/ic_baseline_check_24"
-            android:enabled="false"
             android:text="Alterar" />
 
         <Button
-            android:id="@+id/btFuncionarioCancelar"
+            android:id="@+id/btSetorCancelar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

@@ -15,6 +15,7 @@ import com.example.hospital.dao.LeitoDao;
 import com.example.hospital.dao.MedicamentoDao;
 import com.example.hospital.dao.MedicoDao;
 import com.example.hospital.dao.PacienteDao;
+import com.example.hospital.dao.SetorDao;
 import com.example.hospital.dao.TerminologiaDao;
 import com.example.hospital.dao.UnidadeDao;
 import com.example.hospital.model.Cbos;
@@ -26,11 +27,12 @@ import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
 import com.example.hospital.model.Prescreve;
+import com.example.hospital.model.Setor;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.model.Unidade;
 
 @Database(entities = {Cbos.class, Conselho.class, Funcionario.class, Internado.class, Leito.class,
-        Medicamento.class, Medico.class, Paciente.class, Prescreve.class, Terminologia.class,
+        Medicamento.class, Medico.class, Paciente.class, Prescreve.class, Setor.class, Terminologia.class,
         Unidade.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class RoomConfig extends RoomDatabase {
@@ -53,6 +55,8 @@ public abstract class RoomConfig extends RoomDatabase {
     public abstract UnidadeDao unidadeDao();
 
     public abstract LeitoDao leitoDao();
+
+    public abstract SetorDao setorDao();
 
     public abstract MedicoDao medicoDao();
 
