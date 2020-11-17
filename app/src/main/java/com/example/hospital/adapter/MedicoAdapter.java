@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hospital.R;
 import com.example.hospital.activities.MedicoDadosActivity;
 import com.example.hospital.model.Medico;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.MedicoHold
     private Context context;
     private List<Medico> medicoList;
     private final LayoutInflater layoutInflater;
+    private LinearLayout llMedico;
 
     public MedicoAdapter(Context context, List<Medico> medicoList) {
         this.context = context;
@@ -40,6 +42,9 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.MedicoHold
 
     @Override
     public void onBindViewHolder(@NonNull MedicoHolder holder, int i) {
+
+        llMedico.setBackgroundColor(Utils.zebrarGrid(context, i));
+
         holder.tvAdapterMedicoNome.setText(medicoList.get(i).getNome());
         holder.tvAdapterMedicoCbos.setText(medicoList.get(i).getCbos().getDescricao());
     }
@@ -51,7 +56,6 @@ public class MedicoAdapter extends RecyclerView.Adapter<MedicoAdapter.MedicoHold
 
     public class MedicoHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterMedicoNome, tvAdapterMedicoCbos;
-        LinearLayout llMedico;
 
         public MedicoHolder(@NonNull View itemView) {
             super(itemView);

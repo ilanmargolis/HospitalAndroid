@@ -2,48 +2,48 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_admin_add"
         android:icon="@drawable/ic_baseline_add_circle_24"
         android:title="Add"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_admin_refresh"
         android:icon="@drawable/ic_baseline_refresh_24"
         android:title="Refresh"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_unidade"
+        android:id="@+id/action_admin_unidade"
         android:title="Cadastro de unidade"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_setor"
+        android:id="@+id/action_admin_setor"
         android:title="Cadastro de setor"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_leito"
+        android:id="@+id/action_admin_leito"
         android:title="Cadastro de leito"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_medicamento"
+        android:id="@+id/action_admin_medicamento"
         android:title="Cadastro de medicamento"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_funcionario"
+        android:id="@+id/action_admin_funcionario"
         android:title="Cadastro de funcionário"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_medico"
+        android:id="@+id/action_admin_medico"
         android:title="Cadastro de médico"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_logoff"
+        android:id="@+id/action_admin_logoff"
         android:title="Logoff"
         app:showAsAction="never" />
 

@@ -12,8 +12,8 @@ public class Paciente extends Usuario implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String cpf = null;
-    private Date dataNascimento = null;
-    private Character sexo = null;
+    private Date dataNascimento;
+    private Character sexo = ' ';
 
     public Paciente() {
         super();

@@ -57,6 +57,13 @@
 
     </LinearLayout>
 
+    <CheckBox
+        android:id="@+id/cbSetorGeraLeitos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:text="setor gera leitos"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

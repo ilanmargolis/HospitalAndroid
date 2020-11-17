@@ -74,6 +74,12 @@
             android:name=".activities.FuncionarioDadosActivity"
             android:label="Cadastro de funcionário" />
         <activity
+            android:name=".activities.InternarActivity"
+            android:label="Internar paciente" />
+        <activity
+            android:name=".activities.InternarDadosActivity"
+            android:label="Internamento de paciente" />
+        <activity
             android:name=".activities.PacienteActivity"
             android:label="Lista de pacientes" />
         <activity

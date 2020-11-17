@@ -65,6 +65,17 @@ public class SetorCtrl {
         }
     }
 
+    public List<Setor> getGeraLeito(){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.setorDao().getGeraLeito();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Setor get(int id){
 
         RoomConfig db = RoomConfig.getInstance(context);
@@ -75,4 +86,6 @@ public class SetorCtrl {
             return null;
         }
     }
+
+
 }

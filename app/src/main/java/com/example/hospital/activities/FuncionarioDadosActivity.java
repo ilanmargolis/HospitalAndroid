@@ -63,7 +63,7 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
         btFuncionarioOk = (Button) findViewById(R.id.btFuncionarioOk);
         btFuncionarioCancelar = (Button) findViewById(R.id.btFuncionarioCancelar);
 
-        // Habilia o btFuncionarioOk caso a senha seja digitada corretamente
+        // Habilita o btFuncionarioOk caso a senha seja digitada corretamente
         etFuncionarioSenha.addTextChangedListener(new ValidaSenha(this, btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
         etFuncionarioConfirmaSenha.addTextChangedListener(new ValidaSenha(this, btFuncionarioOk, etFuncionarioSenha, etFuncionarioConfirmaSenha));
 

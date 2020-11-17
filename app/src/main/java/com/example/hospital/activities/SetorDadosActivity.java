@@ -6,6 +6,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class SetorDadosActivity extends AppCompatActivity {
 
     private EditText etSetorNome, etSetorRamal;
+    private CheckBox cbSetorGeraLeitos;
     private Button btSetorOk, btSetorCancelar;
     private Setor setor;
 
@@ -41,6 +43,7 @@ public class SetorDadosActivity extends AppCompatActivity {
 
         etSetorNome = (EditText) findViewById(R.id.etSetorNome);
         etSetorRamal = (EditText) findViewById(R.id.etSetorRamal);
+        cbSetorGeraLeitos = (CheckBox) findViewById(R.id.cbSetorGeraLeitos);
         btSetorOk = (Button) findViewById(R.id.btSetorOk);
         btSetorCancelar = (Button) findViewById(R.id.btSetorCancelar);
 
@@ -52,6 +55,7 @@ public class SetorDadosActivity extends AppCompatActivity {
             setor = new SetorCtrl(SetorDadosActivity.this).get(setor.getId());
             etSetorNome.setText(setor.getNome());
             etSetorRamal.setText(setor.getRamal());
+            cbSetorGeraLeitos.setChecked(setor.isGeraLeito());
         }
 
         btSetorOk.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +69,7 @@ public class SetorDadosActivity extends AppCompatActivity {
 
                         setor.setNome(nomeUnidade);
                         setor.setRamal(etSetorRamal.getText().toString());
+                        setor.setGeraLeito(cbSetorGeraLeitos.isChecked());
 
                         opcaoCrud(CRUD_INC);
                     } else {
@@ -72,10 +77,12 @@ public class SetorDadosActivity extends AppCompatActivity {
                     }
                 } else { // alteração
                     if (!setor.getNome().equalsIgnoreCase(etSetorNome.getText().toString().trim()) ||
-                            !setor.getRamal().equals(etSetorRamal.getText().toString().trim())) {
+                            !setor.getRamal().equals(etSetorRamal.getText().toString().trim()) ||
+                            setor.isGeraLeito() != cbSetorGeraLeitos.isChecked()) {
 
                         setor.setNome(nomeUnidade);
                         setor.setRamal(etSetorRamal.getText().toString().trim());
+                        setor.setGeraLeito(cbSetorGeraLeitos.isChecked());
 
                         opcaoCrud(CRUD_UPD);
                     } else {

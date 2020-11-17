@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <item
-        android:id="@+id/action_add"
+        android:id="@+id/action_recep_add"
         android:icon="@drawable/ic_baseline_add_circle_24"
         android:title="Add"
         app:showAsAction="ifRoom" />
+
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_recep_refresh"
         android:icon="@drawable/ic_baseline_refresh_24"
         android:title="Refresh"
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_setor"
-        android:title="Setor"
+        android:id="@+id/action_recep_internamento"
+        android:title="Internamento"
         app:showAsAction="never" />
+
     <item
-        android:id="@+id/action_logoff"
-        android:icon="@drawable/ic_baseline_login_24"
+        android:id="@+id/action_recep_transferencia"
+        android:title="Transferência de leito"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_recep_previsao"
+        android:title="Previsão de alta"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_recep_logoff"
         android:title="Logoff"
         app:showAsAction="never" />
 

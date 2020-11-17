@@ -77,4 +77,14 @@ public class PacienteCtrl {
         }
     }
 
+    public Paciente getByCpf(String cpf){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.pacienteDao().getByCpf(cpf);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

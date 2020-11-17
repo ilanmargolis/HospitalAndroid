@@ -5,9 +5,10 @@
     <color name="azul_3">#58a2e1</color>
     <color name="azul_2">#7ac2ff</color>
     <color name="azul_1">#c7e5ff</color>
-    <color name="preto">#000000</color>
     <color name="cinza_3">#707070</color>
     <color name="cinza_2">#848484</color>
-    <color name="cinza_1">#dfdfdf</color>
+    <color name="cinza_1">#afafaf</color>
+    <color name="branco">#ffffff</color>
+    <color name="preto">#000000</color>
     <color name="vermelho">#981000</color>
 </resources>

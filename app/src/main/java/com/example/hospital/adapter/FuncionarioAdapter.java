@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hospital.R;
 import com.example.hospital.activities.FuncionarioDadosActivity;
 import com.example.hospital.model.Funcionario;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     private Context context;
     private List<Funcionario> funcionarioList;
     private final LayoutInflater layoutInflater;
+    private LinearLayout llFuncionario;
 
     public FuncionarioAdapter(Context context, List<Funcionario> funcionarioList) {
         this.context = context;
@@ -41,10 +43,10 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
     @Override
     public void onBindViewHolder(@NonNull FuncionarioHolder holder, int i) {
 
+        llFuncionario.setBackgroundColor(Utils.zebrarGrid(context, i));
+
         holder.tvAdapterFuncionarioNome.setText(funcionarioList.get(i).getNome());
         holder.tvAdapterFuncionarioSetor.setText(funcionarioList.get(i).getSetor().getNome().substring(0, 5));
-
-//                holder.tvAdapterFuncionarioSetor.setTextColor(context.getColor(R.color.vermelho));
     }
 
     @Override
@@ -54,7 +56,6 @@ public class FuncionarioAdapter extends RecyclerView.Adapter<FuncionarioAdapter.
 
     public class FuncionarioHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterFuncionarioNome, tvAdapterFuncionarioSetor;
-        LinearLayout llFuncionario;
 
         public FuncionarioHolder(@NonNull View itemView) {
             super(itemView);

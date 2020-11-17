@@ -12,19 +12,22 @@ public class Setor implements Serializable {
     private int id;
     private String nome;
     private String ramal;
+    private boolean geraLeito;
 
     public Setor() {
     }
 
-    public Setor(String nome, String ramal) {
+    public Setor(String nome, String ramal, boolean geraLeito) {
         this.nome = nome;
         this.ramal = ramal;
+        this.geraLeito = geraLeito;
     }
 
     public Setor(Setor u) {
         this.id = u.id;
         this.nome = u.nome;
         this.ramal = u.ramal;
+        this.geraLeito = u.geraLeito;
     }
 
     public int getId() {
@@ -49,6 +52,14 @@ public class Setor implements Serializable {
 
     public void setRamal(String ramal) {
         this.ramal = ramal;
+    }
+
+    public boolean isGeraLeito() {
+        return geraLeito;
+    }
+
+    public void setGeraLeito(boolean geraLeito) {
+        this.geraLeito = geraLeito;
     }
 
     @Override

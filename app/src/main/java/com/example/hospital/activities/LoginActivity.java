@@ -5,15 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -27,22 +23,14 @@ import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.hospital.R;
-import com.example.hospital.controller.CbosCtrl;
-import com.example.hospital.controller.ConselhoCtrl;
 import com.example.hospital.controller.FuncionarioCtrl;
 import com.example.hospital.controller.MedicoCtrl;
 import com.example.hospital.controller.PacienteCtrl;
-import com.example.hospital.controller.TerminologiaCtrl;
-import com.example.hospital.model.Cbos;
-import com.example.hospital.model.Conselho;
 import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
-import com.example.hospital.model.Terminologia;
 import com.example.hospital.model.Usuario;
-import com.example.hospital.util.Utils;
 
-import java.io.File;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
@@ -89,14 +77,17 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
 
-                    ativaIntent();
+                    mostraAnimacao(true);
                 } else if (user.equals("admin@admin.com") && pass.equals("admin")) {
 
                     intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);
 
-                    ativaIntent();
+                    mostraAnimacao(true);
 
                 } else {
+
+                    mostraAnimacao(false);
+
                     Toast.makeText(LoginActivity.this, "Usuário e/ou senha não conferem!", Toast.LENGTH_LONG).show();
                 }
             }
@@ -111,7 +102,26 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void ativaIntent() {
+    private void mostraAnimacao(boolean abrirActivity) {
+
+        int id = 0;
+        int loop = 1;
+
+        try {
+            if (abrirActivity) {
+                id = R.drawable.class.getField("cadeado_aberto").getInt(null);
+                loop = 1;
+            } else {
+                id = R.drawable.class.getField("cadeado_fechado").getInt(null);
+                loop = 2;
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        int finalLoop = loop;
 
         Glide.with(LoginActivity.this)
                 .asGif()
@@ -127,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                         ivCadeado.setVisibility(View.VISIBLE);
                         btLogin.setEnabled(false);
 
-                        resource.setLoopCount(1);
+                        resource.setLoopCount(finalLoop);
 
                         resource.registerAnimationCallback(new Animatable2Compat.AnimationCallback() {
                             @Override
@@ -135,14 +145,16 @@ public class LoginActivity extends AppCompatActivity {
                                 //do whatever after specified number of loops complete
                                 ivCadeado.setVisibility(View.INVISIBLE);
 
-                                startActivity(intent);
+                                if (abrirActivity) {
+                                    startActivity(intent);
+                                }
                             }
                         });
 
                         return false;
                     }
                 })
-                .load(R.drawable.cadeado)
+                .load(id)
                 .into(ivCadeado);
     }
 
@@ -179,6 +191,8 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername.setText(null);
         etPassword.setText(null);
+
+        etUsername.requestFocus();
     }
 
     private class ValidarLogin implements TextWatcher {

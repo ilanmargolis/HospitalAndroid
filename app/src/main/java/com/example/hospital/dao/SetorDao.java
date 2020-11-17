@@ -26,6 +26,9 @@ public interface SetorDao {
     @Query("SELECT * FROM Setor")
     public List<Setor> getAll();
 
+    @Query("SELECT * FROM Setor WHERE geraLeito = 1")
+    public List<Setor> getGeraLeito();
+
     @Query("SELECT * FROM Setor WHERE id = :id")
     public Setor get(int id);
 

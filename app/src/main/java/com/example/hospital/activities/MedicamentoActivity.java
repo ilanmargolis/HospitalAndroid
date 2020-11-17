@@ -83,7 +83,7 @@ public class MedicamentoActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_admin, menu);
 
         // Esconder do menu a atual tela
-        menu.findItem(R.id.action_medicamento).setVisible(false);
+        menu.findItem(R.id.action_admin_medicamento).setVisible(false);
 
         return true;
     }
@@ -92,37 +92,37 @@ public class MedicamentoActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_add:
+            case R.id.action_admin_add:
                 intent = new Intent(MedicamentoActivity.this, MedicamentoDadosActivity.class);
                 intent.putExtra("medicamento", (Serializable) new Medicamento());
                 startActivity(intent);
 
                 return true;
 
-            case R.id.action_refresh:
+            case R.id.action_admin_refresh:
                 onResume();
 
-            case R.id.action_unidade:
+            case R.id.action_admin_unidade:
                 setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
-            case R.id.action_setor:
+            case R.id.action_admin_setor:
                 setResult(MenuAdministrativoActivity.TELA_SETOR, getIntent());
                 finish();
 
-            case R.id.action_leito:
+            case R.id.action_admin_leito:
                 setResult(MenuAdministrativoActivity.TELA_LEITO, getIntent());
                 finish();
 
-            case R.id.action_funcionario:
+            case R.id.action_admin_funcionario:
                 setResult(MenuAdministrativoActivity.TELA_FUNCIONARIO, getIntent());
                 finish();
 
-            case R.id.action_medico:
+            case R.id.action_admin_medico:
                 setResult(MenuAdministrativoActivity.TELA_MEDICO, getIntent());
                 finish();
 
-            case R.id.action_logoff:
+            case R.id.action_admin_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();
 

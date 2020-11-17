@@ -8,13 +8,11 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.hospital.model.Leito;
-import com.example.hospital.model.Setor;
-import com.example.hospital.model.Unidade;
 
 import java.util.List;
 
 @Dao
-public interface LeitoDao {
+public interface InternarDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public void insertAll(List<Leito> leitoList);
@@ -28,13 +26,8 @@ public interface LeitoDao {
     @Query("SELECT * FROM Leito")
     public List<Leito> getAll();
 
-    @Query("SELECT * FROM Leito WHERE id = :id")
-    public Leito getLeito(long id);
-
-    @Query("SELECT L.* FROM leito L " +
-           "INNER JOIN unidade U ON U.id = :unidade_id and L.unidadeid = U.id " +
-           "INNER JOIN setor S ON S.id = :setor_id and L.setorid = S.id")
-    public List<Leito> getLeitoUnidadeSetor(long unidade_id, long setor_id);
+    @Query("SELECT * FROM Internado I, Unidade U, Setor S WHERE U.id = :unidade_id and S.id = :setor")
+    public Leito getLeito(long unidade_id, long setor_id);
 
     @Delete
     public void delete(Leito leito);

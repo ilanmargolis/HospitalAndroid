@@ -7,6 +7,8 @@ import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Spinner;
 
+import com.example.hospital.R;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -65,22 +67,26 @@ public class Utils {
 
     public static boolean isCPFValido(String cpf) {
 
-        // retira os pontos e hífem
-        cpf = cpf.replace(".", "").replace("-", "");
+        String cpfAux = "";
 
-        // CPF sem o digito verificador
-        String cpfAux = cpf.substring(0, 9);
+        if (cpf.length() == 14) {
+            // retira os pontos e hífem
+            cpf = cpf.replace(".", "").replace("-", "");
 
-        for (int j = 0; j < 2; j++) {
-            int soma = 0;
+            // CPF sem o digito verificador
+            cpfAux = cpf.substring(0, 9);
 
-            for (int i = 0; i < cpfAux.length(); i++) {
-                soma += Integer.parseInt(cpfAux.substring(i, i + 1)) * (cpfAux.length() + 1 - i);
+            for (int j = 0; j < 2; j++) {
+                int soma = 0;
+
+                for (int i = 0; i < cpfAux.length(); i++) {
+                    soma += Integer.parseInt(cpfAux.substring(i, i + 1)) * (cpfAux.length() + 1 - i);
+                }
+
+                int digito = 11 - (soma % 11);
+
+                cpfAux += String.valueOf(digito);
             }
-
-            int digito = 11 - (soma % 11);
-
-            cpfAux += String.valueOf(digito);
         }
 
         return (cpf.equals(cpfAux));
@@ -140,5 +146,14 @@ public class Utils {
         SimpleDateFormat sdf = new SimpleDateFormat(aFormato);
 
         return sdf.format(aData);
+    }
+
+    public static int zebrarGrid(Context context, int i) {
+        // Zebrar lista
+        if (i % 2 == 0) {
+            return context.getResources().getColor(R.color.cinza_1, null);
+        } else {
+            return context.getResources().getColor(R.color.branco, null);
+        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.model.Leito;
+import com.example.hospital.model.Setor;
 import com.example.hospital.model.Unidade;
 
 import java.util.List;
@@ -61,6 +62,17 @@ public class LeitoCtrl {
 
         try {
             return db.leitoDao().getAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Leito> getLeitoUnidadeSetor(long unidade_id, long setor_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.leitoDao().getLeitoUnidadeSetor(unidade_id, setor_id);
         } catch (Exception e) {
             return null;
         }

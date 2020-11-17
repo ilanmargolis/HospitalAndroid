@@ -1,17 +1,22 @@
 package com.example.hospital.model;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
 @Entity
+ //       (foreignKeys = @ForeignKey(entity=Unidade.class, parentColumns="id", childColumns="unidade_id"))
 public class Leito implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String codigo;
+    @Embedded(prefix = "unidade")
     private Unidade unidade;
+    @Embedded(prefix = "setor")
     private Setor setor;
 
     public Leito() {

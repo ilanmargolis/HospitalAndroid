@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hospital.R;
 import com.example.hospital.activities.SetorDadosActivity;
 import com.example.hospital.model.Setor;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
     private Context context;
     private List<Setor> setorList;
     private final LayoutInflater layoutInflater;
+    private LinearLayout llSetor;
 
     public SetorAdapter(Context context, List<Setor> setorList) {
         this.context = context;
@@ -40,6 +42,9 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
 
     @Override
     public void onBindViewHolder(@NonNull SetorHolder holder, int i) {
+
+        llSetor.setBackgroundColor(Utils.zebrarGrid(context, i));
+
         holder.tvAdapterSetorNome.setText(setorList.get(i).getNome());
         holder.tvAdapterSetorRamal.setText(setorList.get(i).getRamal());
     }
@@ -51,7 +56,6 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
 
     public class SetorHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterSetorNome, tvAdapterSetorRamal;
-        LinearLayout llSetor;
 
         public SetorHolder(@NonNull View itemView) {
             super(itemView);

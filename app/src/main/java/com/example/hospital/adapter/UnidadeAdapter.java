@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hospital.R;
 import com.example.hospital.activities.UnidadeDadosActivity;
 import com.example.hospital.model.Unidade;
+import com.example.hospital.util.Utils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ public class UnidadeAdapter extends RecyclerView.Adapter<com.example.hospital.ad
     private Context context;
     private List<Unidade> unidadeList;
     private final LayoutInflater layoutInflater;
+    private LinearLayout llUnidade;
 
     public UnidadeAdapter(Context context, List<Unidade> unidadeList) {
         this.context = context;
@@ -40,6 +42,9 @@ public class UnidadeAdapter extends RecyclerView.Adapter<com.example.hospital.ad
 
     @Override
     public void onBindViewHolder(@NonNull UnidadeHolder holder, int i) {
+
+        llUnidade.setBackgroundColor(Utils.zebrarGrid(context, i));
+
         holder.tvAdapterUnidadeNome.setText(unidadeList.get(i).getNome());
         holder.tvAdapterUnidadeTelefone.setText(unidadeList.get(i).getTelefone());
     }
@@ -51,7 +56,6 @@ public class UnidadeAdapter extends RecyclerView.Adapter<com.example.hospital.ad
 
     public class UnidadeHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterUnidadeNome, tvAdapterUnidadeTelefone;
-        LinearLayout llUnidade;
 
         public UnidadeHolder(@NonNull View itemView) {
             super(itemView);

@@ -159,7 +159,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
         if (Utils.hasInternet(this)) {
 
         } else {
-            setorList = new SetorCtrl(this).getAll();
+            setorList = new SetorCtrl(this).getGeraLeito();
         }
 
         if (setorList.size() > 0) {

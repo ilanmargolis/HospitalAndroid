@@ -9,14 +9,13 @@
         android:id="@+id/llFuncionario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvAdapterFuncionarioNome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_weight="5"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="Nome do funcionario" />
@@ -25,6 +24,7 @@
             android:id="@+id/tvAdapterFuncionarioSetor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="SETOR" />

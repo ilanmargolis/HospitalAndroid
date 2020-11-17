@@ -74,7 +74,7 @@ public class PacienteActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_generic, menu);
+        menuInflater.inflate(R.menu.menu_recep, menu);
 
         return true;
     }
@@ -83,14 +83,14 @@ public class PacienteActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.action_add:
+            case R.id.action_recep_add:
                 intent = new Intent(PacienteActivity.this, PacienteDadosActivity.class);
-                intent.putExtra("funcionario", (Serializable) new Paciente());
+                intent.putExtra("paciente", (Serializable) new Paciente());
                 startActivity(intent);
 
                 return true;
 
-            case R.id.action_refresh:
+            case R.id.action_recep_refresh:
                 onResume();
 
             default:

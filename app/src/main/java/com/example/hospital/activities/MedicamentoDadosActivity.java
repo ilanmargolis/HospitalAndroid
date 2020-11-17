@@ -70,6 +70,7 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
 
                 if (medicamento.getId() == 0) { // inclusão
                     if (!nomeMedicamento.equals("")) {
+
                         medicamento.setNome(nomeMedicamento);
                         medicamento.setDataValidade(validade);
 

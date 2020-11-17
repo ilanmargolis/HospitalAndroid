@@ -24,9 +24,9 @@ public class LeitoAdapter extends RecyclerView.Adapter<LeitoAdapter.LeitoHolder>
     private List<Leito> leitoList;
     private final LayoutInflater layoutInflater;
 
-    public LeitoAdapter(Context context, List<Leito> unidadeList) {
+    public LeitoAdapter(Context context, List<Leito> leitoList) {
         this.context = context;
-        this.leitoList = unidadeList;
+        this.leitoList = leitoList;
         this.layoutInflater = LayoutInflater.from(context);
     }
 

@@ -1,6 +1,9 @@
 package com.example.hospital.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +21,12 @@ import com.example.hospital.model.Paciente;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
+import com.example.hospital.util.ValidaCpf;
+import com.example.hospital.util.ValidaSenha;
+
+import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +34,8 @@ import retrofit2.Response;
 
 public class PacienteDadosActivity extends AppCompatActivity {
 
-    private EditText etPacienteNome, etPacienteEmail, etPacienteCpf;
+    private EditText etPacienteNome, etPacienteEmail, etPacienteCpf, etPacienteSenha,
+            etPacienteConfirmaSenha, etPacienteDtNascimento;
     private Button btPacienteOk, btPacienteCancelar;
     private Paciente paciente;
 
@@ -43,44 +53,64 @@ public class PacienteDadosActivity extends AppCompatActivity {
         etPacienteNome = (EditText) findViewById(R.id.etPacienteNome);
         etPacienteEmail = (EditText) findViewById(R.id.etPacienteEmail);
         etPacienteCpf = (EditText) findViewById(R.id.etPacienteCpf);
+        etPacienteDtNascimento = (EditText) findViewById(R.id.etPacienteDtNascimento);
+        etPacienteSenha = (EditText) findViewById(R.id.etPacienteSenha);
+        etPacienteConfirmaSenha = (EditText) findViewById(R.id.etPacienteConfirmaSenha);
         btPacienteOk = (Button) findViewById(R.id.btPacienteOk);
         btPacienteCancelar = (Button) findViewById(R.id.btPacienteCancelar);
 
+        // Habilita o btPacienteOk caso a senha seja digitada corretamente
+        etPacienteSenha.addTextChangedListener(new ValidaSenha(this, btPacienteOk, etPacienteSenha, etPacienteConfirmaSenha));
+        etPacienteConfirmaSenha.addTextChangedListener(new ValidaSenha(this, btPacienteOk, etPacienteSenha, etPacienteConfirmaSenha));
+
         etPacienteCpf.addTextChangedListener(Mask.insert(Mask.CPF_MASK, etPacienteCpf));
+        etPacienteCpf.addTextChangedListener(new ValidaCpf(this, btPacienteOk, etPacienteCpf));
 
-        paciente = (Paciente) getIntent().getSerializableExtra("funcionario");
+        etPacienteDtNascimento.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etPacienteDtNascimento));
 
-        if (paciente.getId() == 0) { // inclusão
-
-        } else { // alteração e exclusão
-            etPacienteNome.setText(paciente.getNome());
-        }
+        preparaDados();
 
         btPacienteOk.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String nomePaciente = etPacienteNome.getText().toString().trim();
-
-                Toast.makeText(PacienteDadosActivity.this, (Utils.isCPFValido(etPacienteCpf.getText().toString())?"CPF válido":"CPF INVÁLIDO"), Toast.LENGTH_SHORT).show();
+                Date dtNascimento = Utils.stringToDate(etPacienteDtNascimento.getText().toString(), "dd/MM/yyyy");
 
                 if (paciente.getId() == 0) { // inclusão
-                    if (!nomePaciente.equals("")) {
+                    if (!nomePaciente.equals("") && !etPacienteCpf.getText().equals("")) {
+
                         paciente.setNome(nomePaciente);
+                        paciente.setEmail(etPacienteEmail.getText().toString());
+                        paciente.setCpf(etPacienteCpf.getText().toString());
+                        paciente.setDataNascimento(dtNascimento);
+                        paciente.setSenha(etPacienteSenha.getText().toString().trim());
+                        paciente.setSexo(' ');
 
                         opcaoCrud(CRUD_INC);
+
+                        Intent intent = new Intent();
+                        intent.putExtra("cpf", etPacienteCpf.getText().toString());
+                        setResult(RESULT_OK, intent);
                     } else {
-                        Toast.makeText(PacienteDadosActivity.this, "É necessário informar o nome do funcionário!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PacienteDadosActivity.this, "É necessário informar o nome do paciente!", Toast.LENGTH_SHORT).show();
                     }
                 } else { // alteração
-                    if (!paciente.getNome().equalsIgnoreCase(etPacienteNome.getText().toString().trim())) {
+                    if (!paciente.getNome().equalsIgnoreCase(etPacienteNome.getText().toString().trim()) ||
+                            !paciente.getEmail().equals(etPacienteEmail.getText().toString().trim()) ||
+                            !paciente.getDataNascimento().equals(dtNascimento) ||
+                            (paciente.getSenha() != null && !paciente.getSenha().equals(etPacienteSenha.getText().toString().trim()))) {
+
                         paciente.setNome(nomePaciente);
+                        paciente.setEmail(etPacienteEmail.getText().toString());
+                        paciente.setCpf(etPacienteCpf.getText().toString());
+                        paciente.setDataNascimento(dtNascimento);
+                        paciente.setSenha(etPacienteSenha.getText().toString().trim());
 
                         opcaoCrud(CRUD_UPD);
                     } else {
-                        Toast.makeText(PacienteDadosActivity.this, "O nome do funcionário tem que ser diferente do atual!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PacienteDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
                     }
-
                 }
 
                 finish();
@@ -95,6 +125,17 @@ public class PacienteDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void preparaDados() {
+
+        paciente = (Paciente) getIntent().getSerializableExtra("paciente");
+
+        if (paciente.getId() == 0) { // inclusão
+
+        } else { // alteração e exclusão
+            etPacienteNome.setText(paciente.getNome());
+        }
     }
 
     @Override
