@@ -88,15 +88,19 @@ public class PacienteActivity extends AppCompatActivity {
                 intent.putExtra("paciente", (Serializable) new Paciente());
                 startActivity(intent);
 
-                return true;
+                break;
 
             case R.id.action_recep_refresh:
                 onResume();
+
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
+        return true;
     }
 
     private void getAllPacientes(ResultEvent resultEvent) {

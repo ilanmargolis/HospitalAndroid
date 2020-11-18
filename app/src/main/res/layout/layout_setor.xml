@@ -29,6 +29,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             tools:text="99" />
 
+        <ImageView
+            android:id="@+id/ivAdapterLeito"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/preto"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_baseline_airline_seat_flat_24"
+            android:visibility="invisible"/>
+
     </LinearLayout>
 
     <View

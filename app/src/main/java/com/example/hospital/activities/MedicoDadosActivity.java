@@ -160,8 +160,24 @@ public class MedicoDadosActivity extends AppCompatActivity {
         spMedicoCbos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // pega o departamento selecionado no spinner e atribui ao professor
-                medico.setCbos((Cbos) spMedicoCbos.getItemAtPosition(position));
+                Cbos cbos = (Cbos) spMedicoCbos.getItemAtPosition(position);
+
+                medico.setCbos((Cbos) cbos);
+
+                // Posiciona em alguns conselhos de acordo com o CBOS
+                if (cbos.getDescricao().indexOf("Médico") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Medicina"));
+                } else if (cbos.getDescricao().indexOf("dentista") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Odontologia"));
+                } else if (cbos.getDescricao().indexOf("Psic") != -1 || cbos.getDescricao().indexOf("psic") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Psicologia"));
+                } else if (cbos.getDescricao().indexOf("enfermagem") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Federal de Enfermagem"));
+                } else if (cbos.getDescricao().indexOf("Nutricionista") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Nutrição"));
+                } else if (cbos.getDescricao().indexOf("Fonoaudiólogo") != -1) {
+                    spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Fonoaudiologia"));
+                }
             }
 
             @Override

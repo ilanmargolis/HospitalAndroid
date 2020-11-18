@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
     private List<Setor> setorList;
     private final LayoutInflater layoutInflater;
     private LinearLayout llSetor;
+    private ImageView ivLeito;
 
     public SetorAdapter(Context context, List<Setor> setorList) {
         this.context = context;
@@ -47,6 +49,12 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
 
         holder.tvAdapterSetorNome.setText(setorList.get(i).getNome());
         holder.tvAdapterSetorRamal.setText(setorList.get(i).getRamal());
+
+        if (setorList.get(i).isGeraLeito()) {
+            ivLeito.setVisibility(View.VISIBLE);
+        } else {
+            ivLeito.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -63,6 +71,7 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
             tvAdapterSetorNome = (TextView) itemView.findViewById(R.id.tvAdapterSetorNome);
             tvAdapterSetorRamal = (TextView) itemView.findViewById(R.id.tvAdapterSetorRamal);
             llSetor = (LinearLayout) itemView.findViewById(R.id.llSetor);
+            ivLeito = (ImageView) itemView.findViewById(R.id.ivAdapterLeito);
 
             llSetor.setOnClickListener(new View.OnClickListener() {
                 @Override

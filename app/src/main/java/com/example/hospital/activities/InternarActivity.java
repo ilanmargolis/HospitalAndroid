@@ -46,6 +46,7 @@ public class InternarActivity extends AppCompatActivity {
     private Setor setor;
     private List<Unidade> unidadeList = null;
     private List<Setor> setorList = null;
+    private List<Leito> leitoList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,8 @@ public class InternarActivity extends AppCompatActivity {
             Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
 
             finish();
-        };
+        }
+        ;
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
 //        setResult(MenuAdministrativoActivity.TELA_MENU, getIntent());
@@ -88,15 +90,12 @@ public class InternarActivity extends AppCompatActivity {
         spInternarUnidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                spInternarSetor.setEnabled(unidadeList.isEmpty());
                 unidade = (Unidade) spInternarUnidade.getItemAtPosition(position);
-//                leito.setUnidade((Unidade) spInternarUnidade.getItemAtPosition(position));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 spInternarSetor.setEnabled(false);
-//                leito.setUnidade(null);
             }
         });
 
@@ -117,29 +116,9 @@ public class InternarActivity extends AppCompatActivity {
         spInternarSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                List<Leito> leitoList = null;
+                setor = (Setor) spInternarSetor.getItemAtPosition(position);
 
-                if (Utils.hasInternet(InternarActivity.this)) {
-//        getAllLeitos(new ResultEvent() {
-//            @Override
-//            public <T> void onResult(T result) {
-//                // Quando houver resultado mostre os valores na tela
-//                List<Leito> leitoList = (List<Leito>) result;
-//            }
-//
-//            @Override
-//            public void onFail(String message) {
-//                // Quando houver falha exiba uma mensagem de erro
-//                Toast.makeText(LeitoActivity.this, message, Toast.LENGTH_LONG).show();
-//            }
-//        });
-                } else {
-                    setor = (Setor) spInternarSetor.getItemAtPosition(position);
-                    leitoList = new LeitoCtrl(InternarActivity.this).getLeitoUnidadeSetor(unidade.getId(), setor.getId());
-                }
-
-                internarAdapter = new InternarAdapter(InternarActivity.this, leitoList);
-                rv.setAdapter(internarAdapter);
+                onResume();
             }
 
             @Override
@@ -153,10 +132,10 @@ public class InternarActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-
         super.onResume();
 
-        if (Utils.hasInternet(this)) {
+        if (unidade != null && setor != null) {
+            if (Utils.hasInternet(InternarActivity.this)) {
 //        getAllLeitos(new ResultEvent() {
 //            @Override
 //            public <T> void onResult(T result) {
@@ -170,12 +149,13 @@ public class InternarActivity extends AppCompatActivity {
 //                Toast.makeText(LeitoActivity.this, message, Toast.LENGTH_LONG).show();
 //            }
 //        });
-        } else {
- //           leitoList = new LeitoCtrl(InternarActivity.this).getLeitoUnidadeSetor(unidade, setor);
-        }
+            } else {
+                leitoList = new LeitoCtrl(InternarActivity.this).getLeitoUnidadeSetor(unidade.getId(), setor.getId());
+            }
 
-//        internarAdapter = new InternarAdapter(InternarActivity.this, leitoList);
-//        rv.setAdapter(internarAdapter);
+            internarAdapter = new InternarAdapter(InternarActivity.this, leitoList);
+            rv.setAdapter(internarAdapter);
+        }
     }
 
     @Override
@@ -185,6 +165,7 @@ public class InternarActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu_recep, menu);
 
         // Esconder do menu a atual tela
+        menu.findItem(R.id.action_recep_add).setVisible(false);
         menu.findItem(R.id.action_recep_internamento).setVisible(false);
 
         return true;
@@ -193,23 +174,22 @@ public class InternarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_recep_add:
-                intent = new Intent(InternarActivity.this, LeitoDadosActivity.class);
-                intent.putExtra("leito", (Serializable) new Leito());
-                startActivity(intent);
-
-                return true;
-
             case R.id.action_recep_refresh:
                 onResume();
+
+                return true;
 
             case R.id.action_recep_transferencia:
 //                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
+                return true;
+
             case R.id.action_recep_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();
+
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

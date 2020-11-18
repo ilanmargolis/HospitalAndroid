@@ -95,39 +95,55 @@ public class SetorActivity extends AppCompatActivity {
                 intent.putExtra("setor", (Serializable) new Setor());
                 startActivity(intent);
 
-                return true;
+                break;
 
             case R.id.action_admin_refresh:
                 onResume();
+
+                break;
 
             case R.id.action_admin_unidade:
                 setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_leito:
                 setResult(MenuAdministrativoActivity.TELA_LEITO, getIntent());
                 finish();
+
+                break;
 
             case R.id.action_admin_medicamento:
                 setResult(MenuAdministrativoActivity.TELA_MEDICAMENTO, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_funcionario:
                 setResult(MenuAdministrativoActivity.TELA_FUNCIONARIO, getIntent());
                 finish();
+
+                break;
 
             case R.id.action_admin_medico:
                 setResult(MenuAdministrativoActivity.TELA_MEDICO, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();
+
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
+        return true;
     }
 
     private void getAllSetores(ResultEvent resultEvent) {

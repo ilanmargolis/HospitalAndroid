@@ -39,6 +39,7 @@ public class ValidaCpf implements TextWatcher {
         if (view instanceof ImageButton) {
             if (habilita) {
                 view.setBackgroundColor(context.getColor(R.color.azul_5));
+                view.callOnClick();
             } else {
                 view.setBackgroundColor(context.getColor(R.color.vermelho));
             }

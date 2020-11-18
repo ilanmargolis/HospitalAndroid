@@ -1,32 +1,35 @@
 package com.example.hospital.model;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.Relation;
 import androidx.room.TypeConverters;
 
 import com.example.hospital.config.Converters;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @TypeConverters(Converters.class)
-public class Internado {
+public class Internado implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private Date dataInternacao;
     private Date dataPrevisaoAlta;
-    private Date dataAlta;
+    @Embedded(prefix = "leito_")
     private Leito leito;
+    @Embedded(prefix = "paciente_")
     private Paciente paciente;
 
     public Internado() {
     }
 
-    public Internado(Date dataInternacao, Date dataPrevisaoAlta, Date dataAlta, Leito leito, Paciente paciente) {
+    public Internado(Date dataInternacao, Date dataPrevisaoAlta, Leito leito, Paciente paciente) {
         this.dataInternacao = dataInternacao;
         this.dataPrevisaoAlta = dataPrevisaoAlta;
-        this.dataAlta = dataAlta;
         this.leito = leito;
         this.paciente = paciente;
     }
@@ -35,7 +38,6 @@ public class Internado {
         this.id = i.id;
         this.dataInternacao = i.dataInternacao;
         this.dataPrevisaoAlta = i.dataPrevisaoAlta;
-        this.dataAlta = i.dataAlta;
         this.leito = i.leito;
         this.paciente = i.paciente;
     }
@@ -62,14 +64,6 @@ public class Internado {
 
     public void setDataPrevisaoAlta(Date dataPrevisaoAlta) {
         this.dataPrevisaoAlta = dataPrevisaoAlta;
-    }
-
-    public Date getDataAlta() {
-        return dataAlta;
-    }
-
-    public void setDataAlta(Date dataAlta) {
-        this.dataAlta = dataAlta;
     }
 
     public Leito getLeito() {

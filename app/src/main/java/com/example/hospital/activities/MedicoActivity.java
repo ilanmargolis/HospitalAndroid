@@ -95,39 +95,55 @@ public class MedicoActivity extends AppCompatActivity {
                 intent.putExtra("medico", (Serializable) new Medico());
                 startActivity(intent);
 
-                return true;
+                break;
 
             case R.id.action_admin_refresh:
                 onResume();
+
+                break;
 
             case R.id.action_admin_unidade:
                 setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_setor:
                 setResult(MenuAdministrativoActivity.TELA_SETOR, getIntent());
                 finish();
+
+                break;
 
             case R.id.action_admin_leito:
                 setResult(MenuAdministrativoActivity.TELA_LEITO, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_medicamento:
                 setResult(MenuAdministrativoActivity.TELA_MEDICAMENTO, getIntent());
                 finish();
+
+                break;
 
             case R.id.action_admin_funcionario:
                 setResult(MenuAdministrativoActivity.TELA_FUNCIONARIO, getIntent());
                 finish();
 
+                break;
+
             case R.id.action_admin_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();
+
+                break;
 
             default:
                 return super.onOptionsItemSelected(item);
 
         }
+
+        return true;
     }
 
     private void getAllMedicos(ResultEvent resultEvent) {

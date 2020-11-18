@@ -8,9 +8,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.example.hospital.dao.AltaDao;
 import com.example.hospital.dao.CbosDao;
 import com.example.hospital.dao.ConselhoDao;
 import com.example.hospital.dao.FuncionarioDao;
+import com.example.hospital.dao.InternarDao;
 import com.example.hospital.dao.LeitoDao;
 import com.example.hospital.dao.MedicamentoDao;
 import com.example.hospital.dao.MedicoDao;
@@ -18,6 +20,7 @@ import com.example.hospital.dao.PacienteDao;
 import com.example.hospital.dao.SetorDao;
 import com.example.hospital.dao.TerminologiaDao;
 import com.example.hospital.dao.UnidadeDao;
+import com.example.hospital.model.Alta;
 import com.example.hospital.model.Cbos;
 import com.example.hospital.model.Conselho;
 import com.example.hospital.model.Funcionario;
@@ -31,9 +34,9 @@ import com.example.hospital.model.Setor;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.model.Unidade;
 
-@Database(entities = {Cbos.class, Conselho.class, Funcionario.class, Internado.class, Leito.class,
-        Medicamento.class, Medico.class, Paciente.class, Prescreve.class, Setor.class, Terminologia.class,
-        Unidade.class}, version = 1)
+@Database(entities = {Alta.class, Cbos.class, Conselho.class, Funcionario.class, Internado.class,
+        Leito.class, Medicamento.class, Medico.class, Paciente.class, Prescreve.class, Setor.class,
+        Terminologia.class, Unidade.class}, version = 1)
 @TypeConverters(Converters.class)
 public abstract class RoomConfig extends RoomDatabase {
 
@@ -52,23 +55,27 @@ public abstract class RoomConfig extends RoomDatabase {
         return instance;
     }
 
-    public abstract UnidadeDao unidadeDao();
+    public abstract AltaDao altaDao();
+
+    public abstract CbosDao cbosDao();
+
+    public abstract ConselhoDao conselhoDao();
+
+    public abstract FuncionarioDao funcionarioDao();
+
+    public abstract InternarDao internarDao();
 
     public abstract LeitoDao leitoDao();
-
-    public abstract SetorDao setorDao();
 
     public abstract MedicoDao medicoDao();
 
     public abstract MedicamentoDao medicamentoDao();
 
-    public abstract FuncionarioDao funcionarioDao();
-
     public abstract PacienteDao pacienteDao();
+
+    public abstract SetorDao setorDao();
 
     public abstract TerminologiaDao terminologiaDao();
 
-    public abstract CbosDao cbosDao();
-
-    public abstract ConselhoDao conselhoDao();
+    public abstract UnidadeDao unidadeDao();
 }

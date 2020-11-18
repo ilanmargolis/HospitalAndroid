@@ -77,8 +77,17 @@ public class PacienteDadosActivity extends AppCompatActivity {
                 String nomePaciente = etPacienteNome.getText().toString().trim();
                 Date dtNascimento = Utils.stringToDate(etPacienteDtNascimento.getText().toString(), "dd/MM/yyyy");
 
-                if (paciente.getId() == 0) { // inclusão
-                    if (!nomePaciente.equals("") && !etPacienteCpf.getText().equals("")) {
+                if (nomePaciente.equals("")) {
+                    Toast.makeText(PacienteDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
+                    etPacienteNome.requestFocus();
+                } else if (etPacienteCpf.getText().toString().trim().equals("")) {
+                    Toast.makeText(PacienteDadosActivity.this, "É necessário informar o CPF!", Toast.LENGTH_SHORT).show();
+                    etPacienteCpf.requestFocus();
+                } else if (etPacienteDtNascimento.getText().toString().trim().equals("")) {
+                    Toast.makeText(PacienteDadosActivity.this, "É necessário informar a data de nascimento!", Toast.LENGTH_SHORT).show();
+                    etPacienteDtNascimento.requestFocus();
+                } else {
+                    if (paciente.getId() == 0) { // inclusão
 
                         paciente.setNome(nomePaciente);
                         paciente.setEmail(etPacienteEmail.getText().toString());
@@ -92,28 +101,26 @@ public class PacienteDadosActivity extends AppCompatActivity {
                         Intent intent = new Intent();
                         intent.putExtra("cpf", etPacienteCpf.getText().toString());
                         setResult(RESULT_OK, intent);
-                    } else {
-                        Toast.makeText(PacienteDadosActivity.this, "É necessário informar o nome do paciente!", Toast.LENGTH_SHORT).show();
-                    }
-                } else { // alteração
-                    if (!paciente.getNome().equalsIgnoreCase(etPacienteNome.getText().toString().trim()) ||
-                            !paciente.getEmail().equals(etPacienteEmail.getText().toString().trim()) ||
-                            !paciente.getDataNascimento().equals(dtNascimento) ||
-                            (paciente.getSenha() != null && !paciente.getSenha().equals(etPacienteSenha.getText().toString().trim()))) {
+                    } else { // alteração
+                        if (!paciente.getNome().equalsIgnoreCase(etPacienteNome.getText().toString().trim()) ||
+                                !paciente.getEmail().equals(etPacienteEmail.getText().toString().trim()) ||
+                                !paciente.getDataNascimento().equals(dtNascimento) ||
+                                (paciente.getSenha() != null && !paciente.getSenha().equals(etPacienteSenha.getText().toString().trim()))) {
 
-                        paciente.setNome(nomePaciente);
-                        paciente.setEmail(etPacienteEmail.getText().toString());
-                        paciente.setCpf(etPacienteCpf.getText().toString());
-                        paciente.setDataNascimento(dtNascimento);
-                        paciente.setSenha(etPacienteSenha.getText().toString().trim());
+                            paciente.setNome(nomePaciente);
+                            paciente.setEmail(etPacienteEmail.getText().toString());
+                            paciente.setCpf(etPacienteCpf.getText().toString());
+                            paciente.setDataNascimento(dtNascimento);
+                            paciente.setSenha(etPacienteSenha.getText().toString().trim());
 
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(PacienteDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(PacienteDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
+                    finish();
                 }
-
-                finish();
             }
         });
 

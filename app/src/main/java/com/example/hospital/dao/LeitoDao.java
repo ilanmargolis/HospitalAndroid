@@ -32,8 +32,9 @@ public interface LeitoDao {
     public Leito getLeito(long id);
 
     @Query("SELECT L.* FROM leito L " +
-           "INNER JOIN unidade U ON U.id = :unidade_id and L.unidadeid = U.id " +
-           "INNER JOIN setor S ON S.id = :setor_id and L.setorid = S.id")
+            "INNER JOIN unidade U ON U.id = :unidade_id and L.unidadeid = U.id " +
+            "INNER JOIN setor S ON S.id = :setor_id and L.setorid = S.id " +
+            "WHERE NOT EXISTS (SELECT leito_id FROM Internado WHERE leito_id = L.id)")
     public List<Leito> getLeitoUnidadeSetor(long unidade_id, long setor_id);
 
     @Delete

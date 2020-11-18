@@ -23,7 +23,7 @@ public class PacienteCtrl {
         try {
             db.pacienteDao().insert(paciente);
 
-            return "Paciente incluída com sucesso";
+            return "Paciente incluído com sucesso";
         } catch (Exception e) {
             return "Erro ao inserir paciente: " + e;
         }
@@ -36,7 +36,7 @@ public class PacienteCtrl {
         try {
             db.pacienteDao().update(paciente);
 
-            return "Paciente alterada com sucesso";
+            return "Paciente alterado com sucesso";
         } catch (Exception e) {
             return "Erro ao alterar paciente: " + e;
         }
@@ -49,7 +49,7 @@ public class PacienteCtrl {
         try {
             db.pacienteDao().delete(paciente);
 
-            return "Paciente excluída com sucesso";
+            return "Paciente excluído com sucesso";
         } catch (Exception e) {
             return "Erro ao excluir paciente: " + e;
         }

@@ -3,12 +3,13 @@ package com.example.hospital.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.sql.Time;
 
 @Entity
-public class Prescreve {
+public class Prescreve implements Serializable {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private Long id;
     private Byte dosagem;
     private Time horario;

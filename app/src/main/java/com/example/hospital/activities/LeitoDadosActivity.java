@@ -59,7 +59,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
         btLeitoCancelar = (Button) findViewById(R.id.btLeitoCancelar);
 
         if (!carregaSpinner()) {
-            Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor. Verifique se existe algum setor que gera leito!", Toast.LENGTH_LONG).show();
 
             finish();
         };

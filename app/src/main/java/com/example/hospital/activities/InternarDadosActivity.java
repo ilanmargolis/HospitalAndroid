@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
+import com.example.hospital.controller.InternarCtrl;
 import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.PacienteCtrl;
 import com.example.hospital.model.Internado;
@@ -28,6 +29,9 @@ import com.example.hospital.util.Utils;
 import com.example.hospital.util.ValidaCpf;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,11 +40,13 @@ import retrofit2.Response;
 public class InternarDadosActivity extends AppCompatActivity {
 
     private TextView tvInternarLeitoCodigo, tvInternarLeitoUnidade, tvInternarLeitoSetor;
-    private EditText etInternarPacienteCpf, etInternarPacienteNome;
+    private EditText etInternarPacienteCpf, etInternarPacienteNome,
+            etInternarDtInternacao, etInternarDtPrevisao;
     private Button btInternarOk, btInternarCancelar;
     private ImageButton ibInternarPesquisar, ibInternarPaciente;
     private Leito leito;
-    private Internado internado;
+    private Internado internado = null;
+    private Paciente paciente;
 
     private String msg = null;
     private final String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
@@ -59,6 +65,8 @@ public class InternarDadosActivity extends AppCompatActivity {
         tvInternarLeitoSetor = (TextView) findViewById(R.id.tvInternarLeitoSetor);
         etInternarPacienteCpf = (EditText) findViewById(R.id.etInternarPacienteCpf);
         etInternarPacienteNome = (EditText) findViewById(R.id.etInternarPacienteNome);
+        etInternarDtInternacao = (EditText) findViewById(R.id.etInternarDtInternacao);
+        etInternarDtPrevisao = (EditText) findViewById(R.id.etInternarDtPrevisao);
         ibInternarPesquisar = (ImageButton) findViewById(R.id.ibInternarPesquisar);
         ibInternarPaciente = (ImageButton) findViewById(R.id.ibInternarPaciente);
         btInternarOk = (Button) findViewById(R.id.btInternarOk);
@@ -67,6 +75,9 @@ public class InternarDadosActivity extends AppCompatActivity {
         etInternarPacienteCpf.addTextChangedListener(Mask.insert(Mask.CPF_MASK, etInternarPacienteCpf));
         etInternarPacienteCpf.addTextChangedListener(new ValidaCpf(this, ibInternarPesquisar, etInternarPacienteCpf));
 
+        etInternarDtInternacao.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etInternarDtInternacao));
+        etInternarDtPrevisao.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etInternarDtPrevisao));
+
         preparaDados();
 
         btInternarOk.setOnClickListener(new View.OnClickListener() {
@@ -74,31 +85,43 @@ public class InternarDadosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String codigoLeito = tvInternarLeitoCodigo.getText().toString().trim();
+                Date dtInternacao = Utils.stringToDate(etInternarDtInternacao.getText().toString(), "dd/MM/yyyy");
+                Date dtPrevisao = Utils.stringToDate(etInternarDtPrevisao.getText().toString(), "dd/MM/yyyy");
 
-                if (leito.getId() == 0) { // inclusão
-                    if (!codigoLeito.equals("")) {
-                        leito.setCodigo(codigoLeito);
+                if (etInternarPacienteCpf.getText().toString().equals("") || paciente == null) {
+                    Toast.makeText(InternarDadosActivity.this, "Paciente não informado!", Toast.LENGTH_SHORT).show();
+                    etInternarPacienteCpf.requestFocus();
+                } else if (etInternarDtPrevisao.getText().toString().equals("")) {
+                    Toast.makeText(InternarDadosActivity.this, "Data de previsão de alta não informada!", Toast.LENGTH_SHORT).show();
+                    etInternarDtPrevisao.requestFocus();
+                } else {
 
-                        opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(InternarDadosActivity.this, "É necessário informar o código do leito!", Toast.LENGTH_SHORT).show();
+                    if (internado == null) { // inclusão
+                        if (!codigoLeito.equals("")) {
+                            leito.setCodigo(codigoLeito);
+                            internado = new Internado(dtInternacao, dtPrevisao, leito, paciente);
+
+                            opcaoCrud(CRUD_INC);
+                        } else {
+                            Toast.makeText(InternarDadosActivity.this, "É necessário informar o código do leito!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else { // alteração
+                        if (false) {
+                            //                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
+                            //                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())||
+                            //                            !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
+
+                            leito.setCodigo(codigoLeito);
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(InternarDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (false) {
-//                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
-//                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())||
-//                            !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
 
-                        leito.setCodigo(codigoLeito);
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(InternarDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 
@@ -115,10 +138,15 @@ public class InternarDadosActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Paciente paciente = new PacienteCtrl(InternarDadosActivity.this).getByCpf(etInternarPacienteCpf.getText().toString());
+                paciente = new PacienteCtrl(InternarDadosActivity.this).getByCpf(etInternarPacienteCpf.getText().toString());
 
                 if (paciente != null) {
                     etInternarPacienteNome.setText(paciente.getNome().toString());
+                    etInternarDtInternacao.setText(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+                    etInternarDtPrevisao.setText("");
+                    etInternarDtPrevisao.requestFocus();
+                } else {
+                    Toast.makeText(InternarDadosActivity.this, "Paciente inexistente!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -140,6 +168,7 @@ public class InternarDadosActivity extends AppCompatActivity {
 
         if (requestCode == MenuRecepcaoActivity.TELA_PACIENTE && resultCode == RESULT_OK) {
             String resultado = data.getStringExtra("cpf");
+
             //Coloque no EditText
             etInternarPacienteCpf.setText(resultado);
             ibInternarPesquisar.callOnClick();
@@ -207,11 +236,11 @@ public class InternarDadosActivity extends AppCompatActivity {
             });
         } else {
             if (tipoCrud == CRUD_INC) {
-                msg = new LeitoCtrl(InternarDadosActivity.this).insert(leito);
+                msg = new InternarCtrl(InternarDadosActivity.this).insert(internado);
             } else if (tipoCrud == CRUD_UPD) {
-                msg = new LeitoCtrl(InternarDadosActivity.this).update(leito);
+                msg = new InternarCtrl(InternarDadosActivity.this).update(internado);
             } else if (tipoCrud == CRUD_DEL) {
-                msg = new LeitoCtrl(InternarDadosActivity.this).delete(leito);
+                msg = new InternarCtrl(InternarDadosActivity.this).delete(internado);
             }
         }
 
