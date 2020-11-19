@@ -50,17 +50,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
         etUnidadeTelefone.addTextChangedListener(Mask.insert(Mask.FONE_MASK, etUnidadeTelefone));
         etUnidadeInscricao.addTextChangedListener(Mask.insert(Mask.IE_MASK, etUnidadeInscricao));
 
-        unidade = (Unidade) getIntent().getSerializableExtra("unidade");
-
-        if (unidade.getId() == 0) { // inclusão
-
-        } else { // alteração e exclusão
-            unidade = new UnidadeCtrl(UnidadeDadosActivity.this).get(unidade.getId());
-            etUnidadeNome.setText(unidade.getNome());
-            etUnidadeLogradouro.setText(unidade.getLogradouro());
-            etUnidadeTelefone.setText(unidade.getTelefone());
-            etUnidadeInscricao.setText(unidade.getInscricaoEstadual());
-        }
+        preparaDados();
 
         btUnidadeOk.setOnClickListener(new View.OnClickListener() {
 
@@ -68,8 +58,12 @@ public class UnidadeDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nomeUnidade = etUnidadeNome.getText().toString().trim();
 
-                if (unidade.getId() == 0) { // inclusão
-                    if (!nomeUnidade.equals("")) {
+                if (nomeUnidade.equals("")) {
+                    Toast.makeText(UnidadeDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
+                    etUnidadeNome.requestFocus();
+                } else {
+                    if (unidade.getId() == 0) { // inclusão
+
 
                         unidade.setNome(nomeUnidade);
                         unidade.setLogradouro(etUnidadeLogradouro.getText().toString());
@@ -77,28 +71,26 @@ public class UnidadeDadosActivity extends AppCompatActivity {
                         unidade.setInscricaoEstadual(etUnidadeInscricao.getText().toString());
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(UnidadeDadosActivity.this, "É necessário informar o nome da unidade!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!unidade.getNome().equalsIgnoreCase(etUnidadeNome.getText().toString().trim()) ||
+                                !unidade.getLogradouro().equalsIgnoreCase(etUnidadeLogradouro.getText().toString().trim()) ||
+                                !unidade.getTelefone().equalsIgnoreCase(etUnidadeTelefone.getText().toString().trim()) ||
+                                !unidade.getInscricaoEstadual().equals(etUnidadeInscricao.getText().toString().trim())) {
+
+                            unidade.setNome(nomeUnidade);
+                            unidade.setLogradouro(etUnidadeLogradouro.getText().toString().trim());
+                            unidade.setTelefone(etUnidadeTelefone.getText().toString());
+                            unidade.setInscricaoEstadual(etUnidadeInscricao.getText().toString().trim());
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(UnidadeDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!unidade.getNome().equalsIgnoreCase(etUnidadeNome.getText().toString().trim()) ||
-                            !unidade.getLogradouro().equalsIgnoreCase(etUnidadeLogradouro.getText().toString().trim()) ||
-                            !unidade.getTelefone().equalsIgnoreCase(etUnidadeTelefone.getText().toString().trim()) ||
-                            !unidade.getInscricaoEstadual().equals(etUnidadeInscricao.getText().toString().trim())) {
 
-                        unidade.setNome(nomeUnidade);
-                        unidade.setLogradouro(etUnidadeLogradouro.getText().toString().trim());
-                        unidade.setTelefone(etUnidadeTelefone.getText().toString());
-                        unidade.setInscricaoEstadual(etUnidadeInscricao.getText().toString().trim());
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(UnidadeDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 
@@ -110,6 +102,20 @@ public class UnidadeDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void preparaDados() {
+        unidade = (Unidade) getIntent().getSerializableExtra("unidade");
+
+        if (unidade.getId() == 0) { // inclusão
+
+        } else { // alteração e exclusão
+            unidade = new UnidadeCtrl(UnidadeDadosActivity.this).getById(unidade.getId());
+            etUnidadeNome.setText(unidade.getNome());
+            etUnidadeLogradouro.setText(unidade.getLogradouro());
+            etUnidadeTelefone.setText(unidade.getTelefone());
+            etUnidadeInscricao.setText(unidade.getInscricaoEstadual());
+        }
     }
 
     @Override

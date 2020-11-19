@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".activities.AltaDadosActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/corner_round"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código do leito" />
+
+        <TextView
+            android:id="@+id/tvAltaLeitoCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Código do leito" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unidade do leito" />
+
+        <TextView
+            android:id="@+id/tvAltaLeitoUnidade"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:hint="Nome da unidade" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unidade do leito" />
+
+        <TextView
+            android:id="@+id/tvAltaLeitoSetor"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:hint="Setor do leito" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome do paciente" />
+
+        <TextView
+            android:id="@+id/tvAltaPacienteNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_round"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de internação" />
+
+            <TextView
+                android:id="@+id/tvAltaDtInternacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Insira a data de internação"
+                android:inputType="date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de previsão de alta" />
+
+            <TextView
+                android:id="@+id/tvAltaDtPrevisao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Insira a data de previsão de alta"
+                android:inputType="date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Data da alta" />
+
+        <EditText
+            android:id="@+id/etAltaDtAlta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_round"
+            android:hint="Insira a data da alta"
+            android:inputType="date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btAltaOk"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/azul_5"
+            android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:text="Alta" />
+
+        <Button
+            android:id="@+id/btAltaCancelar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/cinza_2"
+            android:drawableLeft="@drawable/ic_baseline_close_24"
+            android:text="Cancelar" />
+    </LinearLayout>
+
+</LinearLayout>

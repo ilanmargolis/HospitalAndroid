@@ -73,37 +73,38 @@ public class MedicoDadosActivity extends AppCompatActivity {
 
                 String nomeMedico = etMedicoNome.getText().toString().trim();
 
-                if (medico.getId() == 0) { // inclusão
-                    if (!nomeMedico.equals("")) {
+                if (nomeMedico.equals("")) {
+                    Toast.makeText(MedicoDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
+                    etMedicoNome.requestFocus();
+                } else {
+                    if (medico.getId() == 0) { // inclusão
                         medico.setNome(nomeMedico);
                         medico.setEmail(etMedicoEmail.getText().toString().trim());
                         medico.setSenha(etMedicoSenha.getText().toString().trim());
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(MedicoDadosActivity.this, "É necessário informar o nome do médico!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!medico.getNome().equalsIgnoreCase(etMedicoNome.getText().toString().trim()) ||
+                                !medico.getEmail().equalsIgnoreCase(etMedicoEmail.getText().toString().trim()) ||
+                                !medico.getCbos().toString().equals(spMedicoCbos.toString()) ||
+                                !medico.getConselho().toString().equals(spMedicoConselho.toString()) ||
+                                (!etMedicoSenha.getText().toString().equals("") &&
+                                        medico.getSenha() != null &&
+                                        !medico.getSenha().equals(etMedicoSenha.getText().toString().trim()))) {
+
+                            medico.setNome(nomeMedico);
+                            medico.setEmail(etMedicoEmail.getText().toString().trim());
+                            medico.setSenha(etMedicoSenha.getText().toString().trim());
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(MedicoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!medico.getNome().equalsIgnoreCase(etMedicoNome.getText().toString().trim()) ||
-                            !medico.getEmail().equalsIgnoreCase(etMedicoEmail.getText().toString().trim()) ||
-                            !medico.getCbos().toString().equals(spMedicoCbos.toString()) ||
-                            !medico.getConselho().toString().equals(spMedicoConselho.toString()) ||
-                            (!etMedicoSenha.getText().toString().equals("") &&
-                                    medico.getSenha() != null &&
-                                    !medico.getSenha().equals(etMedicoSenha.getText().toString().trim()))) {
 
-                        medico.setNome(nomeMedico);
-                        medico.setEmail(etMedicoEmail.getText().toString().trim());
-                        medico.setSenha(etMedicoSenha.getText().toString().trim());
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(MedicoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 

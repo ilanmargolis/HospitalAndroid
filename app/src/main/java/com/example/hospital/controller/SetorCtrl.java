@@ -76,12 +76,12 @@ public class SetorCtrl {
         }
     }
 
-    public Setor get(int id){
+    public Setor getById(int id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.setorDao().get(id);
+            return db.setorDao().getById(id);
         } catch (Exception e) {
             return null;
         }

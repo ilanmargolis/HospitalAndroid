@@ -26,6 +26,9 @@ public interface PacienteDao {
     @Query("SELECT * FROM Paciente")
     public List<Paciente> getAll();
 
+    @Query("SELECT * FROM Paciente WHERE id = :id")
+    public Paciente getById(long id);
+
     @Query("SELECT * FROM Paciente WHERE email = :email")
     public Paciente getByEmail(String email);
 

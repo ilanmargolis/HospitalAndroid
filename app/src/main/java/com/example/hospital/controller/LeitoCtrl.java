@@ -67,12 +67,23 @@ public class LeitoCtrl {
         }
     }
 
-    public List<Leito> getLeitoUnidadeSetor(long unidade_id, long setor_id){
+    public Leito getById(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.leitoDao().getLeitoUnidadeSetor(unidade_id, setor_id);
+            return db.leitoDao().getById(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Leito> getLeitosDisponiveis(long unidade_id, long setor_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.leitoDao().getLeitosDisponiveis(unidade_id, setor_id);
         } catch (Exception e) {
             return null;
         }

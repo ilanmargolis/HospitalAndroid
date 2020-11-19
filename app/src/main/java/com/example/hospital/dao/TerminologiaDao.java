@@ -28,7 +28,7 @@ public interface TerminologiaDao {
     public List<Terminologia> getAll();
 
     @Query("SELECT * FROM Terminologia WHERE id = :id")
-    public Terminologia get(long id);
+    public Terminologia getById(long id);
 
     @Delete
     public void delete(Terminologia terminologia);

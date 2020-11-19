@@ -27,7 +27,7 @@ public interface UnidadeDao {
     public List<Unidade> getAll();
 
     @Query("SELECT * FROM Unidade WHERE id = :id")
-    public Unidade get(long id);
+    public Unidade getById(long id);
 
     @Delete
     public void delete(Unidade unidade);

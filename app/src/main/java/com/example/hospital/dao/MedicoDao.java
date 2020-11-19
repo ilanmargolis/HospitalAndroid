@@ -29,7 +29,7 @@ public interface MedicoDao {
     public List<Medico> getAll();
 
     @Query("SELECT * FROM Medico WHERE id = :id")
-    public Medico get(long id);
+    public Medico getById(long id);
 
     @Query("SELECT * FROM Medico WHERE email = :email")
     public Medico getByEmail(String email);

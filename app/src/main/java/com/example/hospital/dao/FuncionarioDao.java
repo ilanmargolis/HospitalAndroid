@@ -27,7 +27,7 @@ public interface FuncionarioDao {
     public List<Funcionario> getAll();
 
     @Query("SELECT * FROM Funcionario WHERE id = :id")
-    public Funcionario get(long id);
+    public Funcionario getById(long id);
 
     @Query("SELECT * FROM Funcionario WHERE email = :email")
     public Funcionario getByEmail(String email);

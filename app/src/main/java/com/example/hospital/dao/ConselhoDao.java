@@ -27,7 +27,7 @@ public interface ConselhoDao {
     public List<Conselho> getAll();
 
     @Query("SELECT * FROM Conselho WHERE id = :id")
-    public Conselho get(long id);
+    public Conselho getById(long id);
 
     @Delete
     public void delete(Conselho conselho);

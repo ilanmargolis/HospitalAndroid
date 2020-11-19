@@ -16,48 +16,53 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
-import com.example.hospital.adapter.InternarAdapter;
-import com.example.hospital.adapter.LeitoAdapter;
+import com.example.hospital.adapter.InternadoAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
+import com.example.hospital.controller.InternarCtrl;
 import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
+import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
+import com.example.hospital.model.Medicamento;
+import com.example.hospital.model.Medico;
 import com.example.hospital.model.Setor;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
-import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class InternarActivity extends AppCompatActivity {
+public class InternadoActivity extends AppCompatActivity {
 
     private RecyclerView rv;
-    private Spinner spInternarUnidade, spInternarSetor;
-    private InternarAdapter internarAdapter;
+    private Spinner spInternadoUnidade, spInternadoSetor;
+    private InternadoAdapter internadoAdapter;
     private Intent intent;
     private Unidade unidade;
     private Setor setor;
     private List<Unidade> unidadeList = null;
     private List<Setor> setorList = null;
-    private List<Leito> leitoList = null;
+    private List<Internado> internadoList = null;
+    private Medico medico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_internar);
+        setContentView(R.layout.activity_internado);
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
-        setResult(MenuRecepcaoActivity.TELA_MENU, getIntent());
+        setResult(MenuMedicoActivity.TELA_MENU, getIntent());
 
-        spInternarUnidade = (Spinner) findViewById(R.id.spInternarUnidade);
-        spInternarSetor = (Spinner) findViewById(R.id.spInternarSetor);
+        medico = (Medico) getIntent().getSerializableExtra("medico");
+
+        spInternadoUnidade = (Spinner) findViewById(R.id.spInternadoUnidade);
+        spInternadoSetor = (Spinner) findViewById(R.id.spInternadoSetor);
 
         if (!carregaSpinner()) {
             Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
@@ -65,8 +70,8 @@ public class InternarActivity extends AppCompatActivity {
             finish();
         };
 
-        rv = (RecyclerView) findViewById(R.id.rvInternarLeito);
-        rv.setLayoutManager(new LinearLayoutManager(InternarActivity.this));
+        rv = (RecyclerView) findViewById(R.id.rvInternadoLeito);
+        rv.setLayoutManager(new LinearLayoutManager(InternadoActivity.this));
     }
 
     private boolean carregaSpinner() {
@@ -79,22 +84,22 @@ public class InternarActivity extends AppCompatActivity {
         }
 
         if (unidadeList.size() > 0) {
-            ArrayAdapter aa = new ArrayAdapter<>(InternarActivity.this, android.R.layout.simple_spinner_item, unidadeList);
+            ArrayAdapter aa = new ArrayAdapter<>(InternadoActivity.this, android.R.layout.simple_spinner_item, unidadeList);
             aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spInternarUnidade.setAdapter(aa);
+            spInternadoUnidade.setAdapter(aa);
         } else {
             return false;
         }
 
-        spInternarUnidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spInternadoUnidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                unidade = (Unidade) spInternarUnidade.getItemAtPosition(position);
+                unidade = (Unidade) spInternadoUnidade.getItemAtPosition(position);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                spInternarSetor.setEnabled(false);
+                spInternadoSetor.setEnabled(false);
             }
         });
 
@@ -105,17 +110,17 @@ public class InternarActivity extends AppCompatActivity {
         }
 
         if (setorList.size() > 0) {
-            ArrayAdapter aa = new ArrayAdapter<>(InternarActivity.this, android.R.layout.simple_spinner_item, setorList);
+            ArrayAdapter aa = new ArrayAdapter<>(InternadoActivity.this, android.R.layout.simple_spinner_item, setorList);
             aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spInternarSetor.setAdapter(aa);
+            spInternadoSetor.setAdapter(aa);
         } else {
             return false;
         }
 
-        spInternarSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spInternadoSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setor = (Setor) spInternarSetor.getItemAtPosition(position);
+                setor = (Setor) spInternadoSetor.getItemAtPosition(position);
 
                 onResume();
             }
@@ -134,7 +139,7 @@ public class InternarActivity extends AppCompatActivity {
         super.onResume();
 
         if (unidade != null && setor != null) {
-            if (Utils.hasInternet(InternarActivity.this)) {
+            if (Utils.hasInternet(InternadoActivity.this)) {
 //        getAllLeitos(new ResultEvent() {
 //            @Override
 //            public <T> void onResult(T result) {
@@ -149,11 +154,11 @@ public class InternarActivity extends AppCompatActivity {
 //            }
 //        });
             } else {
-                leitoList = new LeitoCtrl(InternarActivity.this).getLeitosDisponiveis(unidade.getId(), setor.getId());
+                internadoList = new InternarCtrl(InternadoActivity.this).getInternadoPaciente(unidade.getId(), setor.getId());
             }
 
-            internarAdapter = new InternarAdapter(InternarActivity.this, leitoList);
-            rv.setAdapter(internarAdapter);
+            internadoAdapter = new InternadoAdapter(InternadoActivity.this, internadoList, medico);
+            rv.setAdapter(internadoAdapter);
         }
     }
 
@@ -161,11 +166,11 @@ public class InternarActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_recep, menu);
+        menuInflater.inflate(R.menu.menu_medico, menu);
 
         // Esconder do menu a atual tela
-        menu.findItem(R.id.action_recep_add).setVisible(false);
-        menu.findItem(R.id.action_recep_internamento).setVisible(false);
+        menu.findItem(R.id.action_medico_add).setVisible(false);
+        menu.findItem(R.id.action_medico_alta).setVisible(false);
 
         return true;
     }
@@ -173,18 +178,18 @@ public class InternarActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_recep_refresh:
+            case R.id.action_medico_refresh:
                 onResume();
 
                 break;
 
-            case R.id.action_recep_transferencia:
+            case R.id.action_medico_prescreve:
 //                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
                 finish();
 
                 break;
 
-            case R.id.action_recep_logoff:
+            case R.id.action_medico_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();
 
@@ -207,7 +212,7 @@ public class InternarActivity extends AppCompatActivity {
             public void onResponse(Call<List<Leito>> call, Response<List<Leito>> response) {
                 List<Leito> leitoList = response.body();
 
-                RoomConfig.getInstance(InternarActivity.this).leitoDao().insertAll(leitoList);
+                RoomConfig.getInstance(InternadoActivity.this).leitoDao().insertAll(leitoList);
 
                 resultEvent.onResult(leitoList);
             }

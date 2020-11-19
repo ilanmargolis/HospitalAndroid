@@ -74,13 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_alta" />
+            android:src="@drawable/ic_previsao_alta" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="Previsão de alta"
+            android:text="Alterar previsão de alta"
             android:textColor="@color/azul_5"
             android:textSize="16dp"
             android:textStyle="bold" />

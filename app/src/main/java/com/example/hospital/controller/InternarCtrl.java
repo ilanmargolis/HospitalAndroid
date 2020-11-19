@@ -75,4 +75,16 @@ public class InternarCtrl {
             return null;
         }
     }
+
+    public List<Internado> getInternadoPaciente(long unidade_id, long setor_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.internarDao().getInternadoPaciente(unidade_id, setor_id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

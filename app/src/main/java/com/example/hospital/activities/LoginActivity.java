@@ -31,6 +31,7 @@ import com.example.hospital.model.Medico;
 import com.example.hospital.model.Paciente;
 import com.example.hospital.model.Usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent = new Intent(LoginActivity.this, MenuPacienteActivity.class);
                     } else if (userDados instanceof Medico) {
                         intent = new Intent(LoginActivity.this, MenuMedicoActivity.class);
+                        intent.putExtra("medico", (Serializable) userDados);
                     } else if (userDados instanceof Funcionario) {
                         if (((Funcionario) userDados).getSetor().getId() == 1) {
                             intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);

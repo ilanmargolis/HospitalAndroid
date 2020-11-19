@@ -65,12 +65,12 @@ public class ConselhoCtrl {
         }
     }
 
-    public Conselho get(long id){
+    public Conselho getById(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.conselhoDao().get(id);
+            return db.conselhoDao().getById(id);
         } catch (Exception e) {
             return null;
         }

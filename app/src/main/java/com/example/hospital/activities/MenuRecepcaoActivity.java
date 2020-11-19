@@ -47,6 +47,7 @@ public class MenuRecepcaoActivity extends AppCompatActivity {
                 case TELA_LOGIN:
                     finish();
                     break;
+
                 case TELA_INTERNAR:
                     llRecepInternacao.callOnClick();
                     break;

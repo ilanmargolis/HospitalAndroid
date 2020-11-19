@@ -27,7 +27,7 @@ public interface CbosDao {
     public List<Cbos> getAll();
 
     @Query("SELECT * FROM Cbos WHERE codigo = :codigo")
-    public Cbos get(String codigo);
+    public Cbos getByCodigo(String codigo);
 
     @Delete
     public void delete(Cbos cbos);

@@ -24,8 +24,8 @@ public interface AltaDao {
     @Query("SELECT * FROM Cbos")
     public List<Alta> getAll();
 
-    @Query("SELECT * FROM Alta WHERE internadoid = :internado_id")
-    public Alta get(long internado_id);
+    @Query("SELECT * FROM Alta WHERE internado_id = :internado_id")
+    public Alta getById(long internado_id);
 
     @Delete
     public void delete(Alta alta);

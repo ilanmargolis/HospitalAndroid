@@ -66,12 +66,12 @@ public class CbosCtrl implements Serializable {
         }
     }
 
-    public Cbos get(String codigo){
+    public Cbos getByCodigo(String codigo){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.cbosDao().get(codigo);
+            return db.cbosDao().getByCodigo(codigo);
         } catch (Exception e) {
             return null;
         }

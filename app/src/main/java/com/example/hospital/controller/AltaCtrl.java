@@ -66,12 +66,12 @@ public class AltaCtrl implements Serializable {
         }
     }
 
-    public Alta get(long internado_id){
+    public Alta getById(long internado_id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.altaDao().get(internado_id);
+            return db.altaDao().getById(internado_id);
         } catch (Exception e) {
             return null;
         }

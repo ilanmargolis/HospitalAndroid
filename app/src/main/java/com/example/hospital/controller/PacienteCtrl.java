@@ -66,6 +66,17 @@ public class PacienteCtrl {
         }
     }
 
+    public Paciente getById(long id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.pacienteDao().getById(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Paciente getByEmail(String email){
 
         RoomConfig db = RoomConfig.getInstance(context);

@@ -68,32 +68,33 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
                 String nomeMedicamento = etMedicamentoNome.getText().toString().trim();
                 Date validade = Utils.stringToDate(etMedicamentoValidade.getText().toString(), "dd/MM/yyyy");
 
-                if (medicamento.getId() == 0) { // inclusão
-                    if (!nomeMedicamento.equals("")) {
+                if (nomeMedicamento.equals("")) {
+                    Toast.makeText(MedicamentoDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
+                    etMedicamentoNome.requestFocus();
+                } else {
+                    if (medicamento.getId() == 0) { // inclusão
 
                         medicamento.setNome(nomeMedicamento);
                         medicamento.setDataValidade(validade);
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(MedicamentoDadosActivity.this, "É necessário informar o nome do medicamento!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!medicamento.getNome().equalsIgnoreCase(etMedicamentoNome.getText().toString().trim()) ||
+                                !medicamento.getDataValidade().equals(validade) ||
+                                !medicamento.getTerminologia().toString().equals(spMedicamentoTerminologia.toString())) {
+
+                            medicamento.setNome(nomeMedicamento);
+                            medicamento.setDataValidade(validade);
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(MedicamentoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!medicamento.getNome().equalsIgnoreCase(etMedicamentoNome.getText().toString().trim()) ||
-                            !medicamento.getDataValidade().equals(validade) ||
-                            !medicamento.getTerminologia().toString().equals(spMedicamentoTerminologia.toString())) {
 
-                        medicamento.setNome(nomeMedicamento);
-                        medicamento.setDataValidade(validade);
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(MedicamentoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 

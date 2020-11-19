@@ -99,21 +99,27 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
                case TELA_LOGIN:
                    finish();
                    break;
+
                case TELA_UNIDADE:
                    llAdminUnidade.callOnClick();
                    break;
+
                case TELA_SETOR:
                    llAdminSetor.callOnClick();
                    break;
+
                case TELA_LEITO:
                    llAdminLeito.callOnClick();
                    break;
+
                case TELA_MEDICAMENTO:
                    llAdminMedicamento.callOnClick();
                    break;
+
                case TELA_FUNCIONARIO:
                    llAdminFuncionario.callOnClick();
                    break;
+
                case TELA_MEDICO:
                    llAdminMedico.callOnClick();
                    break;

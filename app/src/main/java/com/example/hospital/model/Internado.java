@@ -84,7 +84,11 @@ public class Internado implements Serializable {
 
     @Override
     public String toString() {
-        return paciente.getNome().toString() + " (" +
-                 leito.getCodigo().toString() + ")";
+        if (paciente != null && leito != null) {
+            return paciente.getNome().toString() + " (" +
+                    leito.getCodigo().toString() + ")";
+        } else {
+            return dataInternacao.toString();
+        }
     }
 }

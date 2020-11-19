@@ -16,17 +16,16 @@ public class Alta implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
-    @Embedded(prefix = "internado")
+    @Embedded(prefix = "internado_")
     private Internado internado;
-    @Embedded(prefix = "medico")
+    @Embedded(prefix = "medico_")
     private Medico medico;
     private Date data;
 
     public Alta() {
     }
 
-    public Alta(long id, Internado internado, Medico medico, Date data) {
-        this.id = id;
+    public Alta(Internado internado, Medico medico, Date data) {
         this.internado = internado;
         this.medico = medico;
         this.data = data;

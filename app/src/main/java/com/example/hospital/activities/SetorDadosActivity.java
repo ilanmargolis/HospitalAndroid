@@ -47,16 +47,7 @@ public class SetorDadosActivity extends AppCompatActivity {
         btSetorOk = (Button) findViewById(R.id.btSetorOk);
         btSetorCancelar = (Button) findViewById(R.id.btSetorCancelar);
 
-        setor = (Setor) getIntent().getSerializableExtra("setor");
-
-        if (setor.getId() == 0) { // inclusão
-
-        } else { // alteração e exclusão
-            setor = new SetorCtrl(SetorDadosActivity.this).get(setor.getId());
-            etSetorNome.setText(setor.getNome());
-            etSetorRamal.setText(setor.getRamal());
-            cbSetorGeraLeitos.setChecked(setor.isGeraLeito());
-        }
+        preparaDados();
 
         btSetorOk.setOnClickListener(new View.OnClickListener() {
 
@@ -64,34 +55,35 @@ public class SetorDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nomeUnidade = etSetorNome.getText().toString().trim();
 
-                if (setor.getId() == 0) { // inclusão
-                    if (!nomeUnidade.equals("")) {
+                if (nomeUnidade.equals("")) {
+                    Toast.makeText(SetorDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
+                    etSetorNome.requestFocus();
+                } else {
+                    if (setor.getId() == 0) { // inclusão
 
                         setor.setNome(nomeUnidade);
                         setor.setRamal(etSetorRamal.getText().toString());
                         setor.setGeraLeito(cbSetorGeraLeitos.isChecked());
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(SetorDadosActivity.this, "É necessário informar o nome do setor!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!setor.getNome().equalsIgnoreCase(etSetorNome.getText().toString().trim()) ||
+                                !setor.getRamal().equals(etSetorRamal.getText().toString().trim()) ||
+                                setor.isGeraLeito() != cbSetorGeraLeitos.isChecked()) {
+
+                            setor.setNome(nomeUnidade);
+                            setor.setRamal(etSetorRamal.getText().toString().trim());
+                            setor.setGeraLeito(cbSetorGeraLeitos.isChecked());
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(SetorDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!setor.getNome().equalsIgnoreCase(etSetorNome.getText().toString().trim()) ||
-                            !setor.getRamal().equals(etSetorRamal.getText().toString().trim()) ||
-                            setor.isGeraLeito() != cbSetorGeraLeitos.isChecked()) {
 
-                        setor.setNome(nomeUnidade);
-                        setor.setRamal(etSetorRamal.getText().toString().trim());
-                        setor.setGeraLeito(cbSetorGeraLeitos.isChecked());
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(SetorDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 
@@ -103,6 +95,19 @@ public class SetorDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void preparaDados() {
+        setor = (Setor) getIntent().getSerializableExtra("setor");
+
+        if (setor.getId() == 0) { // inclusão
+
+        } else { // alteração e exclusão
+            setor = new SetorCtrl(SetorDadosActivity.this).getById(setor.getId());
+            etSetorNome.setText(setor.getNome());
+            etSetorRamal.setText(setor.getRamal());
+            cbSetorGeraLeitos.setChecked(setor.isGeraLeito());
+        }
     }
 
     @Override

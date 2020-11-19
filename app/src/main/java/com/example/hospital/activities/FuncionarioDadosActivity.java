@@ -81,35 +81,36 @@ public class FuncionarioDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nomeFuncionario = etFuncionarioNome.getText().toString().trim();
 
-                if (funcionario.getId() == 0) { // inclusão
-                    if (!nomeFuncionario.equals("")) {
+                if (nomeFuncionario.equals("")) {
+                    Toast.makeText(FuncionarioDadosActivity.this, "É necessário informar o nome do funcionário!", Toast.LENGTH_SHORT).show();
+                    etFuncionarioNome.requestFocus();
+                } else {
+                    if (funcionario.getId() == 0) { // inclusão
 
                         funcionario.setNome(nomeFuncionario);
                         funcionario.setEmail(etFuncionarioEmail.getText().toString().trim());
                         funcionario.setSenha(etFuncionarioSenha.getText().toString().trim());
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(FuncionarioDadosActivity.this, "É necessário informar o nome do funcionário!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!funcionario.getNome().equals(etFuncionarioNome.getText().toString().trim()) ||
+                                !funcionario.getEmail().equals(etFuncionarioEmail.getText().toString().trim()) ||
+                                (funcionario.getSenha() != null && !funcionario.getSenha().equals(etFuncionarioSenha.getText().toString().trim())) ||
+                                !funcionario.getSetor().toString().equals(spFuncionarioSetor.toString())) {
+
+                            funcionario.setNome(nomeFuncionario);
+                            funcionario.setEmail(etFuncionarioEmail.getText().toString().trim());
+                            funcionario.setSenha(etFuncionarioSenha.getText().toString().trim());
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(FuncionarioDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!funcionario.getNome().equals(etFuncionarioNome.getText().toString().trim()) ||
-                            !funcionario.getEmail().equals(etFuncionarioEmail.getText().toString().trim()) ||
-                            (funcionario.getSenha() != null && !funcionario.getSenha().equals(etFuncionarioSenha.getText().toString().trim())) ||
-                            !funcionario.getSetor().toString().equals(spFuncionarioSetor.toString())) {
 
-                        funcionario.setNome(nomeFuncionario);
-                        funcionario.setEmail(etFuncionarioEmail.getText().toString().trim());
-                        funcionario.setSenha(etFuncionarioSenha.getText().toString().trim());
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(FuncionarioDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 

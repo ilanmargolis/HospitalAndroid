@@ -65,6 +65,17 @@ public class FuncionarioCtrl {
         }
     }
 
+    public Funcionario getById(long id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.funcionarioDao().getById(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Funcionario getByEmail(String email){
 
         RoomConfig db = RoomConfig.getInstance(context);

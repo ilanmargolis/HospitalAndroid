@@ -65,12 +65,12 @@ public class UnidadeCtrl {
         }
     }
 
-    public Unidade get(long id){
+    public Unidade getById(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.unidadeDao().get(id);
+            return db.unidadeDao().getById(id);
         } catch (Exception e) {
             return null;
         }

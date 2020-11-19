@@ -65,12 +65,12 @@ public class TerminologiaCtrl {
         }
     }
 
-    public Terminologia get(long id){
+    public Terminologia getById(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.terminologiaDao().get(id);
+            return db.terminologiaDao().getById(id);
         } catch (Exception e) {
             return null;
         }

@@ -72,29 +72,30 @@ public class LeitoDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String codigoLeito = etLeitoCodigo.getText().toString().trim();
 
-                if (leito.getId() == 0) { // inclusão
-                    if (!codigoLeito.equals("")) {
+                if (codigoLeito.equals("")) {
+                    Toast.makeText(LeitoDadosActivity.this, "É necessário informar o código!", Toast.LENGTH_SHORT).show();
+                    etLeitoCodigo.requestFocus();
+                } else {
+                    if (leito.getId() == 0) { // inclusão
                         leito.setCodigo(codigoLeito);
 
                         opcaoCrud(CRUD_INC);
-                    } else {
-                        Toast.makeText(LeitoDadosActivity.this, "É necessário informar o código do leito!", Toast.LENGTH_SHORT).show();
+                    } else { // alteração
+                        if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
+                                !leito.getUnidade().toString().equals(spLeitoUnidade.toString()) ||
+                                !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
+
+                            leito.setCodigo(codigoLeito);
+
+                            opcaoCrud(CRUD_UPD);
+                        } else {
+                            Toast.makeText(LeitoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
-                } else { // alteração
-                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
-                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())||
-                            !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
 
-                        leito.setCodigo(codigoLeito);
-
-                        opcaoCrud(CRUD_UPD);
-                    } else {
-                        Toast.makeText(LeitoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                    }
-
+                    finish();
                 }
-
-                finish();
             }
         });
 

@@ -30,7 +30,7 @@ public interface SetorDao {
     public List<Setor> getGeraLeito();
 
     @Query("SELECT * FROM Setor WHERE id = :id")
-    public Setor get(int id);
+    public Setor getById(int id);
 
     @Delete
     public void delete(Setor setor);

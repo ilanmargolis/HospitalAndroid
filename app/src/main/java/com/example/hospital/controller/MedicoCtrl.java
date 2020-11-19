@@ -66,6 +66,17 @@ public class MedicoCtrl {
         }
     }
 
+    public Medico getById(long id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.medicoDao().getById(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public Medico getByEmail(String email){
 
         RoomConfig db = RoomConfig.getInstance(context);

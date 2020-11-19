@@ -46,8 +46,6 @@ public class InternarAdapter extends RecyclerView.Adapter<InternarAdapter.LeitoH
         llInternarLeito.setBackgroundColor(Utils.zebrarGrid(context, i));
 
         holder.tvAdapterInternarLeitoNome.setText(leitoList.get(i).getCodigo());
-//        holder.tvAdapterLeitoUnidade.setText(leitoList.get(i).getUnidade().getNome());
-//        holder.tvAdapterLeitoSetor.setText(leitoList.get(i).getSetor().getNome());
     }
 
     @Override
@@ -62,8 +60,6 @@ public class InternarAdapter extends RecyclerView.Adapter<InternarAdapter.LeitoH
             super(itemView);
 
             tvAdapterInternarLeitoNome = (TextView) itemView.findViewById(R.id.tvAdapterInternarLeitoNome);
-//            tvAdapterLeitoUnidade = (TextView) itemView.findViewById(R.id.tvAdapterLeitoUnidade);
-//            tvAdapterLeitoSetor = (TextView) itemView.findViewById(R.id.tvAdapterLeitoSetor);
             llInternarLeito = (LinearLayout) itemView.findViewById(R.id.llInternarLeito);
 
             llInternarLeito.setOnClickListener(new View.OnClickListener() {

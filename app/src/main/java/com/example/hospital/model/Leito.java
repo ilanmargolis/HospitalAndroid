@@ -14,9 +14,9 @@ public class Leito implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String codigo;
-    @Embedded(prefix = "unidade")
+    @Embedded(prefix = "unidade_")
     private Unidade unidade;
-    @Embedded(prefix = "setor")
+    @Embedded(prefix = "setor_")
     private Setor setor;
 
     public Leito() {

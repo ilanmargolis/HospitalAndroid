@@ -85,6 +85,12 @@
         <activity
             android:name=".activities.PacienteDadosActivity"
             android:label="Cadastro de paciente" />
+        <activity
+            android:name=".activities.InternadoActivity"
+            android:label="Pacientes internados" />
+        <activity
+            android:name=".activities.AltaDadosActivity"
+            android:label="Alta médica" />
     </application>
 
 </manifest>
