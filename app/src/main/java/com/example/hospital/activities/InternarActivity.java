@@ -179,13 +179,13 @@ public class InternarActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_recep_transferencia:
-//                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
+                setResult(MenuRecepcaoActivity.TELA_TRANSFERENCIA, getIntent());
                 finish();
 
                 break;
 
             case R.id.action_recep_logoff:
-                setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
+                setResult(MenuRecepcaoActivity.TELA_LOGIN, getIntent());
                 finish();
 
                 break;

@@ -6,6 +6,7 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
  //       (foreignKeys = @ForeignKey(entity=Unidade.class, parentColumns="id", childColumns="unidade_id"))
@@ -65,6 +66,21 @@ public class Leito implements Serializable {
 
     public void setSetor(Setor setor) {
         this.setor = setor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Leito leito = (Leito) o;
+        return Objects.equals(codigo, leito.codigo) &&
+                Objects.equals(unidade, leito.unidade) &&
+                Objects.equals(setor, leito.setor);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     @Override

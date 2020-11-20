@@ -91,6 +91,9 @@
         <activity
             android:name=".activities.AltaDadosActivity"
             android:label="Alta médica" />
+        <activity
+            android:name=".activities.TransferenciaDadosActivity"
+            android:label="Transferência de leito" />
     </application>
 
 </manifest>

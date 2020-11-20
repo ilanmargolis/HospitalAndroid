@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Setor implements Serializable {
@@ -60,6 +61,19 @@ public class Setor implements Serializable {
 
     public void setGeraLeito(boolean geraLeito) {
         this.geraLeito = geraLeito;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Setor setor = (Setor) o;
+        return Objects.equals(nome, setor.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     @Override

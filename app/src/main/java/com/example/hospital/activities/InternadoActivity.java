@@ -43,7 +43,6 @@ public class InternadoActivity extends AppCompatActivity {
     private RecyclerView rv;
     private Spinner spInternadoUnidade, spInternadoSetor;
     private InternadoAdapter internadoAdapter;
-    private Intent intent;
     private Unidade unidade;
     private Setor setor;
     private List<Unidade> unidadeList = null;
@@ -55,6 +54,11 @@ public class InternadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_internado);
+
+        // Altera o título da activity
+        String texto = getIntent().getExtras().getString("tela");
+
+        setTitle("Pacientes internados (" + texto + ")");
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuMedicoActivity.TELA_MENU, getIntent());
@@ -166,11 +170,20 @@ public class InternadoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_medico, menu);
 
-        // Esconder do menu a atual tela
-        menu.findItem(R.id.action_medico_add).setVisible(false);
-        menu.findItem(R.id.action_medico_alta).setVisible(false);
+        if (medico != null) {
+            menuInflater.inflate(R.menu.menu_medico, menu);
+
+            // Esconder do menu a atual tela
+            menu.findItem(R.id.action_medico_add).setVisible(false);
+            menu.findItem(R.id.action_medico_alta).setVisible(false);
+        } else {
+            menuInflater.inflate(R.menu.menu_recep, menu);
+
+            // Esconder do menu a atual tela
+            menu.findItem(R.id.action_recep_add).setVisible(false);
+            menu.findItem(R.id.action_recep_transferencia).setVisible(false);
+        }
 
         return true;
     }
@@ -184,13 +197,36 @@ public class InternadoActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_medico_prescreve:
-//                setResult(MenuAdministrativoActivity.TELA_UNIDADE, getIntent());
+//                setResult(MenuMedicoActivity.TELA_PRESCREVE, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_medico_medicamento:
+//                setResult(MenuMedicoActivity.TELA_MEDICAMENTO, getIntent());
                 finish();
 
                 break;
 
             case R.id.action_medico_logoff:
-                setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
+                setResult(MenuMedicoActivity.TELA_LOGIN, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_recep_refresh:
+                onResume();
+
+                break;
+
+            case R.id.action_recep_internamento:
+                setResult(MenuRecepcaoActivity.TELA_INTERNAR, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_recep_logoff:
+                setResult(MenuRecepcaoActivity.TELA_LOGIN, getIntent());
                 finish();
 
                 break;

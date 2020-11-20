@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".activities.TransferenciaDadosActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Leito atual da internação"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/corner_round"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Código do leito" />
+
+        <TextView
+            android:id="@+id/tvTransfLeitoCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:text="Código do leito" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unidade do leito" />
+
+        <TextView
+            android:id="@+id/tvTransfLeitoUnidade"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:hint="Nome da unidade" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unidade do leito" />
+
+        <TextView
+            android:id="@+id/tvTransfLeitoSetor"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"
+            android:backgroundTint="@color/cinza_3"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:hint="Setor do leito" />
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome do paciente" />
+
+        <TextView
+            android:id="@+id/tvTransfPacienteNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cinza_3"
+            android:background="@drawable/corner_round"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            tools:hint="Nome do paciente"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Leito de transferência"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/corner_round"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unidade" />
+
+        <Spinner
+            android:id="@+id/spTransfUnidade"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setor"/>
+
+        <Spinner
+            android:id="@+id/spTransfSetor"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btTransfOk"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/azul_5"
+            android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:text="Transferir" />
+
+        <Button
+            android:id="@+id/btTransfCancelar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/cinza_2"
+            android:drawableLeft="@drawable/ic_baseline_close_24"
+            android:text="Cancelar" />
+    </LinearLayout>
+
+</LinearLayout>

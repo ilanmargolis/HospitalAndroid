@@ -5,6 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Unidade implements Serializable {
@@ -72,6 +73,19 @@ public class Unidade implements Serializable {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Unidade unidade = (Unidade) o;
+        return Objects.equals(nome, unidade.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return 0;
     }
 
     @Override

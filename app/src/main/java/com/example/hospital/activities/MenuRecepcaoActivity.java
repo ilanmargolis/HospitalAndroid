@@ -12,7 +12,7 @@ import com.example.hospital.R;
 
 public class MenuRecepcaoActivity extends AppCompatActivity {
 
-    private LinearLayout llRecepInternacao;
+    private LinearLayout llRecepInternacao, llRecepTransferencia;
     private Intent intent;
 
     public static final int TELA_MENU = -1;
@@ -28,12 +28,22 @@ public class MenuRecepcaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu_recepcao);
 
         llRecepInternacao = (LinearLayout) findViewById(R.id.llRecepInternacao);
+        llRecepTransferencia = (LinearLayout) findViewById(R.id.llRecepTransferencia);
 
         llRecepInternacao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MenuRecepcaoActivity.this, InternarActivity.class);
                 startActivityForResult(intent, TELA_INTERNAR);
+            }
+        });
+
+        llRecepTransferencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MenuRecepcaoActivity.this, InternadoActivity.class);
+                intent.putExtra("tela", "Transferância de leito");
+                startActivityForResult(intent, TELA_TRANSFERENCIA);
             }
         });
     }
@@ -51,7 +61,13 @@ public class MenuRecepcaoActivity extends AppCompatActivity {
                 case TELA_INTERNAR:
                     llRecepInternacao.callOnClick();
                     break;
+
+                case TELA_TRANSFERENCIA:
+                    llRecepTransferencia.callOnClick();
+                    break;
+
             }
+
         }
     }
 }

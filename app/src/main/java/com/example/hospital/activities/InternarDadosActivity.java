@@ -84,7 +84,6 @@ public class InternarDadosActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String codigoLeito = tvInternarLeitoCodigo.getText().toString().trim();
                 Date dtInternacao = Utils.stringToDate(etInternarDtInternacao.getText().toString(), "dd/MM/yyyy");
                 Date dtPrevisao = Utils.stringToDate(etInternarDtPrevisao.getText().toString(), "dd/MM/yyyy");
 
@@ -95,30 +94,9 @@ public class InternarDadosActivity extends AppCompatActivity {
                     Toast.makeText(InternarDadosActivity.this, "Data de previsão de alta não informada!", Toast.LENGTH_SHORT).show();
                     etInternarDtPrevisao.requestFocus();
                 } else {
+                    internado = new Internado(dtInternacao, dtPrevisao, leito, paciente);
 
-                    if (internado == null) { // inclusão
-                        if (!codigoLeito.equals("")) {
-                            leito.setCodigo(codigoLeito);
-                            internado = new Internado(dtInternacao, dtPrevisao, leito, paciente);
-
-                            opcaoCrud(CRUD_INC);
-                        } else {
-                            Toast.makeText(InternarDadosActivity.this, "É necessário informar o código do leito!", Toast.LENGTH_SHORT).show();
-                        }
-                    } else { // alteração
-                        if (false) {
-                            //                    if (!leito.getCodigo().equalsIgnoreCase(etLeitoCodigo.getText().toString().trim()) ||
-                            //                            !leito.getUnidade().toString().equals(spLeitoUnidade.toString())||
-                            //                            !leito.getSetor().toString().equals(spLeitoSetor.toString())) {
-
-                            leito.setCodigo(codigoLeito);
-
-                            opcaoCrud(CRUD_UPD);
-                        } else {
-                            Toast.makeText(InternarDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
+                    opcaoCrud(CRUD_INC);
 
                     finish();
                 }
@@ -179,13 +157,9 @@ public class InternarDadosActivity extends AppCompatActivity {
 
         leito = (Leito) getIntent().getSerializableExtra("internar");
 
-        if (leito.getId() == 0) { // inclusão
-//            spUnidade.setSelection(0);
-        } else { // alteração e exclusão
-            tvInternarLeitoCodigo.setText(leito.getCodigo());
-            tvInternarLeitoUnidade.setText(leito.getUnidade().getNome());
-            tvInternarLeitoSetor.setText(leito.getSetor().getNome());
-        }
+        tvInternarLeitoCodigo.setText(leito.getCodigo());
+        tvInternarLeitoUnidade.setText(leito.getUnidade().getNome());
+        tvInternarLeitoSetor.setText(leito.getSetor().getNome());
     }
 
     @Override
@@ -194,10 +168,7 @@ public class InternarDadosActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_crud, menu);
 
-        if (leito.getId() == 0) { // inclusão
-//            btInternarOk.setText("Incluir");
-            menu.clear();
-        }
+        menu.clear();
 
         return true;
     }

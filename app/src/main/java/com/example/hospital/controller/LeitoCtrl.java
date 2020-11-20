@@ -83,7 +83,13 @@ public class LeitoCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.leitoDao().getLeitosDisponiveis(unidade_id, setor_id);
+            List<Leito> todos = db.leitoDao().getLeitosUnidadeSetor(unidade_id, setor_id);
+
+            List<Leito> ocupados = db.leitoDao().getLeitosOcupados(unidade_id, setor_id);
+
+            todos.removeAll(ocupados);
+
+            return todos;
         } catch (Exception e) {
             return null;
         }

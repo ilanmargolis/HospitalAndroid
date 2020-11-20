@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.activities.AltaDadosActivity;
+import com.example.hospital.activities.TransferenciaDadosActivity;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Medico;
 import com.example.hospital.util.Utils;
@@ -70,11 +71,17 @@ public class InternadoAdapter extends RecyclerView.Adapter<InternadoAdapter.Inte
             llAdapterInternadoLeito.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AltaDadosActivity.class);
-                    intent.putExtra("alta", (Serializable) internadoList.get(getAdapterPosition()));
+                    Intent intent = null;
+
                     if (medico !=  null) {
+                        intent = new Intent(context, AltaDadosActivity.class);
                         intent.putExtra("medico", (Serializable) medico);
+                    } else {
+                        intent = new Intent(context, TransferenciaDadosActivity.class);
                     }
+
+                    intent.putExtra("internado", (Serializable) internadoList.get(getAdapterPosition()));
+
                     context.startActivity(intent);
                 }
             });

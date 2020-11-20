@@ -24,10 +24,10 @@
         android:title="Transferência de leito"
         app:showAsAction="never" />
 
-    <item
+    <!--item
         android:id="@+id/action_recep_previsao"
         android:title="Previsão de alta"
-        app:showAsAction="never" />
+        app:showAsAction="never" /-->
 
     <item
         android:id="@+id/action_recep_logoff"

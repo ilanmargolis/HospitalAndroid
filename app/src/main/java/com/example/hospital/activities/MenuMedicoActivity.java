@@ -39,6 +39,7 @@ public class MenuMedicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MenuMedicoActivity.this, InternadoActivity.class);
+                intent.putExtra("tela", "Alta médica");
                 intent.putExtra("medico", (Serializable) medico);
                 startActivityForResult(intent, TELA_ALTA);
             }

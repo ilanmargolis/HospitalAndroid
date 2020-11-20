@@ -33,13 +33,12 @@ public interface InternarDao {
             "INNER JOIN setor S ON S.id = :setor_id and L.setor_id = S.id")
     public List<Internado> getInternadoUnidadeSetor(long unidade_id, long setor_id);
 
-    @Query("SELECT DISTINCT(L.id), * FROM leito L " +
+    @Query("SELECT I.* FROM internado I " +
+            "INNER JOIN leito L ON I.leito_id = L.id " +
             "INNER JOIN unidade U ON U.id = :unidade_id and L.unidade_id = U.id " +
             "INNER JOIN setor S ON S.id = :setor_id and L.setor_id = S.id " +
-            "INNER JOIN internado I ON I.leito_id = L.id " +
-            "LEFT OUTER JOIN alta A ON A.internado_id = I.id")
-//            "OUTER JOIN alta A ON I.id = A.internado_id " +
-//            "WHERE I.id NOT IN (SELECT internado_id FROM alta)")
+            "LEFT OUTER JOIN alta A ON A.internado_id = I.id " +
+            "WHERE A.id IS NULL")
     public List<Internado> getInternadoPaciente(long unidade_id, long setor_id);
 
     @Delete

@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
-import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.controller.AltaCtrl;
 import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.model.Alta;
@@ -27,15 +26,11 @@ import com.example.hospital.util.Utils;
 import java.util.Date;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class AltaDadosActivity extends AppCompatActivity {
+public class TransferenciaDadosActivity extends AppCompatActivity {
 
-    private TextView tvAltaLeitoCodigo, tvAltaLeitoUnidade, tvAltaLeitoSetor, tvAltaPacienteNome,
-            tvAltaDtInternacao, tvAltaDtPrevisao;
-    private EditText etAltaDtAlta;
-    private Button btAltaOk, btAltaCancelar;
+    private TextView tvTransfLeitoCodigo, tvTransfLeitoUnidade, tvTransfLeitoSetor, tvTransfPacienteNome;
+    private Button btTransfOk, btTransfCancelar;
     private Alta alta;
     private Internado internado;
     private Medico medico;
@@ -50,48 +45,39 @@ public class AltaDadosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alta_dados);
+        setContentView(R.layout.activity_transferencia_dados);
 
-        tvAltaLeitoCodigo = (TextView) findViewById(R.id.tvAltaLeitoCodigo);
-        tvAltaLeitoUnidade = (TextView) findViewById(R.id.tvAltaLeitoUnidade);
-        tvAltaLeitoSetor = (TextView) findViewById(R.id.tvAltaLeitoSetor);
-        tvAltaPacienteNome = (TextView) findViewById(R.id.tvAltaPacienteNome);
-        tvAltaDtInternacao = (TextView) findViewById(R.id.tvAltaDtInternacao);
-        tvAltaDtPrevisao = (TextView) findViewById(R.id.tvAltaDtPrevisao);
-        etAltaDtAlta = (EditText) findViewById(R.id.etAltaDtAlta);
-        btAltaOk = (Button) findViewById(R.id.btAltaOk);
-        btAltaCancelar = (Button) findViewById(R.id.btAltaCancelar);
+        tvTransfLeitoCodigo = (TextView) findViewById(R.id.tvTransfLeitoCodigo);
+        tvTransfLeitoUnidade = (TextView) findViewById(R.id.tvTransfLeitoUnidade);
+        tvTransfLeitoSetor = (TextView) findViewById(R.id.tvTransfLeitoSetor);
+        tvTransfPacienteNome = (TextView) findViewById(R.id.tvTransfPacienteNome);
+        btTransfOk = (Button) findViewById(R.id.btTransfOk);
+        btTransfCancelar = (Button) findViewById(R.id.btTransfCancelar);
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
-        setResult(MenuMedicoActivity.TELA_MENU, getIntent());
-
-        etAltaDtAlta.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etAltaDtAlta));
+        setResult(MenuRecepcaoActivity.TELA_MENU, getIntent());
 
         preparaDados();
 
-        btAltaOk.setOnClickListener(new View.OnClickListener() {
+        btTransfOk.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Date dtAlta = Utils.stringToDate(etAltaDtAlta.getText().toString(), "dd/MM/yyyy");
+//                } else
+                    {
+//                    alta = new Alta(internado, medico, dtAlta);
 
-                if (etAltaDtAlta.getText().toString().equals("")) {
-                    Toast.makeText(AltaDadosActivity.this, "Data de de alta não informada!", Toast.LENGTH_SHORT).show();
-                    etAltaDtAlta.requestFocus();
-                } else {
-                    alta = new Alta(internado, medico, dtAlta);
-
-                    opcaoCrud(CRUD_INC);
+//                    opcaoCrud(CRUD_UPD);
 
                     finish();
                 }
             }
         });
 
-        btAltaCancelar.setOnClickListener(new View.OnClickListener() {
+        btTransfCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) { // exclusão
-                Toast.makeText(AltaDadosActivity.this, "Operação cancelada pelo usuário", Toast.LENGTH_SHORT).show();
+                Toast.makeText(TransferenciaDadosActivity.this, "Operação cancelada pelo usuário", Toast.LENGTH_SHORT).show();
 
                 finish();
             }
@@ -106,13 +92,10 @@ public class AltaDadosActivity extends AppCompatActivity {
 
         Leito leito = new LeitoCtrl(this).getById(internado.getLeito().getId());
 
-        tvAltaLeitoCodigo.setText(leito.getCodigo());
-        tvAltaLeitoUnidade.setText(leito.getUnidade().getNome());
-        tvAltaLeitoSetor.setText(leito.getSetor().getNome());
-        tvAltaDtInternacao.setText(Utils.dateToString(internado.getDataInternacao(), "dd/MM/yyyy"));
-        tvAltaDtPrevisao.setText(Utils.dateToString(internado.getDataPrevisaoAlta(), "dd/MM/yyyy"));
-
-        tvAltaPacienteNome.setText(internado.getPaciente().getNome());
+        tvTransfLeitoCodigo.setText(leito.getCodigo());
+        tvTransfLeitoUnidade.setText(leito.getUnidade().getNome());
+        tvTransfLeitoSetor.setText(leito.getSetor().getNome());
+        tvTransfPacienteNome.setText(internado.getPaciente().getNome());
     }
 
     @Override
@@ -160,15 +143,15 @@ public class AltaDadosActivity extends AppCompatActivity {
             });
         } else {
             if (tipoCrud == CRUD_INC) {
-                msg = new AltaCtrl(AltaDadosActivity.this).insert(alta);
+                msg = new AltaCtrl(TransferenciaDadosActivity.this).insert(alta);
             } else if (tipoCrud == CRUD_UPD) {
-                msg = new AltaCtrl(AltaDadosActivity.this).update(alta);
+                msg = new AltaCtrl(TransferenciaDadosActivity.this).update(alta);
             } else if (tipoCrud == CRUD_DEL) {
-                msg = new AltaCtrl(AltaDadosActivity.this).delete(alta);
+                msg = new AltaCtrl(TransferenciaDadosActivity.this).delete(alta);
             }
         }
 
-        Toast.makeText(AltaDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(TransferenciaDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {
