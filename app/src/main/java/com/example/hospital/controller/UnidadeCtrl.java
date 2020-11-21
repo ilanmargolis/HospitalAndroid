@@ -75,4 +75,15 @@ public class UnidadeCtrl {
             return null;
         }
     }
+
+    public List<Unidade> getByLeitos(long leito_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.unidadeDao().getByLeito(leito_id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

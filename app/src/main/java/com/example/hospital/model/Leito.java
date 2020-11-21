@@ -85,6 +85,9 @@ public class Leito implements Serializable {
 
     @Override
     public String toString() {
-        return codigo + " (" + unidade.getNome().toString() + ")";
+        return codigo +
+               " (" + unidade.getNome().toString() +
+               ": " + setor.getNome().toString() +
+                ")";
     }
 }

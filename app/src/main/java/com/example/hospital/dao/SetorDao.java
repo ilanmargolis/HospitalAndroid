@@ -26,11 +26,15 @@ public interface SetorDao {
     @Query("SELECT * FROM Setor")
     public List<Setor> getAll();
 
-    @Query("SELECT * FROM Setor WHERE geraLeito = 1")
-    public List<Setor> getGeraLeito();
-
     @Query("SELECT * FROM Setor WHERE id = :id")
-    public Setor getById(int id);
+    public Setor getById(long id);
+
+    @Query("SELECT * FROM Setor S " +
+            "INNER JOIN leito L ON L.setor_id = S.id AND S.id = :setor_id")
+    public List<Setor> getByLeito(long setor_id);
+
+    @Query("SELECT * FROM Setor WHERE geraLeito = 1")
+    public List<Setor> getGeraLeitos();
 
     @Delete
     public void delete(Setor setor);

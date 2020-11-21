@@ -1,5 +1,7 @@
 package com.example.hospital.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -240,9 +242,20 @@ public class MedicoDadosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_del:
-                opcaoCrud(CRUD_DEL);
+                new AlertDialog.Builder(this)
+                        .setTitle("Exclusão de médico")
+                        .setMessage("Tem certeza que deseja excluir esse médico?")
+                        .setPositiveButton("sim", new DialogInterface.OnClickListener() {
 
-                finish();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                opcaoCrud(CRUD_DEL);
+
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("não", null)
+                        .show();
 
                 return true;
 

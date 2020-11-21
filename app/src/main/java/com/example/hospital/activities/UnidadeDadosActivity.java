@@ -1,5 +1,7 @@
 package com.example.hospital.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
+import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
@@ -138,9 +141,20 @@ public class UnidadeDadosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_del:
-                opcaoCrud(CRUD_DEL);
+                new AlertDialog.Builder(this)
+                        .setTitle("Exclusão de unidade")
+                        .setMessage("Tem certeza que deseja excluir essa unidade?")
+                        .setPositiveButton("sim", new DialogInterface.OnClickListener() {
 
-                finish();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                opcaoCrud(CRUD_DEL);
+
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("não", null)
+                        .show();
 
                 return true;
 

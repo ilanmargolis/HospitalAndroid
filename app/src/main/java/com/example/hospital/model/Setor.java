@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Setor implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
     private String nome;
     private String ramal;
     private boolean geraLeito;
@@ -31,11 +31,11 @@ public class Setor implements Serializable {
         this.geraLeito = u.geraLeito;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

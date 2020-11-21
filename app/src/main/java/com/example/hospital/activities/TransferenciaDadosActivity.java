@@ -5,35 +5,46 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
-import com.example.hospital.controller.AltaCtrl;
+import com.example.hospital.controller.InternarCtrl;
 import com.example.hospital.controller.LeitoCtrl;
+import com.example.hospital.controller.SetorCtrl;
+import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Alta;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
 import com.example.hospital.model.Medico;
+import com.example.hospital.model.Setor;
+import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
-import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
-import java.util.Date;
+import java.util.List;
 
 import retrofit2.Call;
 
 public class TransferenciaDadosActivity extends AppCompatActivity {
 
     private TextView tvTransfLeitoCodigo, tvTransfLeitoUnidade, tvTransfLeitoSetor, tvTransfPacienteNome;
+    private Spinner spTransfUnidade, spTransfSetor, spTransfLeito;
     private Button btTransfOk, btTransfCancelar;
-    private Alta alta;
     private Internado internado;
     private Medico medico;
+    private Unidade unidade;
+    private Setor setor;
+    private Leito leito;
+    private List<Unidade> unidadeList = null;
+    private List<Setor> setorList = null;
+    private List<Leito> leitoList = null;
 
     private String msg = null;
     private final String tipoOpcao[][] = {{"incluído", "alterado", "excluído"}, {"incluir", "alterar", "excluir"}};
@@ -51,11 +62,21 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
         tvTransfLeitoUnidade = (TextView) findViewById(R.id.tvTransfLeitoUnidade);
         tvTransfLeitoSetor = (TextView) findViewById(R.id.tvTransfLeitoSetor);
         tvTransfPacienteNome = (TextView) findViewById(R.id.tvTransfPacienteNome);
+        spTransfUnidade = (Spinner) findViewById(R.id.spTransfUnidade);
+        spTransfSetor = (Spinner) findViewById(R.id.spTransfSetor);
+        spTransfLeito = (Spinner) findViewById(R.id.spTransfLeito);
         btTransfOk = (Button) findViewById(R.id.btTransfOk);
         btTransfCancelar = (Button) findViewById(R.id.btTransfCancelar);
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuRecepcaoActivity.TELA_MENU, getIntent());
+
+        if (!carregaSpinner()) {
+            Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
+
+            finish();
+        }
+        ;
 
         preparaDados();
 
@@ -63,14 +84,11 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-//                } else
-                    {
-//                    alta = new Alta(internado, medico, dtAlta);
+                internado.setLeito(leito);
 
-//                    opcaoCrud(CRUD_UPD);
+                opcaoCrud(CRUD_UPD);
 
-                    finish();
-                }
+                finish();
             }
         });
 
@@ -83,6 +101,98 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean carregaSpinner() {
+
+        // Carrega todos os departamentos no spinner
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            unidadeList = new UnidadeCtrl(this).getAll();
+        }
+
+        if (unidadeList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(TransferenciaDadosActivity.this, android.R.layout.simple_spinner_item, unidadeList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spTransfUnidade.setAdapter(aa);
+
+            unidade = unidadeList.get(0);
+        } else {
+            return false;
+        }
+
+        spTransfUnidade.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                unidade = (Unidade) spTransfUnidade.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spTransfSetor.setEnabled(false);
+            }
+        });
+
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            setorList = new SetorCtrl(this).getGeraLeitos();
+        }
+
+        if (setorList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(TransferenciaDadosActivity.this, android.R.layout.simple_spinner_item, setorList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spTransfSetor.setAdapter(aa);
+
+            setor = setorList.get(0);
+        } else {
+            return false;
+        }
+
+        spTransfSetor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                setor = (Setor) spTransfSetor.getItemAtPosition(position);
+
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                spTransfLeito.setEnabled(false);
+            }
+        });
+
+        if (Utils.hasInternet(this)) {
+
+        } else {
+            leitoList = new LeitoCtrl(this).getLeitosDisponiveis(unidade.getId(), setor.getId());
+        }
+
+        if (leitoList.size() > 0) {
+            ArrayAdapter aa = new ArrayAdapter<>(TransferenciaDadosActivity.this, android.R.layout.simple_spinner_item, leitoList);
+            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spTransfLeito.setAdapter(aa);
+        } else {
+            Toast.makeText(this, "Não existe leito disponível nesta unidade e/ou setor. Aguarde disponibilidade ou selecione outra unidade e/ou setor!", Toast.LENGTH_SHORT).show();
+        }
+
+        spTransfLeito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                leito = (Leito) spTransfLeito.getItemAtPosition(position);
+
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        return true;
     }
 
     private void preparaDados() {
@@ -133,7 +243,7 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
             crudDados(tipoCrud, new ResultEvent() {
                 @Override
                 public <T> void onResult(T result) {
-                    msg = "Alta médica " + tipoOpcao[0][tipoCrud] + " com sucesso";
+                    msg = "Leito " + tipoOpcao[0][tipoCrud] + " com sucesso";
                 }
 
                 @Override
@@ -143,11 +253,11 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
             });
         } else {
             if (tipoCrud == CRUD_INC) {
-                msg = new AltaCtrl(TransferenciaDadosActivity.this).insert(alta);
+                msg = new InternarCtrl(TransferenciaDadosActivity.this).insert(internado);
             } else if (tipoCrud == CRUD_UPD) {
-                msg = new AltaCtrl(TransferenciaDadosActivity.this).update(alta);
+                msg = new InternarCtrl(TransferenciaDadosActivity.this).update(internado);
             } else if (tipoCrud == CRUD_DEL) {
-                msg = new AltaCtrl(TransferenciaDadosActivity.this).delete(alta);
+                msg = new InternarCtrl(TransferenciaDadosActivity.this).delete(internado);
             }
         }
 

@@ -24,8 +24,8 @@ public interface SetorService {
     Call<List<Setor>> getAll();
 
     @GET("setor/{id}")
-    Call<Setor> get(@Path("id") int id);
+    Call<Setor> get(@Path("id") long id);
 
     @DELETE("setor/{id}")
-    Call<Setor> delete(@Path("id") int id);
+    Call<Setor> delete(@Path("id") long id);
 }

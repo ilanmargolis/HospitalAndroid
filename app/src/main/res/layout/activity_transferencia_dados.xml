@@ -93,7 +93,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="180dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:background="@drawable/corner_round"
@@ -121,18 +121,29 @@
             android:layout_height="35dp"
             android:background="@drawable/corner_round"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leito"/>
+
+        <Spinner
+            android:id="@+id/spTransfLeito"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@drawable/corner_round"/>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="40dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btTransfOk"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:backgroundTint="@color/azul_5"

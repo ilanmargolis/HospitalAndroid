@@ -13,9 +13,11 @@ import com.example.hospital.R;
 import com.example.hospital.controller.CbosCtrl;
 import com.example.hospital.controller.ConselhoCtrl;
 import com.example.hospital.controller.FuncionarioCtrl;
+import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.TerminologiaCtrl;
 import com.example.hospital.model.Cbos;
 import com.example.hospital.model.Conselho;
+import com.example.hospital.model.Setor;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.util.Utils;
 import com.facebook.stetho.Stetho;
@@ -123,6 +125,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                 new TerminologiaCtrl(this).insert(terminologia);
             }
         }
+
+        // Adicionar setor Administrativo e Recepção pois preciso deles internamente
+        new SetorCtrl(this).insert(new Setor("Administrativo", "", false));
+        new SetorCtrl(this).insert(new Setor("Recepção", "", false));
     }
 
 }

@@ -4,8 +4,6 @@ import android.content.Context;
 
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.model.Leito;
-import com.example.hospital.model.Setor;
-import com.example.hospital.model.Unidade;
 
 import java.util.List;
 
@@ -35,7 +33,11 @@ public class LeitoCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.leitoDao().update(leito);
+            if (db.leitoDao().getByInternamento(leito.getId()).size() > 0) {
+                return "Não é possível alterar esse leito, ele está sendo utilizado no internamento!";
+            } else {
+                db.leitoDao().update(leito);
+            }
 
             return "Leito alterada com sucesso";
         } catch (Exception e) {
@@ -48,7 +50,11 @@ public class LeitoCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.leitoDao().delete(leito);
+            if (db.leitoDao().getByInternamento(leito.getId()).size() > 0) {
+                return "Não é possível excluir esse leito, ele está sendo utilizado no internamento!";
+            } else {
+                db.leitoDao().delete(leito);
+            }
 
             return "Leito excluída com sucesso";
         } catch (Exception e) {
@@ -73,6 +79,39 @@ public class LeitoCtrl {
 
         try {
             return db.leitoDao().getById(id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Leito> getByUnidades(long unidade_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.leitoDao().getByUnidade(unidade_id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Leito> getBySetores(long setor_id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.leitoDao().getBySetor(setor_id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Leito> getByInternamentos(long id){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.leitoDao().getByInternamento(id);
         } catch (Exception e) {
             return null;
         }

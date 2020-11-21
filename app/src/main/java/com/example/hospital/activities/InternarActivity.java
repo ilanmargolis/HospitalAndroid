@@ -101,7 +101,7 @@ public class InternarActivity extends AppCompatActivity {
         if (Utils.hasInternet(this)) {
 
         } else {
-            setorList = new SetorCtrl(this).getGeraLeito();
+            setorList = new SetorCtrl(this).getGeraLeitos();
         }
 
         if (setorList.size() > 0) {

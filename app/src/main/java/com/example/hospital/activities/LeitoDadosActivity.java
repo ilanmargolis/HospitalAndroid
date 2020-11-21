@@ -1,5 +1,7 @@
 package com.example.hospital.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
-import com.example.hospital.config.RoomConfig;
 import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
@@ -26,7 +27,6 @@ import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -91,7 +91,6 @@ public class LeitoDadosActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(LeitoDadosActivity.this, "Não houve alteração nos dados!", Toast.LENGTH_SHORT).show();
                         }
-
                     }
 
                     finish();
@@ -114,7 +113,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
         leito = (Leito) getIntent().getSerializableExtra("leito");
 
         if (leito.getId() == 0) { // inclusão
-//            spUnidade.setSelection(0);
+
         } else { // alteração e exclusão
             etLeitoCodigo.setText(leito.getCodigo());
 
@@ -127,7 +126,6 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
         List<Unidade> unidadeList = null;
 
-        // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
@@ -156,11 +154,10 @@ public class LeitoDadosActivity extends AppCompatActivity {
 
         List<Setor> setorList = null;
 
-        // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
-            setorList = new SetorCtrl(this).getGeraLeito();
+            setorList = new SetorCtrl(this).getGeraLeitos();
         }
 
         if (setorList.size() > 0) {
@@ -206,9 +203,24 @@ public class LeitoDadosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_del:
-                opcaoCrud(CRUD_DEL);
+                if (new LeitoCtrl(this).getByInternamentos(leito.getId()).size() > 0) {
+                    Toast.makeText(this, "Não é possível excluir esse leito, ela está sendo utilizado no internamento!", Toast.LENGTH_LONG).show();
+                } else {
+                    new AlertDialog.Builder(this)
+                            .setTitle("Exclusão de leito")
+                            .setMessage("Tem certeza que deseja excluir esse leito?")
+                            .setPositiveButton("sim", new DialogInterface.OnClickListener() {
 
-                finish();
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    opcaoCrud(CRUD_DEL);
+
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton("não", null)
+                            .show();
+                }
 
                 return true;
 

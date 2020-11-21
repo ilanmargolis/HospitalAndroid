@@ -46,7 +46,13 @@ public class SetorCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.setorDao().update(setor);
+            if (setor.getId() <= 2) {
+                return "Esse setor faz parte do perfil de funcionários e, por isso, não será possível excluir!";
+            } else if (getByLeito(setor.getId()).size() > 0) {
+                return "Não é possível excluir esse setor, ele está sendo utilizada em leitos!";
+            } else {
+                db.setorDao().delete(setor);
+            }
 
             return "Setor excluído com sucesso";
         } catch (Exception e) {
@@ -65,18 +71,7 @@ public class SetorCtrl {
         }
     }
 
-    public List<Setor> getGeraLeito(){
-
-        RoomConfig db = RoomConfig.getInstance(context);
-
-        try {
-            return db.setorDao().getGeraLeito();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public Setor getById(int id){
+    public Setor getById(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
@@ -87,5 +82,25 @@ public class SetorCtrl {
         }
     }
 
+    public List<Setor> getByLeito(long setor_id){
 
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.setorDao().getByLeito(setor_id);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Setor> getGeraLeitos(){
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.setorDao().getGeraLeitos();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

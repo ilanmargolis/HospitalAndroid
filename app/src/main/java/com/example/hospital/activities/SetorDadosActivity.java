@@ -1,5 +1,7 @@
 package com.example.hospital.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
+import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.model.Setor;
 import com.example.hospital.repository.ResultEvent;
@@ -48,6 +51,20 @@ public class SetorDadosActivity extends AppCompatActivity {
         btSetorCancelar = (Button) findViewById(R.id.btSetorCancelar);
 
         preparaDados();
+
+        cbSetorGeraLeitos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (setor.getId() <= 2) {
+                    Toast.makeText(SetorDadosActivity.this, "Esse setor faz parte do perfil de funcionários e, por isso, não gera leito!", Toast.LENGTH_LONG).show();
+                    cbSetorGeraLeitos.setChecked(false);
+                } else if (new LeitoCtrl(SetorDadosActivity.this).getBySetores(setor.getId()).size() > 0) {
+                    Toast.makeText(SetorDadosActivity.this, "Setor está sendo utilizado por leito!", Toast.LENGTH_LONG).show();
+                    cbSetorGeraLeitos.setChecked(true);
+                }
+                ;
+            }
+        });
 
         btSetorOk.setOnClickListener(new View.OnClickListener() {
 
@@ -130,9 +147,20 @@ public class SetorDadosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_del:
-                opcaoCrud(CRUD_DEL);
+                new AlertDialog.Builder(this)
+                        .setTitle("Exclusão de setor")
+                        .setMessage("Tem certeza que deseja excluir esse setor?")
+                        .setPositiveButton("sim", new DialogInterface.OnClickListener() {
 
-                finish();
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                opcaoCrud(CRUD_DEL);
+
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("não", null)
+                        .show();
 
                 return true;
 
@@ -166,7 +194,7 @@ public class SetorDadosActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(SetorDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(SetorDadosActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {
