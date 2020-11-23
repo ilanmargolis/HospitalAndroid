@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.activities.AltaDadosActivity;
+import com.example.hospital.activities.PrescreverDadosActivity;
 import com.example.hospital.activities.TransferenciaDadosActivity;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Medico;
@@ -28,11 +29,13 @@ public class InternadoAdapter extends RecyclerView.Adapter<InternadoAdapter.Inte
     private final LayoutInflater layoutInflater;
     private LinearLayout llAdapterInternadoLeito;
     private Medico medico;
+    private String tela;
 
-    public InternadoAdapter(Context context, List<Internado> internadoList, Medico medico) {
+    public InternadoAdapter(Context context, List<Internado> internadoList, Medico medico, String tela) {
         this.context = context;
         this.internadoList = internadoList;
         this.medico = medico;
+        this.tela = tela;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -74,7 +77,12 @@ public class InternadoAdapter extends RecyclerView.Adapter<InternadoAdapter.Inte
                     Intent intent = null;
 
                     if (medico !=  null) {
-                        intent = new Intent(context, AltaDadosActivity.class);
+                        if (tela.equals(context.getResources().getString(R.string.tela_alta))) {
+                            intent = new Intent(context, AltaDadosActivity.class);
+                        } else {
+                            intent = new Intent(context, PrescreverDadosActivity.class);
+                        }
+
                         intent.putExtra("medico", (Serializable) medico);
                     } else {
                         intent = new Intent(context, TransferenciaDadosActivity.class);

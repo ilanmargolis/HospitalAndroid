@@ -17,6 +17,7 @@ import com.example.hospital.dao.LeitoDao;
 import com.example.hospital.dao.MedicamentoDao;
 import com.example.hospital.dao.MedicoDao;
 import com.example.hospital.dao.PacienteDao;
+import com.example.hospital.dao.PrescreveDao;
 import com.example.hospital.dao.SetorDao;
 import com.example.hospital.dao.TerminologiaDao;
 import com.example.hospital.dao.UnidadeDao;
@@ -72,6 +73,8 @@ public abstract class RoomConfig extends RoomDatabase {
     public abstract MedicamentoDao medicamentoDao();
 
     public abstract PacienteDao pacienteDao();
+
+    public abstract PrescreveDao prescreveDao();
 
     public abstract SetorDao setorDao();
 

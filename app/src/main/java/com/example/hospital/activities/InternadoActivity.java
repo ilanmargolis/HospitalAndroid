@@ -1,6 +1,5 @@
 package com.example.hospital.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,12 +19,10 @@ import com.example.hospital.adapter.InternadoAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.controller.InternarCtrl;
-import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
-import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Setor;
 import com.example.hospital.model.Unidade;
@@ -49,6 +46,7 @@ public class InternadoActivity extends AppCompatActivity {
     private List<Setor> setorList = null;
     private List<Internado> internadoList = null;
     private Medico medico;
+    private String textoTela;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +54,11 @@ public class InternadoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_internado);
 
         // Altera o título da activity
-        String texto = getIntent().getExtras().getString("tela");
+        textoTela = getIntent().getExtras().getString("tela");
 
-        setTitle("Pacientes internados (" + texto + ")");
+        setTitle("Pacientes internados (" + textoTela + ")");
 
-        // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
+        // Caso não seja escolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuMedicoActivity.TELA_MENU, getIntent());
 
         medico = (Medico) getIntent().getSerializableExtra("medico");
@@ -80,7 +78,6 @@ public class InternadoActivity extends AppCompatActivity {
 
     private boolean carregaSpinner() {
 
-        // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
@@ -158,10 +155,10 @@ public class InternadoActivity extends AppCompatActivity {
 //            }
 //        });
             } else {
-                internadoList = new InternarCtrl(InternadoActivity.this).getInternadoPaciente(unidade.getId(), setor.getId());
+                internadoList = new InternarCtrl(InternadoActivity.this).getInternadoPacientes(unidade.getId(), setor.getId());
             }
 
-            internadoAdapter = new InternadoAdapter(InternadoActivity.this, internadoList, medico);
+            internadoAdapter = new InternadoAdapter(InternadoActivity.this, internadoList, medico, textoTela);
             rv.setAdapter(internadoAdapter);
         }
     }
@@ -197,7 +194,7 @@ public class InternadoActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_medico_prescreve:
-//                setResult(MenuMedicoActivity.TELA_PRESCREVE, getIntent());
+                setResult(MenuMedicoActivity.TELA_PRESCREVE, getIntent());
                 finish();
 
                 break;

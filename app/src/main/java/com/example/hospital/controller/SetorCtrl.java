@@ -48,8 +48,8 @@ public class SetorCtrl {
         try {
             if (setor.getId() <= 2) {
                 return "Esse setor faz parte do perfil de funcionários e, por isso, não será possível excluir!";
-            } else if (getByLeito(setor.getId()).size() > 0) {
-                return "Não é possível excluir esse setor, ele está sendo utilizada em leitos!";
+            } else if (getLeitosSetor(setor.getId()).size() > 0) {
+                return "Não é possível excluir esse setor, ele está sendo utilizada no leito!";
             } else {
                 db.setorDao().delete(setor);
             }
@@ -82,12 +82,12 @@ public class SetorCtrl {
         }
     }
 
-    public List<Setor> getByLeito(long setor_id){
+    public List<Setor> getLeitosSetor(long setor_id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.setorDao().getByLeito(setor_id);
+            return db.setorDao().getLeitosSetor(setor_id);
         } catch (Exception e) {
             return null;
         }

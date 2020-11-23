@@ -203,7 +203,7 @@ public class LeitoDadosActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.action_del:
-                if (new LeitoCtrl(this).getByInternamentos(leito.getId()).size() > 0) {
+                if (new LeitoCtrl(this).getInternamentoLeito(leito.getId()).size() > 0) {
                     Toast.makeText(this, "Não é possível excluir esse leito, ela está sendo utilizado no internamento!", Toast.LENGTH_LONG).show();
                 } else {
                     new AlertDialog.Builder(this)

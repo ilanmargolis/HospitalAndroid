@@ -31,7 +31,7 @@ public interface SetorDao {
 
     @Query("SELECT * FROM Setor S " +
             "INNER JOIN leito L ON L.setor_id = S.id AND S.id = :setor_id")
-    public List<Setor> getByLeito(long setor_id);
+    public List<Setor> getLeitosSetor(long setor_id);
 
     @Query("SELECT * FROM Setor WHERE geraLeito = 1")
     public List<Setor> getGeraLeitos();

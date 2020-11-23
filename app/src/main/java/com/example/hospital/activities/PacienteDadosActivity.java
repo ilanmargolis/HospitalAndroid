@@ -78,12 +78,19 @@ public class PacienteDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String nomePaciente = etPacienteNome.getText().toString().trim();
                 Date dtNascimento = Utils.stringToDate(etPacienteDtNascimento.getText().toString(), "dd/MM/yyyy");
+                String cpf = etPacienteCpf.getText().toString().trim();
+                Paciente pacAux = new PacienteCtrl(PacienteDadosActivity.this).getByCpf(cpf);
 
                 if (nomePaciente.equals("")) {
                     Toast.makeText(PacienteDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
                     etPacienteNome.requestFocus();
-                } else if (etPacienteCpf.getText().toString().trim().equals("")) {
+                } else if (cpf.equals("") || cpf.length() < 14) {
                     Toast.makeText(PacienteDadosActivity.this, "É necessário informar o CPF!", Toast.LENGTH_SHORT).show();
+                    etPacienteCpf.requestFocus();
+                } else if (paciente.getId() == 0 && pacAux != null) {
+                    Toast.makeText(PacienteDadosActivity.this, "CPF já está sendo utilzado no sistema!", Toast.LENGTH_SHORT).show();
+
+                    etPacienteCpf.setText("");
                     etPacienteCpf.requestFocus();
                 } else if (etPacienteDtNascimento.getText().toString().trim().equals("")) {
                     Toast.makeText(PacienteDadosActivity.this, "É necessário informar a data de nascimento!", Toast.LENGTH_SHORT).show();
@@ -93,7 +100,7 @@ public class PacienteDadosActivity extends AppCompatActivity {
 
                         paciente.setNome(nomePaciente);
                         paciente.setEmail(etPacienteEmail.getText().toString());
-                        paciente.setCpf(etPacienteCpf.getText().toString());
+                        paciente.setCpf(cpf);
                         paciente.setDataNascimento(dtNascimento);
                         paciente.setSenha(etPacienteSenha.getText().toString().trim());
                         paciente.setSexo(' ');
@@ -134,6 +141,7 @@ public class PacienteDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void preparaDados() {

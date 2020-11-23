@@ -33,7 +33,7 @@ public class LeitoCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            if (db.leitoDao().getByInternamento(leito.getId()).size() > 0) {
+            if (db.leitoDao().getInternamentoLeito(leito.getId()).size() > 0) {
                 return "Não é possível alterar esse leito, ele está sendo utilizado no internamento!";
             } else {
                 db.leitoDao().update(leito);
@@ -50,7 +50,7 @@ public class LeitoCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            if (db.leitoDao().getByInternamento(leito.getId()).size() > 0) {
+            if (db.leitoDao().getInternamentoLeito(leito.getId()).size() > 0) {
                 return "Não é possível excluir esse leito, ele está sendo utilizado no internamento!";
             } else {
                 db.leitoDao().delete(leito);
@@ -84,17 +84,6 @@ public class LeitoCtrl {
         }
     }
 
-    public List<Leito> getByUnidades(long unidade_id){
-
-        RoomConfig db = RoomConfig.getInstance(context);
-
-        try {
-            return db.leitoDao().getByUnidade(unidade_id);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     public List<Leito> getBySetores(long setor_id){
 
         RoomConfig db = RoomConfig.getInstance(context);
@@ -106,12 +95,12 @@ public class LeitoCtrl {
         }
     }
 
-    public List<Leito> getByInternamentos(long id){
+    public List<Leito> getInternamentoLeito(long id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.leitoDao().getByInternamento(id);
+            return db.leitoDao().getInternamentoLeito(id);
         } catch (Exception e) {
             return null;
         }

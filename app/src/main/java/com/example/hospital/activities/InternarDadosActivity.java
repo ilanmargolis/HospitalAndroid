@@ -86,6 +86,7 @@ public class InternarDadosActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Date dtInternacao = Utils.stringToDate(etInternarDtInternacao.getText().toString(), "dd/MM/yyyy");
                 Date dtPrevisao = Utils.stringToDate(etInternarDtPrevisao.getText().toString(), "dd/MM/yyyy");
+                boolean estaInternado = new InternarCtrl(InternarDadosActivity.this).isInternadoPaciente(paciente.getId());
 
                 if (etInternarPacienteCpf.getText().toString().equals("") || paciente == null) {
                     Toast.makeText(InternarDadosActivity.this, "Paciente não informado!", Toast.LENGTH_SHORT).show();
@@ -93,6 +94,8 @@ public class InternarDadosActivity extends AppCompatActivity {
                 } else if (etInternarDtPrevisao.getText().toString().equals("")) {
                     Toast.makeText(InternarDadosActivity.this, "Data de previsão de alta não informada!", Toast.LENGTH_SHORT).show();
                     etInternarDtPrevisao.requestFocus();
+                } else if (estaInternado) {
+                    Toast.makeText(InternarDadosActivity.this, "Não é possível internar um paciente já internado!", Toast.LENGTH_SHORT).show();
                 } else {
                     internado = new Internado(dtInternacao, dtPrevisao, leito, paciente);
 

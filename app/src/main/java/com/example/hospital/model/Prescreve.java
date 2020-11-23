@@ -1,5 +1,6 @@
 package com.example.hospital.model;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -10,18 +11,21 @@ import java.sql.Time;
 public class Prescreve implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private Long id;
-    private Byte dosagem;
-    private Time horario;
-    private Byte suspender;
+    private long id;
+    private byte dosagem;
+    private String horario;
+    private boolean suspender;
+    @Embedded(prefix = "internado_")
     private Internado internado;
+    @Embedded(prefix = "medico_")
     private Medico medico;
+    @Embedded(prefix = "medicamento_")
     private Medicamento medicamento;
 
     public Prescreve() {
     }
 
-    public Prescreve(byte dosagem, Time horario, Byte suspender, Internado internado, Medico medico, Medicamento medicamento) {
+    public Prescreve(byte dosagem, String horario, boolean suspender, Internado internado, Medico medico, Medicamento medicamento) {
         this.dosagem = dosagem;
         this.horario = horario;
         this.suspender = suspender;
@@ -39,35 +43,35 @@ public class Prescreve implements Serializable {
         this.medicamento = p.medicamento;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Byte getDosagem() {
+    public byte getDosagem() {
         return dosagem;
     }
 
-    public void setDosagem(Byte dosagem) {
+    public void setDosagem(byte dosagem) {
         this.dosagem = dosagem;
     }
 
-    public Time getHorario() {
+    public String getHorario() {
         return horario;
     }
 
-    public void setHorario(Time horario) {
+    public void setHorario(String horario) {
         this.horario = horario;
     }
 
-    public Byte getSuspender() {
+    public boolean getSuspender() {
         return suspender;
     }
 
-    public void setSuspender(Byte suspender) {
+    public void setSuspender(boolean suspender) {
         this.suspender = suspender;
     }
 

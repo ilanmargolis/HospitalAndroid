@@ -30,8 +30,8 @@ public interface UnidadeDao {
     public Unidade getById(long id);
 
     @Query("SELECT * FROM Unidade U " +
-            "INNER JOIN leito L ON L.unidade_id = U.id AND L.id = :leito_id")
-    public List<Unidade> getByLeito(long leito_id);
+            "INNER JOIN leito L ON L.unidade_id = U.id AND U.id = :unidade_id")
+    public List<Unidade> getLeitosUnidade(long unidade_id);
 
     @Delete
     public void delete(Unidade unidade);

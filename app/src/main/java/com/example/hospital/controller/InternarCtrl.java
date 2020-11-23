@@ -76,15 +76,25 @@ public class InternarCtrl {
         }
     }
 
-    public List<Internado> getInternadoPaciente(long unidade_id, long setor_id){
+    public List<Internado> getInternadoPacientes(long unidade_id, long setor_id){
 
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            return db.internarDao().getInternadoPaciente(unidade_id, setor_id);
+            return db.internarDao().getInternadoPacientes(unidade_id, setor_id);
         } catch (Exception e) {
             return null;
         }
     }
 
+    public boolean isInternadoPaciente(long paciente_id) {
+
+        RoomConfig db = RoomConfig.getInstance(context);
+
+        try {
+            return db.internarDao().isInternadoPaciente(paciente_id);
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

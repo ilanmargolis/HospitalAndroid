@@ -67,7 +67,6 @@ public class UnidadeDadosActivity extends AppCompatActivity {
                 } else {
                     if (unidade.getId() == 0) { // inclusão
 
-
                         unidade.setNome(nomeUnidade);
                         unidade.setLogradouro(etUnidadeLogradouro.getText().toString());
                         unidade.setTelefone(etUnidadeTelefone.getText().toString());
@@ -188,7 +187,7 @@ public class UnidadeDadosActivity extends AppCompatActivity {
             }
         }
 
-        Toast.makeText(UnidadeDadosActivity.this, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(UnidadeDadosActivity.this, msg, Toast.LENGTH_LONG).show();
     }
 
     private void crudDados(byte tipoCrud, ResultEvent resultEvent) {

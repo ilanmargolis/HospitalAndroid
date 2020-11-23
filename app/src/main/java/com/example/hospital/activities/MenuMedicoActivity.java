@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 public class MenuMedicoActivity extends AppCompatActivity {
 
-    LinearLayout llMedicoAlta;
+    LinearLayout llMedicoAlta, llMedicoPrescreve;
     private Intent intent;
     private Medico medico;
 
@@ -33,18 +33,28 @@ public class MenuMedicoActivity extends AppCompatActivity {
 
         medico = (Medico) getIntent().getSerializableExtra("medico");
 
+        llMedicoPrescreve = (LinearLayout) findViewById(R.id.llMedicoPrescreve);
         llMedicoAlta = (LinearLayout) findViewById(R.id.llMedicoAlta);
+
+        llMedicoPrescreve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(MenuMedicoActivity.this, InternadoActivity.class);
+                intent.putExtra("tela", getResources().getString(R.string.tela_prescreve));
+                intent.putExtra("medico", (Serializable) medico);
+                startActivityForResult(intent, TELA_PRESCREVE);
+            }
+        });
 
         llMedicoAlta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MenuMedicoActivity.this, InternadoActivity.class);
-                intent.putExtra("tela", "Alta médica");
+                intent.putExtra("tela", getResources().getString(R.string.tela_alta));
                 intent.putExtra("medico", (Serializable) medico);
                 startActivityForResult(intent, TELA_ALTA);
             }
         });
-
     }
 
     @Override
@@ -55,6 +65,10 @@ public class MenuMedicoActivity extends AppCompatActivity {
             switch (resultCode) {
                 case TELA_LOGIN:
                     finish();
+                    break;
+
+                case TELA_PRESCREVE:
+                    llMedicoPrescreve.callOnClick();
                     break;
 
                 case TELA_ALTA:

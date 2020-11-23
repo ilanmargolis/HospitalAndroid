@@ -21,7 +21,7 @@ public interface AltaDao {
     @Update
     public void update(Alta alta);
 
-    @Query("SELECT * FROM Cbos")
+    @Query("SELECT * FROM Alta")
     public List<Alta> getAll();
 
     @Query("SELECT * FROM Alta WHERE internado_id = :internado_id")

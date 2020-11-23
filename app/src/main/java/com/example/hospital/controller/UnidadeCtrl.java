@@ -46,7 +46,11 @@ public class UnidadeCtrl {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.unidadeDao().update(unidade);
+            if (db.unidadeDao().getLeitosUnidade(unidade.getId()).size() > 0) {
+                return "Não é possível excluir essa unidade, ela está sendo utilizado por leito!";
+            } else {
+                db.unidadeDao().delete(unidade);
+            }
 
             return "Unidade excluída com sucesso";
         } catch (Exception e) {
@@ -71,17 +75,6 @@ public class UnidadeCtrl {
 
         try {
             return db.unidadeDao().getById(id);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<Unidade> getByLeitos(long leito_id){
-
-        RoomConfig db = RoomConfig.getInstance(context);
-
-        try {
-            return db.unidadeDao().getByLeito(leito_id);
         } catch (Exception e) {
             return null;
         }

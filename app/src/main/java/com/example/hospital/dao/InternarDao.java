@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.hospital.model.Internado;
-import com.example.hospital.model.Leito;
 
 import java.util.List;
 
@@ -39,7 +38,16 @@ public interface InternarDao {
             "INNER JOIN setor S ON S.id = :setor_id and L.setor_id = S.id " +
             "LEFT OUTER JOIN alta A ON A.internado_id = I.id " +
             "WHERE A.id IS NULL")
-    public List<Internado> getInternadoPaciente(long unidade_id, long setor_id);
+    public List<Internado> getInternadoPacientes(long unidade_id, long setor_id);
+
+    @Query("SELECT I.* FROM internado I " +
+            "INNER JOIN leito L ON I.leito_id = L.id " +
+            "INNER JOIN unidade U ON L.unidade_id = U.id " +
+            "INNER JOIN setor S ON L.setor_id = S.id " +
+            "INNER JOIN paciente ON I.paciente_id = :paciente_id " +
+            "LEFT OUTER JOIN alta A ON A.internado_id = I.id " +
+            "WHERE A.id IS NULL")
+    public boolean isInternadoPaciente(long paciente_id);
 
     @Delete
     public void delete(Internado internado);

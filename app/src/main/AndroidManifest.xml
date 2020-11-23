@@ -94,6 +94,9 @@
         <activity
             android:name=".activities.TransferenciaDadosActivity"
             android:label="Transferência de leito" />
+        <activity
+            android:name=".activities.PrescreverDadosActivity"
+            android:label="Prescrever medicação" />
     </application>
 
 </manifest>

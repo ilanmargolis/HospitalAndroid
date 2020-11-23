@@ -10,7 +10,7 @@
     tools:context=".activities.MenuMedicoActivity">
 
     <LinearLayout
-        android:id="@+id/llMedicoPrescrever"
+        android:id="@+id/llMedicoPrescreve"
         android:layout_width="200dp"
         android:layout_height="150dp"
         android:layout_marginTop="50dp"

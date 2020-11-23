@@ -55,14 +55,13 @@ public class SetorDadosActivity extends AppCompatActivity {
         cbSetorGeraLeitos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (setor.getId() <= 2) {
+                if (setor.getId() > 0 && setor.getId() <= 2) {
                     Toast.makeText(SetorDadosActivity.this, "Esse setor faz parte do perfil de funcionários e, por isso, não gera leito!", Toast.LENGTH_LONG).show();
                     cbSetorGeraLeitos.setChecked(false);
                 } else if (new LeitoCtrl(SetorDadosActivity.this).getBySetores(setor.getId()).size() > 0) {
                     Toast.makeText(SetorDadosActivity.this, "Setor está sendo utilizado por leito!", Toast.LENGTH_LONG).show();
                     cbSetorGeraLeitos.setChecked(true);
-                }
-                ;
+                };
             }
         });
 
