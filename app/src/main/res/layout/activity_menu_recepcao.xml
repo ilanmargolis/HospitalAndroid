@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Internamento"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Transferência de leito"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Alterar previsão de alta"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 

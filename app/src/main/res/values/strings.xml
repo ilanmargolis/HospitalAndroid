@@ -9,6 +9,7 @@
     <string name="setor_recepcao">Recepção</string>
     <string name="prompt_setor">Selecione o setor</string>
     <string name="tela_alta">Alta médica</string>
-    <string name="tela_prescreve">Prescreve medicação</string>
+    <string name="tela_prescrever">Prescrever medicação</string>
+    <string name="tela_transferencia">Transferância de leito</string>
 
 </resources>

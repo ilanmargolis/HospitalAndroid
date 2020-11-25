@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Unidades"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Setores"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Leitos"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Medicamentos"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Funcionários"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Medicos"
-                android:textColor="@color/azul_5"
+                android:textColor="@color/branco"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 

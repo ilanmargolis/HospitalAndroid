@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -42,7 +45,7 @@ public class MenuRecepcaoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MenuRecepcaoActivity.this, InternadoActivity.class);
-                intent.putExtra("tela", "Transferância de leito");
+                intent.putExtra("tela", getResources().getString(R.string.tela_transferencia));
                 startActivityForResult(intent, TELA_TRANSFERENCIA);
             }
         });
@@ -69,5 +72,46 @@ public class MenuRecepcaoActivity extends AppCompatActivity {
             }
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_recep, menu);
+
+        // Esconder do menu a atual tela
+        menu.findItem(R.id.action_recep_add).setVisible(false);
+        menu.findItem(R.id.action_recep_refresh).setVisible(false);
+        menu.findItem(R.id.action_recep_menu).setVisible(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_recep_internamento:
+                llRecepInternacao.callOnClick();
+
+                break;
+
+            case R.id.action_recep_transferencia:
+                llRecepTransferencia.callOnClick();
+
+                break;
+
+            case R.id.action_recep_logoff:
+                setResult(MenuRecepcaoActivity.TELA_LOGIN, getIntent());
+                finish();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
     }
 }

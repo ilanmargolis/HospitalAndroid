@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Resultado de exames"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -12,7 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
-import com.example.hospital.activities.MedicamentoDadosActivity;
+import com.example.hospital.activities.PrescreverAlterarActivity;
+import com.example.hospital.model.Medico;
 import com.example.hospital.model.Prescreve;
 import com.example.hospital.util.Utils;
 
@@ -25,10 +27,12 @@ public class PrescreveAdapter extends RecyclerView.Adapter<PrescreveAdapter.Pres
     private List<Prescreve> prescreveList;
     private final LayoutInflater layoutInflater;
     private LinearLayout llPrescreve;
+    private Medico medico;
 
-    public PrescreveAdapter(Context context, List<Prescreve> prescreveList) {
+    public PrescreveAdapter(Context context, List<Prescreve> prescreveList, Medico medico) {
         this.context = context;
         this.prescreveList = prescreveList;
+        this.medico = medico;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -49,6 +53,12 @@ public class PrescreveAdapter extends RecyclerView.Adapter<PrescreveAdapter.Pres
         holder.tvAdapterPrescreveDosagem.setText(String.valueOf(prescreveList.get(i).getDosagem()) + " " +
                                                  prescreveList.get(i).getMedicamento().getTerminologia().getSigla());
         holder.tvAdapterPrescreveHorario.setText(prescreveList.get(i).getHorario());
+
+        if (prescreveList.get(i).isSuspender()) {
+            holder.ivAdapterPrescreveSuspender.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivAdapterPrescreveSuspender.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -58,6 +68,7 @@ public class PrescreveAdapter extends RecyclerView.Adapter<PrescreveAdapter.Pres
 
     public class PrescreveHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterPrescreveMedicamento, tvAdapterPrescreveDosagem, tvAdapterPrescreveHorario;
+        ImageView ivAdapterPrescreveSuspender;
 
         public PrescreveHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,12 +76,15 @@ public class PrescreveAdapter extends RecyclerView.Adapter<PrescreveAdapter.Pres
             tvAdapterPrescreveMedicamento = (TextView) itemView.findViewById(R.id.tvAdapterPrescreveMedicamento);
             tvAdapterPrescreveDosagem = (TextView) itemView.findViewById(R.id.tvAdapterPrescreveDosagem);
             tvAdapterPrescreveHorario = (TextView) itemView.findViewById(R.id.tvAdapterPrescreveHorario);
+            ivAdapterPrescreveSuspender = (ImageView) itemView.findViewById(R.id.ivAdapterPrescreveSuspender);
+
             llPrescreve = (LinearLayout) itemView.findViewById(R.id.llPrescreve);
 
             llPrescreve.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MedicamentoDadosActivity.class);
+                    Intent intent = new Intent(context, PrescreverAlterarActivity.class);
+                    intent.putExtra("medico", (Serializable) medico);
                     intent.putExtra("prescreve", (Serializable) prescreveList.get(getAdapterPosition()));
                     context.startActivity(intent);
                 }

@@ -68,15 +68,14 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
         btTransfOk = (Button) findViewById(R.id.btTransfOk);
         btTransfCancelar = (Button) findViewById(R.id.btTransfCancelar);
 
-        // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
+        // Caso não seja escolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuRecepcaoActivity.TELA_MENU, getIntent());
 
         if (!carregaSpinner()) {
             Toast.makeText(this, "É necessário incluir unidades de atendimento e/ou setor!", Toast.LENGTH_LONG).show();
 
             finish();
-        }
-        ;
+        };
 
         preparaDados();
 
@@ -105,7 +104,6 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
 
     private boolean carregaSpinner() {
 
-        // Carrega todos os departamentos no spinner
         if (Utils.hasInternet(this)) {
 
         } else {
@@ -126,6 +124,7 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unidade = (Unidade) spTransfUnidade.getItemAtPosition(position);
+                CarregaLeitos();
             }
 
             @Override
@@ -155,7 +154,7 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 setor = (Setor) spTransfSetor.getItemAtPosition(position);
 
-                onResume();
+                CarregaLeitos();
             }
 
             @Override
@@ -163,20 +162,6 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
                 spTransfLeito.setEnabled(false);
             }
         });
-
-        if (Utils.hasInternet(this)) {
-
-        } else {
-            leitoList = new LeitoCtrl(this).getLeitosDisponiveis(unidade.getId(), setor.getId());
-        }
-
-        if (leitoList.size() > 0) {
-            ArrayAdapter aa = new ArrayAdapter<>(TransferenciaDadosActivity.this, android.R.layout.simple_spinner_item, leitoList);
-            aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spTransfLeito.setAdapter(aa);
-        } else {
-            Toast.makeText(this, "Não existe leito disponível nesta unidade e/ou setor. Aguarde disponibilidade ou selecione outra unidade e/ou setor!", Toast.LENGTH_SHORT).show();
-        }
 
         spTransfLeito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -193,6 +178,24 @@ public class TransferenciaDadosActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    private void CarregaLeitos() {
+        if (unidade != null && setor != null) {
+            if (Utils.hasInternet(this)) {
+
+            } else {
+                leitoList = new LeitoCtrl(this).getLeitosDisponiveis(unidade.getId(), setor.getId());
+            }
+
+            if (leitoList.size() > 0) {
+                ArrayAdapter aa = new ArrayAdapter<>(TransferenciaDadosActivity.this, android.R.layout.simple_spinner_item, leitoList);
+                aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spTransfLeito.setAdapter(aa);
+            } else {
+                Toast.makeText(this, "Não existe leito disponível nesta unidade e/ou setor. Aguarde disponibilidade ou selecione outra unidade e/ou setor!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void preparaDados() {

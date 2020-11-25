@@ -20,7 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/corner_round"
-        android:backgroundTint="@color/cinza_3"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         tools:hint="Nome do paciente" />
 
@@ -151,6 +150,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_marginRight="35dp"
             android:text="Horário" />
 
     </LinearLayout>

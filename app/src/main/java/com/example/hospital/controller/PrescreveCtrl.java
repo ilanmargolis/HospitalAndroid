@@ -47,7 +47,7 @@ public class PrescreveCtrl implements Serializable {
         RoomConfig db = RoomConfig.getInstance(context);
 
         try {
-            db.prescreveDao().update(prescreve);
+            db.prescreveDao().delete(prescreve);
 
             return "Prescreve excluído com sucesso";
         } catch (Exception e) {

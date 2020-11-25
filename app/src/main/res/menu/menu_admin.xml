@@ -6,6 +6,7 @@
         android:icon="@drawable/ic_baseline_add_circle_24"
         android:title="Add"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_admin_refresh"
         android:icon="@drawable/ic_baseline_refresh_24"
@@ -40,6 +41,11 @@
     <item
         android:id="@+id/action_admin_medico"
         android:title="Cadastro de médico"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_admin_menu"
+        android:title="Voltar para o menu"
         app:showAsAction="never" />
 
     <item

@@ -9,44 +9,51 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="137dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:orientation="vertical">
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Unidade" />
+            android:text="Unidade"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Spinner
             android:id="@+id/spInternadoUnidade"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="@drawable/corner_round" />
+            android:background="@drawable/corner_round"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Setor"/>
+            android:text="Setor"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <Spinner
             android:id="@+id/spInternadoSetor"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:background="@drawable/corner_round"/>
+            android:background="@drawable/corner_round"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Leitos ocupados"/>
+            android:text="Leitos ocupados"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@color/cinza_3"/>
+        android:background="@color/cinza_3" />
 
     <LinearLayout
         android:id="@+id/llInternadoLeito"

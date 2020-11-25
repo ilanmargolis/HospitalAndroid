@@ -132,6 +132,11 @@ public class SetorActivity extends AppCompatActivity {
 
                 break;
 
+            case R.id.action_admin_menu:
+                finish();
+
+                break;
+
             case R.id.action_admin_logoff:
                 setResult(MenuAdministrativoActivity.TELA_LOGIN, getIntent());
                 finish();

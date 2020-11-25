@@ -28,6 +28,10 @@
         android:id="@+id/action_recep_previsao"
         android:title="Previsão de alta"
         app:showAsAction="never" /-->
+    <item
+        android:id="@+id/action_recep_menu"
+        android:title="Voltar para o menu"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_recep_logoff"

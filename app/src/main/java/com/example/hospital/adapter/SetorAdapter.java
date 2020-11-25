@@ -26,7 +26,6 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
     private List<Setor> setorList;
     private final LayoutInflater layoutInflater;
     private LinearLayout llSetor;
-    private ImageView ivLeito;
 
     public SetorAdapter(Context context, List<Setor> setorList) {
         this.context = context;
@@ -51,9 +50,9 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
         holder.tvAdapterSetorRamal.setText(setorList.get(i).getRamal());
 
         if (setorList.get(i).isGeraLeito()) {
-            ivLeito.setVisibility(View.VISIBLE);
+            holder.ivLeito.setVisibility(View.VISIBLE);
         } else {
-            ivLeito.setVisibility(View.INVISIBLE);
+            holder.ivLeito.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -64,6 +63,7 @@ public class SetorAdapter extends RecyclerView.Adapter<SetorAdapter.SetorHolder>
 
     public class SetorHolder extends RecyclerView.ViewHolder {
         TextView tvAdapterSetorNome, tvAdapterSetorRamal;
+        ImageView ivLeito;
 
         public SetorHolder(@NonNull View itemView) {
             super(itemView);

@@ -23,7 +23,8 @@ public interface PrescreveDao {
     @Query("SELECT * FROM Prescreve")
     public List<Prescreve> getAll();
 
-    @Query("SELECT * FROM Prescreve WHERE internado_id = :internado_id")
+    @Query("SELECT * FROM Prescreve WHERE internado_id = :internado_id " +
+           "ORDER BY horario")
     public List<Prescreve> getByInternado(long internado_id);
 
     @Delete

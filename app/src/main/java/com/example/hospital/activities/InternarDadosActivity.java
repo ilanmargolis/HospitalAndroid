@@ -39,9 +39,9 @@ import retrofit2.Response;
 
 public class InternarDadosActivity extends AppCompatActivity {
 
-    private TextView tvInternarLeitoCodigo, tvInternarLeitoUnidade, tvInternarLeitoSetor;
-    private EditText etInternarPacienteCpf, etInternarPacienteNome,
-            etInternarDtInternacao, etInternarDtPrevisao;
+    private TextView tvInternarLeitoCodigo, tvInternarLeitoUnidade, tvInternarLeitoSetor,
+            tvInternarPacienteNome;
+    private EditText etInternarPacienteCpf, etInternarDtInternacao, etInternarDtPrevisao;
     private Button btInternarOk, btInternarCancelar;
     private ImageButton ibInternarPesquisar, ibInternarPaciente;
     private Leito leito;
@@ -64,7 +64,7 @@ public class InternarDadosActivity extends AppCompatActivity {
         tvInternarLeitoUnidade = (TextView) findViewById(R.id.tvInternarLeitoUnidade);
         tvInternarLeitoSetor = (TextView) findViewById(R.id.tvInternarLeitoSetor);
         etInternarPacienteCpf = (EditText) findViewById(R.id.etInternarPacienteCpf);
-        etInternarPacienteNome = (EditText) findViewById(R.id.etInternarPacienteNome);
+        tvInternarPacienteNome = (TextView) findViewById(R.id.tvInternarPacienteNome);
         etInternarDtInternacao = (EditText) findViewById(R.id.etInternarDtInternacao);
         etInternarDtPrevisao = (EditText) findViewById(R.id.etInternarDtPrevisao);
         ibInternarPesquisar = (ImageButton) findViewById(R.id.ibInternarPesquisar);
@@ -122,7 +122,7 @@ public class InternarDadosActivity extends AppCompatActivity {
                 paciente = new PacienteCtrl(InternarDadosActivity.this).getByCpf(etInternarPacienteCpf.getText().toString());
 
                 if (paciente != null) {
-                    etInternarPacienteNome.setText(paciente.getNome().toString());
+                    tvInternarPacienteNome.setText(paciente.getNome().toString());
                     etInternarDtInternacao.setText(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
                     etInternarDtPrevisao.setText("");
                     etInternarDtPrevisao.requestFocus();

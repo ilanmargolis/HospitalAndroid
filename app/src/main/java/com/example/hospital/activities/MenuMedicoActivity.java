@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -40,7 +43,7 @@ public class MenuMedicoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(MenuMedicoActivity.this, InternadoActivity.class);
-                intent.putExtra("tela", getResources().getString(R.string.tela_prescreve));
+                intent.putExtra("tela", getResources().getString(R.string.tela_prescrever));
                 intent.putExtra("medico", (Serializable) medico);
                 startActivityForResult(intent, TELA_PRESCREVE);
             }
@@ -77,6 +80,52 @@ public class MenuMedicoActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_medico, menu);
+
+        // Esconder do menu a atual tela
+        menu.findItem(R.id.action_medico_refresh).setVisible(false);
+        menu.findItem(R.id.action_medico_add).setVisible(false);
+        menu.findItem(R.id.action_medico_medicamento).setVisible(false);
+        menu.findItem(R.id.action_medico_menu).setVisible(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_medico_refresh:
+                onResume();
+
+                break;
+
+            case R.id.action_medico_prescrever:
+                llMedicoPrescreve.callOnClick();
+
+                break;
+
+            case R.id.action_medico_alta:
+                llMedicoAlta.callOnClick();
+
+                break;
+
+            case R.id.action_medico_logoff:
+                finish();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
     }
 }
 

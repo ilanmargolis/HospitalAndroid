@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -20,25 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.adapter.PrescreveAdapter;
-import com.example.hospital.controller.AltaCtrl;
-import com.example.hospital.controller.FuncionarioCtrl;
-import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.MedicamentoCtrl;
 import com.example.hospital.controller.PrescreveCtrl;
-import com.example.hospital.controller.UnidadeCtrl;
-import com.example.hospital.model.Alta;
-import com.example.hospital.model.Funcionario;
 import com.example.hospital.model.Internado;
-import com.example.hospital.model.Leito;
 import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Medico;
 import com.example.hospital.model.Prescreve;
-import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
-import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
-import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -86,8 +75,7 @@ public class PrescreverDadosActivity extends AppCompatActivity {
             Toast.makeText(this, "É necessário cadastrar medicamento!", Toast.LENGTH_LONG).show();
 
             finish();
-        }
-        ;
+        };
 
         preparaDados();
 
@@ -112,6 +100,8 @@ public class PrescreverDadosActivity extends AppCompatActivity {
                     prescreve.setMedicamento(medicamento);
 
                     opcaoCrud(CRUD_INC);
+
+                    limpaDados();
 
                     atualizaPrescreve();
                 }
@@ -159,6 +149,11 @@ public class PrescreverDadosActivity extends AppCompatActivity {
         tvPrescreverPacienteNome.setText(internado.getPaciente().getNome());
     }
 
+    private void limpaDados() {
+        etPrescreverDosagem.setText("");
+        etPrescreverHorario.setText("");
+    }
+
     private void atualizaPrescreve() {
 
         List<Prescreve> prescreveList = null;
@@ -181,8 +176,15 @@ public class PrescreverDadosActivity extends AppCompatActivity {
             prescreveList = new PrescreveCtrl(PrescreverDadosActivity.this).getByInternado(internado.getId());
         }
 
-        prescreveAdapter = new com.example.hospital.adapter.PrescreveAdapter(PrescreverDadosActivity.this, prescreveList);
+        prescreveAdapter = new com.example.hospital.adapter.PrescreveAdapter(PrescreverDadosActivity.this, prescreveList, medico);
         rv.setAdapter(prescreveAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        atualizaPrescreve();
     }
 
     @Override

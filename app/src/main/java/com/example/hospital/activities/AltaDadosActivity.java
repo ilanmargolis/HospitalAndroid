@@ -115,35 +115,6 @@ public class AltaDadosActivity extends AppCompatActivity {
         tvAltaPacienteNome.setText(internado.getPaciente().getNome());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_crud, menu);
-
-        menu.clear();
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.action_del:
-                opcaoCrud(CRUD_DEL);
-
-                finish();
-
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-
     private void opcaoCrud(byte tipoCrud) {
 
         if (Utils.hasInternet(this)) {

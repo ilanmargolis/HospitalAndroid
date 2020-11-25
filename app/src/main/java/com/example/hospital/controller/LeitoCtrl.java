@@ -1,11 +1,16 @@
 package com.example.hospital.controller;
 
 import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.model.Leito;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LeitoCtrl {
 
@@ -106,6 +111,7 @@ public class LeitoCtrl {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public List<Leito> getLeitosDisponiveis(long unidade_id, long setor_id){
 
         RoomConfig db = RoomConfig.getInstance(context);

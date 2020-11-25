@@ -35,7 +35,7 @@
             android:layout_height="30dp"
             android:backgroundTint="@color/preto"
             android:layout_marginRight="5dp"
-            android:background="@drawable/ic_baseline_airline_seat_flat_24"
+            android:background="@drawable/ic_baseline_local_hotel_24"
             android:visibility="invisible"/>
 
     </LinearLayout>

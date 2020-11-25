@@ -67,7 +67,7 @@ public class Prescreve implements Serializable {
         this.horario = horario;
     }
 
-    public boolean getSuspender() {
+    public boolean isSuspender() {
         return suspender;
     }
 

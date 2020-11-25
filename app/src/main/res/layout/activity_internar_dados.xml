@@ -31,6 +31,7 @@
             android:background="@drawable/corner_round"
             android:backgroundTint="@color/cinza_3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/branco"
             tools:text="Código do leito" />
 
         <TextView
@@ -45,12 +46,13 @@
             android:background="@drawable/corner_round"
             android:backgroundTint="@color/cinza_3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/branco"
             tools:hint="Nome da unidade" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Unidade do leito" />
+            android:text="Setor do leito" />
 
         <TextView
             android:id="@+id/tvInternarLeitoSetor"
@@ -59,6 +61,7 @@
             android:background="@drawable/corner_round"
             android:backgroundTint="@color/cinza_3"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/branco"
             tools:hint="Setor do leito" />
 
     </LinearLayout>
@@ -135,13 +138,13 @@
             android:layout_height="wrap_content"
             android:text="Nome do paciente" />
 
-        <EditText
-            android:id="@+id/etInternarPacienteNome"
+        <TextView
+            android:id="@+id/tvInternarPacienteNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/corner_round"
-            android:editable="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            tools:text="Nome do paciente" />
     </LinearLayout>
 
     <LinearLayout

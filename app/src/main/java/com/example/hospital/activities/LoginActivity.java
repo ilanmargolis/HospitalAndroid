@@ -6,6 +6,7 @@ import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button btLogin;
     private EditText etUsername, etPassword;
     private ImageView ivCadeado;
-    private ArrayList<Usuario> usuarioList;
     private Intent intent = null;
 
     @Override
@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
         int id = 0;
         int loop = 1;
+        MediaPlayer mediaPlayer;
 
         try {
             if (abrirActivity) {
@@ -158,6 +159,14 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .load(id)
                 .into(ivCadeado);
+
+        if (abrirActivity) {
+            mediaPlayer = MediaPlayer.create(this, R.raw.cadeado_abrir);
+        } else {
+            mediaPlayer = MediaPlayer.create(this, R.raw.cadeado_travado);
+        }
+
+        mediaPlayer.start();
     }
 
     @Nullable

@@ -7,11 +7,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.hospital.R;
+import com.example.hospital.model.Unidade;
+
+import java.io.Serializable;
 
 
 public class MenuAdministrativoActivity extends AppCompatActivity {
@@ -125,5 +131,67 @@ public class MenuAdministrativoActivity extends AppCompatActivity {
                    break;
            }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_admin, menu);
+
+        // Esconder do menu a atual tela
+        menu.findItem(R.id.action_admin_add).setVisible(false);
+        menu.findItem(R.id.action_admin_refresh).setVisible(false);
+        menu.findItem(R.id.action_admin_menu).setVisible(false);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.action_admin_unidade:
+                llAdminUnidade.callOnClick();
+
+                break;
+
+            case R.id.action_admin_setor:
+                llAdminSetor.callOnClick();
+
+                break;
+
+            case R.id.action_admin_leito:
+                llAdminLeito.callOnClick();
+
+                break;
+
+            case R.id.action_admin_medicamento:
+                llAdminMedicamento.callOnClick();
+
+                break;
+
+            case R.id.action_admin_funcionario:
+                llAdminFuncionario.callOnClick();
+
+                break;
+
+            case R.id.action_admin_medico:
+                llAdminMedico.callOnClick();
+
+                break;
+
+            case R.id.action_admin_logoff:
+                finish();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
     }
 }

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Prescrever medicação"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 
@@ -55,13 +55,13 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Alta médica"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <!--LinearLayout
         android:id="@+id/llMedicoMedicamento"
         android:layout_width="200dp"
         android:layout_height="150dp"
@@ -81,10 +81,10 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Consultar medicamento"
-            android:textColor="@color/azul_5"
+            android:textColor="@color/branco"
             android:textSize="16dp"
             android:textStyle="bold" />
 
-    </LinearLayout>
+    </LinearLayout-->
 
 </LinearLayout>

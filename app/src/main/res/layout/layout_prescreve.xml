@@ -41,6 +41,15 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             tools:text="Horário" />
 
+        <ImageView
+            android:id="@+id/ivAdapterPrescreveSuspender"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:backgroundTint="@color/preto"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/ic_baseline_schedule_24"
+            android:visibility="invisible"/>
+
     </LinearLayout>
 
     <View

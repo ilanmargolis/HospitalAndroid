@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.adapter.InternarAdapter;
-import com.example.hospital.adapter.LeitoAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.controller.LeitoCtrl;
@@ -29,7 +28,6 @@ import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;
 
-import java.io.Serializable;
 import java.util.List;
 
 import retrofit2.Call;
@@ -90,6 +88,8 @@ public class InternarActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unidade = (Unidade) spInternarUnidade.getItemAtPosition(position);
+
+                onResume();
             }
 
             @Override
@@ -180,6 +180,11 @@ public class InternarActivity extends AppCompatActivity {
 
             case R.id.action_recep_transferencia:
                 setResult(MenuRecepcaoActivity.TELA_TRANSFERENCIA, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_recep_menu:
                 finish();
 
                 break;

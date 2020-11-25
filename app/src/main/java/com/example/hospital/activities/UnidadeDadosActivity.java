@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
-import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Unidade;
 import com.example.hospital.repository.ResultEvent;

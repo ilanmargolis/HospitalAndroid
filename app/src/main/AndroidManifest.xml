@@ -97,6 +97,9 @@
         <activity
             android:name=".activities.PrescreverDadosActivity"
             android:label="Prescrever medicação" />
+        <activity
+            android:name=".activities.PrescreverAlterarActivity"
+            android:label="Alteração de prescrição" />
     </application>
 
 </manifest>

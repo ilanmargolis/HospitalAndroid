@@ -15,8 +15,8 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_medico_prescreve"
-        android:title="Prescreve medicação"
+        android:id="@+id/action_medico_prescrever"
+        android:title="Prescrever medicação"
         app:showAsAction="never" />
 
     <item
@@ -27,6 +27,11 @@
     <item
         android:id="@+id/action_medico_medicamento"
         android:title="Consulta de medicamento"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_medico_menu"
+        android:title="Voltar para o menu"
         app:showAsAction="never" />
 
     <item

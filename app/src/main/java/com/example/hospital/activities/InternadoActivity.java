@@ -96,6 +96,8 @@ public class InternadoActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 unidade = (Unidade) spInternadoUnidade.getItemAtPosition(position);
+
+                onResume();
             }
 
             @Override
@@ -173,7 +175,14 @@ public class InternadoActivity extends AppCompatActivity {
 
             // Esconder do menu a atual tela
             menu.findItem(R.id.action_medico_add).setVisible(false);
-            menu.findItem(R.id.action_medico_alta).setVisible(false);
+
+            if (textoTela.equals(this.getResources().getString(R.string.tela_alta))) {
+                menu.findItem(R.id.action_medico_alta).setVisible(false);
+            } else {
+                menu.findItem(R.id.action_medico_prescrever).setVisible(false);
+            }
+
+            menu.findItem(R.id.action_medico_medicamento).setVisible(false);
         } else {
             menuInflater.inflate(R.menu.menu_recep, menu);
 
@@ -193,14 +202,25 @@ public class InternadoActivity extends AppCompatActivity {
 
                 break;
 
-            case R.id.action_medico_prescreve:
+            case R.id.action_medico_alta:
+                setResult(MenuMedicoActivity.TELA_ALTA, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_medico_prescrever:
                 setResult(MenuMedicoActivity.TELA_PRESCREVE, getIntent());
                 finish();
 
                 break;
 
             case R.id.action_medico_medicamento:
-//                setResult(MenuMedicoActivity.TELA_MEDICAMENTO, getIntent());
+                setResult(MenuMedicoActivity.TELA_MEDICAMENTO, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_medico_menu:
                 finish();
 
                 break;
@@ -218,6 +238,17 @@ public class InternadoActivity extends AppCompatActivity {
 
             case R.id.action_recep_internamento:
                 setResult(MenuRecepcaoActivity.TELA_INTERNAR, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_recep_transferencia:
+                setResult(MenuRecepcaoActivity.TELA_TRANSFERENCIA, getIntent());
+                finish();
+
+                break;
+
+            case R.id.action_recep_menu:
                 finish();
 
                 break;
