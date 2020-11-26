@@ -102,26 +102,24 @@
 
             <ImageButton
                 android:id="@+id/ibInternarPesquisar"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
                 android:background="@color/azul_5"
-                android:scaleType="fitCenter"
                 android:src="@drawable/ic_baseline_search_24" />
 
             <ImageButton
                 android:id="@+id/ibInternarPaciente"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:adjustViewBounds="true"
                 android:background="@color/azul_5"
-                android:scaleType="fitCenter"
                 android:src="@drawable/ic_baseline_person_add_24" />
 
         </LinearLayout>
@@ -164,12 +162,11 @@
                 android:layout_height="wrap_content"
                 android:text="Data de internação" />
 
-            <EditText
-                android:id="@+id/etInternarDtInternacao"
+            <TextView
+                android:id="@+id/tvInternarDtInternacao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_round"
-                android:hint="Insira a data de internação"
                 android:inputType="date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </LinearLayout>
@@ -185,15 +182,26 @@
                 android:layout_height="wrap_content"
                 android:text="Data de previsão de alta" />
 
-            <EditText
-                android:id="@+id/etInternarDtPrevisao"
+            <TextView
+                android:id="@+id/tvInternarDtPrevisao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/corner_round"
-                android:hint="Insira a data de previsão de alta"
                 android:inputType="date"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ibDataPrevisao"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/azul_5"
+            android:src="@drawable/ic_baseline_today_24" />
+
     </LinearLayout>
 
 
@@ -211,6 +219,7 @@
             android:layout_margin="10dp"
             android:backgroundTint="@color/azul_5"
             android:drawableLeft="@drawable/ic_baseline_check_24"
+            android:enabled="false"
             android:text="Internar" />
 
         <Button

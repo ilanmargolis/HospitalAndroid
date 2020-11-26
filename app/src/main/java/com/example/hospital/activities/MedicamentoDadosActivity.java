@@ -1,6 +1,8 @@
 package com.example.hospital.activities;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +31,7 @@ import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -35,9 +41,12 @@ import retrofit2.Response;
 
 public class MedicamentoDadosActivity extends AppCompatActivity {
 
-    private EditText etMedicamentoNome, etMedicamentoValidade;
+    private TextView tvMedicamentoValidade;
+    private EditText etMedicamentoNome;
     private Button btMedicamentoOk, btMedicamentoCancelar;
+    private ImageButton ibDataValidade;
     private Spinner spMedicamentoTerminologia;
+    private Calendar calendario = Calendar.getInstance();
     private Medicamento medicamento;
 
     private String msg = null;
@@ -46,18 +55,19 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
 
+    static final int DATE_DIALOG_ID = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicamento_dados);
 
         etMedicamentoNome = (EditText) findViewById(R.id.etMedicamentoNome);
-        etMedicamentoValidade = (EditText) findViewById(R.id.etMedicamentoValidade);
+        tvMedicamentoValidade = (TextView) findViewById(R.id.tvMedicamentoValidade);
         spMedicamentoTerminologia = (Spinner) findViewById(R.id.spMedicamentoTerminologia);
+        ibDataValidade = (ImageButton) findViewById(R.id.ibDataValidade);
         btMedicamentoOk = (Button) findViewById(R.id.btMedicamentoOk);
         btMedicamentoCancelar = (Button) findViewById(R.id.btMedicamentoCancelar);
-
-        etMedicamentoValidade.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etMedicamentoValidade));
 
         carregaSpinner();
 
@@ -68,12 +78,13 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nomeMedicamento = etMedicamentoNome.getText().toString().trim();
-                Date validade = Utils.stringToDate(etMedicamentoValidade.getText().toString(), "dd/MM/yyyy");
 
                 if (nomeMedicamento.equals("")) {
                     Toast.makeText(MedicamentoDadosActivity.this, "É necessário informar o nome!", Toast.LENGTH_SHORT).show();
                     etMedicamentoNome.requestFocus();
                 } else {
+                    Date validade = Utils.stringToDate(tvMedicamentoValidade.getText().toString(), "dd/MM/yyyy");
+
                     if (medicamento.getId() == 0) { // inclusão
 
                         medicamento.setNome(nomeMedicamento);
@@ -108,6 +119,15 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        ibDataValidade.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
+
     }
 
     private void preparaDados() {
@@ -118,7 +138,7 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
 //            spMedicamentoTerminologia.setSelection(0);
         } else { // alteração e exclusão
             etMedicamentoNome.setText(medicamento.getNome());
-            etMedicamentoValidade.setText(Utils.dateToString(medicamento.getDataValidade(), "dd/MM/yyyy"));
+            tvMedicamentoValidade.setText(Utils.dateToString(medicamento.getDataValidade(), "dd/MM/yyyy"));
 
             spMedicamentoTerminologia.setSelection(Utils.getIndex(spMedicamentoTerminologia, medicamento.getTerminologia().toString()));
         }
@@ -151,6 +171,36 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+        }
+
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+
+                    String data = String.format("%02d", dayOfMonth) + "/"
+                            + String.format("%02d", monthOfYear + 1) + "/" +
+                            String.valueOf(year);
+
+                    tvMedicamentoValidade.setText(data);
+
+                    btMedicamentoOk.setEnabled(!tvMedicamentoValidade.toString().trim().equals(""));
+                }
+            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

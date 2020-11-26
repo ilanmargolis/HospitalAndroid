@@ -1,12 +1,16 @@
 package com.example.hospital.activities;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -33,9 +38,10 @@ import retrofit2.Response;
 public class AltaDadosActivity extends AppCompatActivity {
 
     private TextView tvAltaLeitoCodigo, tvAltaLeitoUnidade, tvAltaLeitoSetor, tvAltaPacienteNome,
-            tvAltaDtInternacao, tvAltaDtPrevisao;
-    private EditText etAltaDtAlta;
+            tvAltaDtInternacao, tvAltaDtPrevisao, tvAltaDtAlta;
+    private ImageButton ibDataAlta;
     private Button btAltaOk, btAltaCancelar;
+    private Calendar calendario = Calendar.getInstance();
     private Alta alta;
     private Internado internado;
     private Medico medico;
@@ -45,6 +51,8 @@ public class AltaDadosActivity extends AppCompatActivity {
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
+
+    static final int DATE_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +66,13 @@ public class AltaDadosActivity extends AppCompatActivity {
         tvAltaPacienteNome = (TextView) findViewById(R.id.tvAltaPacienteNome);
         tvAltaDtInternacao = (TextView) findViewById(R.id.tvAltaDtInternacao);
         tvAltaDtPrevisao = (TextView) findViewById(R.id.tvAltaDtPrevisao);
-        etAltaDtAlta = (EditText) findViewById(R.id.etAltaDtAlta);
+        tvAltaDtAlta = (TextView) findViewById(R.id.tvAltaDtAlta);
+        ibDataAlta = (ImageButton) findViewById(R.id.ibDataAlta);
         btAltaOk = (Button) findViewById(R.id.btAltaOk);
         btAltaCancelar = (Button) findViewById(R.id.btAltaCancelar);
 
         // Caso não seja esqolhida nenhuma opção do menu suspenso, ele volta para a tela de menu
         setResult(MenuMedicoActivity.TELA_MENU, getIntent());
-
-        etAltaDtAlta.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etAltaDtAlta));
 
         preparaDados();
 
@@ -73,12 +80,13 @@ public class AltaDadosActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Date dtAlta = Utils.stringToDate(etAltaDtAlta.getText().toString(), "dd/MM/yyyy");
 
-                if (etAltaDtAlta.getText().toString().equals("")) {
+                if (tvAltaDtAlta.getText().toString().equals("")) {
                     Toast.makeText(AltaDadosActivity.this, "Data de de alta não informada!", Toast.LENGTH_SHORT).show();
-                    etAltaDtAlta.requestFocus();
+                    tvAltaDtAlta.requestFocus();
                 } else {
+                    Date dtAlta = Utils.stringToDate(tvAltaDtAlta.getText().toString(), "dd/MM/yyyy");
+
                     alta = new Alta(internado, medico, dtAlta);
 
                     opcaoCrud(CRUD_INC);
@@ -97,6 +105,13 @@ public class AltaDadosActivity extends AppCompatActivity {
             }
         });
 
+        ibDataAlta.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
     }
 
     private void preparaDados() {
@@ -114,6 +129,36 @@ public class AltaDadosActivity extends AppCompatActivity {
 
         tvAltaPacienteNome.setText(internado.getPaciente().getNome());
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+        }
+
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+
+                    String data = String.format("%02d", dayOfMonth) + "/"
+                            + String.format("%02d", monthOfYear + 1) + "/" +
+                            String.valueOf(year);
+
+                    tvAltaDtAlta.setText(data);
+
+                    btAltaOk.setEnabled(!tvAltaDtAlta.toString().trim().equals(""));
+                }
+            };
 
     private void opcaoCrud(byte tipoCrud) {
 
