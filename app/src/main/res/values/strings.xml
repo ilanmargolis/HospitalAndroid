@@ -11,5 +11,15 @@
     <string name="tela_alta">Alta médica</string>
     <string name="tela_prescrever">Prescrever medicação</string>
     <string name="tela_transferencia">Transferância de leito</string>
+    <string name="sobre_componentes">
+        <![CDATA[
+        <h1>ANDROID</h1>
+        <p><font color="#f9f9f9">Ilan Magolis</font></p>
+        <h1>BACKEND</h1>
+        <p><font color="#f9f9f9">Luiz Gustavo<\br>Pedro Henrique</font></p>
+        <h1>FRONTEND</h1>
+        <p><font color="#f9f9f9">Matheus Guimarães<\br>Pablo Henrique</font></p>
+        ]]>
+    </string>
 
 </resources>

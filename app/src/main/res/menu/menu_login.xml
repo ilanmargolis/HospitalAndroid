@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_login_esqueceu"
+        android:title="Esqueceu a senha?"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_login_sobre"
+        android:title="Sobre..."
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_login_sair"
+        android:title="Sair"
+        app:showAsAction="never" />
+
+</menu>

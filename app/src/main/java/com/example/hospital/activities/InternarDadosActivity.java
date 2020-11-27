@@ -1,5 +1,6 @@
 package com.example.hospital.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -21,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hospital.R;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.controller.InternarCtrl;
-import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.controller.PacienteCtrl;
 import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
@@ -196,6 +196,7 @@ public class InternarDadosActivity extends AppCompatActivity {
         switch (id) {
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+
         }
 
         return null;

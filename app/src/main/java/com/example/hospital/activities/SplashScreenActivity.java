@@ -3,16 +3,13 @@ package com.example.hospital.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.hospital.R;
 import com.example.hospital.controller.CbosCtrl;
 import com.example.hospital.controller.ConselhoCtrl;
-import com.example.hospital.controller.FuncionarioCtrl;
 import com.example.hospital.controller.SetorCtrl;
 import com.example.hospital.controller.TerminologiaCtrl;
 import com.example.hospital.model.Cbos;
@@ -24,7 +21,6 @@ import com.facebook.stetho.Stetho;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class SplashScreenActivity extends AppCompatActivity {
@@ -80,7 +76,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     private void importarTabelas() {
         // Importar CBOS
-        ArrayList<String> cbosList = Utils.lerCSV(this, "cbos.csv");
+        ArrayList<String> cbosList = Utils.lerCSV(this, "tabelas/cbos.csv");
         Cbos cbos = new Cbos();
 
         for (String c : cbosList) {
@@ -95,7 +91,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         // Importar conselho
-        ArrayList<String> conselhoStrings = Utils.lerCSV(this, "conselho.csv");
+        ArrayList<String> conselhoStrings = Utils.lerCSV(this, "tabelas/conselho.csv");
         Conselho conselho = new Conselho();
 
         for (String t : conselhoStrings) {
@@ -111,7 +107,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         // Importar terminologia
-        ArrayList<String> termStrings = Utils.lerCSV(this, "terminologia.csv");
+        ArrayList<String> termStrings = Utils.lerCSV(this, "tabelas/terminologia.csv");
         Terminologia terminologia = new Terminologia();
 
         for (String t : termStrings) {

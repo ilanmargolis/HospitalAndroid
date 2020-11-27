@@ -1,6 +1,5 @@
 package com.example.hospital.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +38,6 @@ public class InternarActivity extends AppCompatActivity {
     private RecyclerView rv;
     private Spinner spInternarUnidade, spInternarSetor;
     private InternarAdapter internarAdapter;
-    private Intent intent;
     private Unidade unidade;
     private Setor setor;
     private List<Unidade> unidadeList = null;

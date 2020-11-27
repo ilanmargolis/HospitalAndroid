@@ -47,18 +47,45 @@
         android:background="@drawable/corner_round"
         android:hint="Insira o CPF do paciente" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Data de nascimento" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/etPacienteDtNascimento"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/corner_round"
-        android:hint="Insira a data de nascimento"
-        android:inputType="date" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data de nascimento" />
+
+            <TextView
+                android:id="@+id/tvPacienteDtNascimento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_round"
+                android:hint="Insira a data de nascimento"
+                android:inputType="date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ibDataNascimento"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@color/azul_5"
+            android:src="@drawable/ic_baseline_today_24" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

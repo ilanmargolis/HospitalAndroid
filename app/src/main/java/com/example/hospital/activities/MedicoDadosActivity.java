@@ -174,7 +174,7 @@ public class MedicoDadosActivity extends AppCompatActivity {
                     spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Odontologia"));
                 } else if (cbos.getDescricao().indexOf("Psic") != -1 || cbos.getDescricao().indexOf("psic") != -1) {
                     spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Psicologia"));
-                } else if (cbos.getDescricao().indexOf("enfermagem") != -1) {
+                } else if (cbos.getDescricao().indexOf("Enferm") != -1 || cbos.getDescricao().indexOf("enfermagem") != -1) {
                     spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Federal de Enfermagem"));
                 } else if (cbos.getDescricao().indexOf("Nutricionista") != -1) {
                     spMedicoConselho.setSelection(Utils.getIndex(spMedicoConselho, "Conselho Regional de Nutrição"));

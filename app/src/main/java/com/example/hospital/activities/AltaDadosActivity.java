@@ -3,13 +3,9 @@ package com.example.hospital.activities;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hospital.R;
-import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.controller.AltaCtrl;
 import com.example.hospital.controller.LeitoCtrl;
 import com.example.hospital.model.Alta;
@@ -25,15 +20,12 @@ import com.example.hospital.model.Internado;
 import com.example.hospital.model.Leito;
 import com.example.hospital.model.Medico;
 import com.example.hospital.repository.ResultEvent;
-import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class AltaDadosActivity extends AppCompatActivity {
 

@@ -1,10 +1,8 @@
 package com.example.hospital.activities;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,13 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.hospital.R;
-import com.example.hospital.model.Unidade;
-
-import java.io.Serializable;
-
 
 public class MenuAdministrativoActivity extends AppCompatActivity {
 

@@ -4,12 +4,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.vectordrawable.graphics.drawable.Animatable2Compat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +39,6 @@ import com.example.hospital.model.Paciente;
 import com.example.hospital.model.Usuario;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -62,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String user = etUsername.getText().toString().trim();
                 String pass = etPassword.getText().toString().trim();
+                int setor = 0;
 
                 Usuario userDados = procuraUsuario(user);
 
@@ -72,10 +78,20 @@ public class LoginActivity extends AppCompatActivity {
                         intent = new Intent(LoginActivity.this, MenuMedicoActivity.class);
                         intent.putExtra("medico", (Serializable) userDados);
                     } else if (userDados instanceof Funcionario) {
-                        if (((Funcionario) userDados).getSetor().getId() == 1) {
-                            intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);
-                        } else {
-                            intent = new Intent(LoginActivity.this, MenuRecepcaoActivity.class);
+                        setor = (int) ((Funcionario) userDados).getSetor().getId();
+
+                        switch (setor) {
+                            case 1:
+                                intent = new Intent(LoginActivity.this, MenuAdministrativoActivity.class);
+                                break;
+
+                            case 2:
+                                intent = new Intent(LoginActivity.this, MenuRecepcaoActivity.class);
+                                break;
+
+                            default:
+                                intent = new Intent(LoginActivity.this, MenuSetorActivity.class);
+                                intent.putExtra("funcionario", (Serializable) ((Funcionario) userDados));
                         }
                     }
 
@@ -102,6 +118,85 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        etUsername.setText(null);
+        etPassword.setText(null);
+
+        etUsername.requestFocus();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_login, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_login_esqueceu:
+                tvEsqueceuSenha.callOnClick();
+
+                break;
+
+            case R.id.action_login_sobre:
+                Intent intent = new Intent(this, SobreActivity.class);
+                startActivity(intent);
+
+                break;
+
+            case R.id.action_login_sair:
+                checkExit();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            checkExit();
+
+            return true;
+
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    private void checkExit() {
+        new AlertDialog.Builder(this)
+                .setTitle("Sair do aplicativo")
+                .setMessage("Deseja realmente sair?")
+                .setPositiveButton("sim", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Não", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+
+                        etUsername.requestFocus();
+                    }
+                })
+                .show();
     }
 
     private void mostraAnimacao(boolean abrirActivity) {
@@ -190,20 +285,9 @@ public class LoginActivity extends AppCompatActivity {
                     return usuario;
                 }
             }
-
         }
 
         return null;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        etUsername.setText(null);
-        etPassword.setText(null);
-
-        etUsername.requestFocus();
     }
 
     private class ValidarLogin implements TextWatcher {

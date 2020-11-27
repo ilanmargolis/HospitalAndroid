@@ -12,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hospital.R;
 import com.example.hospital.adapter.FuncionarioAdapter;
-import com.example.hospital.adapter.UnidadeAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
 import com.example.hospital.controller.FuncionarioCtrl;
-import com.example.hospital.controller.UnidadeCtrl;
 import com.example.hospital.model.Funcionario;
 import com.example.hospital.repository.ResultEvent;
 import com.example.hospital.util.Utils;

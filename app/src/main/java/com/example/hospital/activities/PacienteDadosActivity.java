@@ -1,17 +1,20 @@
 package com.example.hospital.activities;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +29,6 @@ import com.example.hospital.util.Utils;
 import com.example.hospital.util.ValidaCpf;
 import com.example.hospital.util.ValidaSenha;
 
-import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,8 +39,11 @@ import retrofit2.Response;
 public class PacienteDadosActivity extends AppCompatActivity {
 
     private EditText etPacienteNome, etPacienteEmail, etPacienteCpf, etPacienteSenha,
-            etPacienteConfirmaSenha, etPacienteDtNascimento;
+            etPacienteConfirmaSenha;
+    private TextView tvPacienteDtNascimento;
+    private ImageButton ibDataNascimento;
     private Button btPacienteOk, btPacienteCancelar;
+    private Calendar calendario = Calendar.getInstance();
     private Paciente paciente;
 
     private String msg = null;
@@ -46,6 +51,8 @@ public class PacienteDadosActivity extends AppCompatActivity {
     private final static byte CRUD_INC = 0;
     private final static byte CRUD_UPD = 1;
     private final static byte CRUD_DEL = 2;
+
+    static final int DATE_DIALOG_ID = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +62,10 @@ public class PacienteDadosActivity extends AppCompatActivity {
         etPacienteNome = (EditText) findViewById(R.id.etPacienteNome);
         etPacienteEmail = (EditText) findViewById(R.id.etPacienteEmail);
         etPacienteCpf = (EditText) findViewById(R.id.etPacienteCpf);
-        etPacienteDtNascimento = (EditText) findViewById(R.id.etPacienteDtNascimento);
+        tvPacienteDtNascimento = (TextView) findViewById(R.id.tvPacienteDtNascimento);
         etPacienteSenha = (EditText) findViewById(R.id.etPacienteSenha);
         etPacienteConfirmaSenha = (EditText) findViewById(R.id.etPacienteConfirmaSenha);
+        ibDataNascimento = (ImageButton) findViewById(R.id.ibDataNascimento);
         btPacienteOk = (Button) findViewById(R.id.btPacienteOk);
         btPacienteCancelar = (Button) findViewById(R.id.btPacienteCancelar);
 
@@ -68,8 +76,6 @@ public class PacienteDadosActivity extends AppCompatActivity {
         etPacienteCpf.addTextChangedListener(Mask.insert(Mask.CPF_MASK, etPacienteCpf));
         etPacienteCpf.addTextChangedListener(new ValidaCpf(this, btPacienteOk, etPacienteCpf));
 
-        etPacienteDtNascimento.addTextChangedListener(Mask.insert(Mask.DATA_MASK, etPacienteDtNascimento));
-
         preparaDados();
 
         btPacienteOk.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +83,7 @@ public class PacienteDadosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String nomePaciente = etPacienteNome.getText().toString().trim();
-                Date dtNascimento = Utils.stringToDate(etPacienteDtNascimento.getText().toString(), "dd/MM/yyyy");
+                Date dtNascimento = Utils.stringToDate(tvPacienteDtNascimento.getText().toString(), "dd/MM/yyyy");
                 String cpf = etPacienteCpf.getText().toString().trim();
                 Paciente pacAux = new PacienteCtrl(PacienteDadosActivity.this).getByCpf(cpf);
 
@@ -92,9 +98,9 @@ public class PacienteDadosActivity extends AppCompatActivity {
 
                     etPacienteCpf.setText("");
                     etPacienteCpf.requestFocus();
-                } else if (etPacienteDtNascimento.getText().toString().trim().equals("")) {
+                } else if (tvPacienteDtNascimento.getText().toString().trim().equals("")) {
                     Toast.makeText(PacienteDadosActivity.this, "É necessário informar a data de nascimento!", Toast.LENGTH_SHORT).show();
-                    etPacienteDtNascimento.requestFocus();
+                    tvPacienteDtNascimento.requestFocus();
                 } else {
                     if (paciente.getId() == 0) { // inclusão
 
@@ -142,6 +148,13 @@ public class PacienteDadosActivity extends AppCompatActivity {
             }
         });
 
+        ibDataNascimento.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showDialog(DATE_DIALOG_ID);
+            }
+        });
     }
 
     private void preparaDados() {
@@ -154,6 +167,38 @@ public class PacienteDadosActivity extends AppCompatActivity {
             etPacienteNome.setText(paciente.getNome());
         }
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+
+        int ano = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        switch (id) {
+            case DATE_DIALOG_ID:
+                return new DatePickerDialog(this,
+                        AlertDialog.THEME_TRADITIONAL,mDateSetListener,ano,mes,dia);
+
+        }
+
+        return null;
+    }
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener =
+            new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+
+                    String data = String.format("%02d", dayOfMonth) + "/"
+                            + String.format("%02d", monthOfYear + 1) + "/" +
+                            String.valueOf(year);
+
+                    tvPacienteDtNascimento.setText(data);
+
+                    btPacienteOk.setEnabled(!tvPacienteDtNascimento.toString().trim().equals(""));
+                }
+            };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

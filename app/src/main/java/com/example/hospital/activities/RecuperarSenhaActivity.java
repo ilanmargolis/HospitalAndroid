@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hospital.R;
@@ -37,7 +39,7 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 // ativar o botão de enviar
                 String email = etRecuperarEmail.getText().toString().trim();
                 boolean bAtivar = email.length() > 7 &&
-                                  email.indexOf('@') > -1 && email.indexOf('.') > -1;
+                        email.indexOf('@') > -1 && email.indexOf('.') > -1;
                 btRecuperarEnviar.setEnabled(bAtivar);
 
                 if (bAtivar) {
@@ -63,5 +65,30 @@ public class RecuperarSenhaActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_logoff, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_logoff:
+                finish();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
     }
 }

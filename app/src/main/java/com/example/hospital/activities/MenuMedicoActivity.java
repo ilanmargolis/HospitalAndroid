@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.hospital.R;
-import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Medico;
 
 import java.io.Serializable;
@@ -128,4 +127,3 @@ public class MenuMedicoActivity extends AppCompatActivity {
         return true;
     }
 }
-

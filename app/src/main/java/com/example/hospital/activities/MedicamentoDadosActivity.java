@@ -28,7 +28,6 @@ import com.example.hospital.controller.TerminologiaCtrl;
 import com.example.hospital.model.Medicamento;
 import com.example.hospital.model.Terminologia;
 import com.example.hospital.repository.ResultEvent;
-import com.example.hospital.util.Mask;
 import com.example.hospital.util.Utils;
 
 import java.util.Calendar;
@@ -181,7 +180,7 @@ public class MedicamentoDadosActivity extends AppCompatActivity {
 
         switch (id) {
             case DATE_DIALOG_ID:
-                return new DatePickerDialog(this, mDateSetListener, ano, mes, dia);
+                return new DatePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT, mDateSetListener, ano, mes, dia);
         }
 
         return null;

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,7 +14,6 @@ import com.example.hospital.R;
 import com.example.hospital.adapter.MedicamentoAdapter;
 import com.example.hospital.config.RetrofitConfig;
 import com.example.hospital.config.RoomConfig;
-import com.example.hospital.controller.FuncionarioCtrl;
 import com.example.hospital.controller.MedicamentoCtrl;
 import com.example.hospital.model.Medicamento;
 import com.example.hospital.repository.ResultEvent;
